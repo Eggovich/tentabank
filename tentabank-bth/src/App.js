@@ -15,7 +15,6 @@ function App() {
 return (
 	<Router>
 	<Navbar />
-	<Footer />
 	<Routes>
 		<Route exact path='/' element={<Home />} />
 		<Route path='/about' element={<About/>} />
@@ -23,6 +22,7 @@ return (
 		<Route path='/browse' element={<Browse/>} />
 		<Route path='/profile' element={<Profile/>} />
 	</Routes>
+	<Footer />
 	</Router>
 );
 }
