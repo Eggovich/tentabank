@@ -1,5 +1,6 @@
 import React from "react";
 import { Nav, NavLink, NavMenu } from "./navbar";
+import img from "./logga-tentabank.png"
 
 
 const Navbar = () => {
@@ -7,7 +8,7 @@ const Navbar = () => {
     <>
       <Nav>
 	  <div className="logo">
-   		 <img src="/tentabank/src/bilder/logga-tentabank.png" alt="logo"/> 
+   		 <img src={img} alt="logo"/> 
   		</div>
         <NavMenu>
           <NavLink to="/" activestyle="true">
