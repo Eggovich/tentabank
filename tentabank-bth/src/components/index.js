@@ -7,10 +7,10 @@ const Navbar = () => {
     <>
       <Nav>
 	  <div className="logo">
-   		 <img src="/src/bilder/logga-tentabank.png" alt="logo"/> 
+   		 <img src="/tentabank/src/bilder/logga-tentabank.png" alt="logo"/> 
   		</div>
         <NavMenu>
-          <NavLink to="/index" activestyle="true">
+          <NavLink to="/" activestyle="true">
             Hem
           </NavLink>
           <NavLink to="/browse" activestyle="true">
