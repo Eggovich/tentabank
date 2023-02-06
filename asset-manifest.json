@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/eggovich.github.io/tentabank/static/css/main.8dd75a82.css",
+    "main.js": "/eggovich.github.io/tentabank/static/js/main.24f64cb1.js",
+    "static/js/787.3171dd95.chunk.js": "/eggovich.github.io/tentabank/static/js/787.3171dd95.chunk.js",
+    "index.html": "/eggovich.github.io/tentabank/index.html",
+    "main.8dd75a82.css.map": "/eggovich.github.io/tentabank/static/css/main.8dd75a82.css.map",
+    "main.24f64cb1.js.map": "/eggovich.github.io/tentabank/static/js/main.24f64cb1.js.map",
+    "787.3171dd95.chunk.js.map": "/eggovich.github.io/tentabank/static/js/787.3171dd95.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8dd75a82.css",
+    "static/js/main.24f64cb1.js"
+  ]
+}
