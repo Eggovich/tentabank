@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
 return (
@@ -6,7 +7,7 @@ return (
     <footer>
         <div className="social"><a href="#"><i className="icon ion-social-instagram"></i></a><a href="#"><i className="icon ion-social-snapchat"></i></a><a href="#"><i className="icon ion-social-twitter"></i></a><a href="#"><i className="icon ion-social-facebook"></i></a></div>
         <ul className="list-inline">
-            <li className="list-inline-item"><a href="/">Hem</a></li>
+            <li className="list-inline-item"><NavLink to="/">Hem</NavLink></li>
             <li className="list-inline-item"><a href="/browse">Tentabank</a></li>
             <li className="list-inline-item"><a href="/upload">Ladda upp</a></li>
             <li className="list-inline-item"><a href="/about">Om oss</a></li>
