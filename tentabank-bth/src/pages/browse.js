@@ -116,7 +116,7 @@ const Browse = () => {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Test</th>
             <th>Subject</th>
             <th>Date</th>
             <th>Grade</th>
