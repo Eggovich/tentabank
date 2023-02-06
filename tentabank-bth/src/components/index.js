@@ -7,7 +7,7 @@ const Navbar = () => {
     <>
       <Nav>
 	  <div className="logo">
-   		 <img src={"/bilder/logga-tentabank.png"} alt="logo"/> 
+   		 <img src={"./bilder/logga-tentabank.png"} alt="logo"/> 
   		</div>
         <NavMenu>
           <NavLink to="/" activestyle="true">
