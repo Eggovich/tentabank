@@ -1,0 +1,9 @@
+Denna koden retunerar .jason formaterad data 
+    <div>
+		{(typeof data.hej === "undefined") ? (
+			<p>loading...</p>)
+			: (
+			<p>{data.hej}</p>
+		)
+		}
+	</div>
