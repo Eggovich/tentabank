@@ -10,7 +10,7 @@ const Navbar = () => {
    		 <img src="/src/bilder/logga-tentabank.png" alt="logo"/> 
   		</div>
         <NavMenu>
-          <NavLink to="/" activestyle="true">
+          <NavLink to="/index" activestyle="true">
             Hem
           </NavLink>
           <NavLink to="/browse" activestyle="true">
