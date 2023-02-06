@@ -15,7 +15,7 @@ function App() {
 return (
 	<Router>
 	<Navbar />
-	<Routes>
+	<Routes basename="/">
 		<Route exact path='/' element={<Home />} />
 		<Route path='/about' element={<About/>} />
 		<Route path='/upload' element={<Upload/>} />
