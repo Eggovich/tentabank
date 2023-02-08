@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 const Browse = () => {
   const [data, setData] = useState([]);
@@ -38,7 +38,7 @@ const Browse = () => {
       setFilteredData(data);
       return;
     } 
-    updateDates(data)
+    
     setFilteredData(data.filter(file => {
       if (searchTerm && !file.name.toLowerCase().includes(searchTerm.toLowerCase())) {
         return false;
@@ -55,20 +55,27 @@ const Browse = () => {
       return true;
     }));
   }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade]);
-
-  useEffect(() => {
-    filterFiles();
-  }, [filterFiles]);
+  
+  useEffect(() => {filterFiles();}, [filterFiles]);
+  useEffect(() => {filterFiles();}, [filterFiles]);
 
   function updateDates(data){
     let temp = [];
+    console.log(data.length)
     for (let i = 0; i < data.length; i++){
       if (!temp.includes(data[i].date)){
         temp.push(data[i].date)
       }
     }
     setDates(temp)
-    console.log(dates, temp)
+    console.log(dates, temp, data)
+  }
+
+
+  function handleSearch(evt){
+    updateDates(filteredData);
+    setSearchTerm(evt.target.value);
+    
   }
   return (
     <div>
@@ -77,7 +84,7 @@ const Browse = () => {
           type="text"
           placeholder="Search..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e)=>handleSearch(e)}
         />
         <select
           value={sortBySubject}
