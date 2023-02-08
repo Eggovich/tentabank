@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/tentabank/static/css/main.8dd75a82.css",
-    "main.js": "/tentabank/static/js/main.aa22fad6.js",
+    "main.js": "/tentabank/static/js/main.7f3ae5f2.js",
     "static/js/787.3171dd95.chunk.js": "/tentabank/static/js/787.3171dd95.chunk.js",
     "static/media/logga-tentabank.png": "/tentabank/static/media/logga-tentabank.378a840b6381ed27e9f4.png",
     "index.html": "/tentabank/index.html",
     "main.8dd75a82.css.map": "/tentabank/static/css/main.8dd75a82.css.map",
-    "main.aa22fad6.js.map": "/tentabank/static/js/main.aa22fad6.js.map",
+    "main.7f3ae5f2.js.map": "/tentabank/static/js/main.7f3ae5f2.js.map",
     "787.3171dd95.chunk.js.map": "/tentabank/static/js/787.3171dd95.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8dd75a82.css",
-    "static/js/main.aa22fad6.js"
+    "static/js/main.7f3ae5f2.js"
   ]
 }
