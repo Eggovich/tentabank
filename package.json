@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@auth0/auth0-react": "^2.0.0",
     "@react-spring/web": "^9.6.1"
   },
   "devDependencies": {

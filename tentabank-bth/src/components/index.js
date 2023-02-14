@@ -1,6 +1,8 @@
 import React from "react";
 import { Nav, NavLink, NavMenu } from "./navbar";
 import img from "./bilder/logga-tentabank.png"
+import LoginButtom from "./login-button";
+import LogoutButtom from "./logout-button";
 
 
 const Navbar = () => {
@@ -26,6 +28,8 @@ const Navbar = () => {
           <NavLink to="/profile" activestyle="true">
             Min sida
           </NavLink>
+          <LoginButtom/>
+          <LogoutButtom/>
         </NavMenu>
       </Nav>
     </>
