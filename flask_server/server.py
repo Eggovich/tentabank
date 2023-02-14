@@ -20,7 +20,7 @@ def get_files():
     client = storage.Client()
     bucket = client.get_bucket("hanna_data_bucket")
     blobs = bucket.list_blobs()
-    files = [{"name": blob.name, "link":bucket.blob(blob.name).generate_signed_url(datetime.today()+timedelta(1))} for blob in blobs]
+    files = [{"name" : blob.name, "link" : bucket.blob(blob.name).generate_signed_url(datetime.today() + timedelta(1))} for blob in blobs]
     return jsonify({"files": files})
 
 @app.route("/upload", methods=["POST"])

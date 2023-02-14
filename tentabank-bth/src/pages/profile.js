@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Profile = () => {
 return (
-	<div>
-	<h1>Sign Up Successful</h1>
-	</div>
+	<p>Sign in</p>
 );
 };
 
