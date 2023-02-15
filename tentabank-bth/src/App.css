@@ -70,6 +70,7 @@ p{
   flex: none;
   order: 3;
   flex-grow: 0;
+  text-align: center;
   
 }
 
@@ -90,7 +91,9 @@ nav .logo {
 }
 
 nav .logo img {
-  height: 100%;
+  margin-top:-15px;
+  margin-right: 50px;
+  height: 200%;
   width: auto;
 }
 
@@ -248,4 +251,58 @@ nav a:hover {
   to {
     opacity: 1;
   }
+}
+
+.sign-in {
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+.button-24:hover,
+.button-24:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+.button-24:active {
+  opacity: .5;
+}
+
+.profile-info{
+  font-family: arial;
+  font-size: 24px;
+  margin: 25px;
+  width:auto;
+  height: auto;
+  text-align: center;
+}
+
+.error-message{
+  font-family: arial;
+  font-size: 24px;
+  margin: 25px;
+  width:auto;
+  height: auto;
+  text-align: center;
 }

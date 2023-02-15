@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Upload = () => {
@@ -8,6 +9,7 @@ const Upload = () => {
   const [grade, setGrade] = useState("");
   const [uploaded, setUploaded] = useState(false);
   const [failedUpload, setFailedUpload] = useState(false);
+  const {user, isAuthenticated} = useAuth0()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,16 +29,17 @@ const Upload = () => {
       if (!response.ok) {
         throw new Error("Upload failed");
       }
-
+      user.app_metadata.uploads ++
       setUploaded(true);
     } catch (error) {
       console.error(error);
-      setFailedUpload(true)
+      setFailedUpload(true);
     }
     
   };
 
   return (
+    isAuthenticated?(
     <div className="upload-form">
       { uploaded ? (
         <div className="upload-success">
@@ -60,7 +63,11 @@ const Upload = () => {
       )}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}
     </div>
+    ):(
+      <div className="error-message">
+        <h3>Du måste logga in för att kunna lämna in tentor</h3>
+      </div>
+    )
   );
 };
-
 export default Upload;

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Browse = () => {
   const [data, setData] = useState([]);
@@ -10,6 +11,7 @@ const Browse = () => {
   const [subjects, setSubjects] = useState([]);
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
+  const {user, isAuthenticated} = useAuth0()
 
 
   useEffect(() => {
@@ -78,6 +80,7 @@ const Browse = () => {
     
   }
   return (
+    isAuthenticated && user.email_verified?(
     <div>
       <div>
         <input
@@ -147,6 +150,10 @@ const Browse = () => {
         </tbody>
       </table>
     </div>
+    ):
+    (<div className='error-message'>
+      <h3>Du behöver logga in och lämna in minst tre godkända tentor för att få tillgång till tentabanken</h3>
+    </div>)
   );
 };
 
