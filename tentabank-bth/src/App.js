@@ -1,4 +1,3 @@
-import React, {useState, useEffect} from 'react';
 import './App.css';
 import Navbar from './components/index';
 import { BrowserRouter as Router, Routes, Route}
@@ -15,13 +14,13 @@ function App() {
 return (
 	<Router>
 	<Navbar />
-	<Routes>
-		<Route exact path='/' element={<Home />} />
-		<Route path='/about' element={<About/>} />
-		<Route path='/upload' element={<Upload/>} />
-		<Route path='/browse' element={<Browse/>} />
-		<Route path='/profile' element={<Profile/>} />
-	</Routes>
+		<Routes>
+			<Route exact path='/' element={<Home />} />
+			<Route path='/about' element={<About/>} />
+			<Route path='/upload' element={<Upload/>} />
+			<Route path='/browse' element={<Browse/>} />
+			<Route path='/profile' element={<Profile/>} />
+		</Routes>
 	<Footer />
 	</Router>
 );
