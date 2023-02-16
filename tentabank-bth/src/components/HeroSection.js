@@ -2,29 +2,22 @@ import React from 'react';
 import '../App.css';
 import { Button } from './Button';
 import './HeroSection.css';
-import video from ".//videos/video-2.mp4"
+import video from ".//videos/video-1.mp4"
+import img from ".//images/img-4.jpg"
 
 function HeroSection() {
   return (
     <div className='hero-container'>
       <video src={video} autoPlay loop muted />
       <h1>Tentabanken</h1>
-      <p>Sharing is caring!</p>
+      <b className='b'> Sharing is caring</b>
       <div className='hero-btns'>
         <Button
           className='btns'
           buttonStyle='btn--outline'
           buttonSize='btn--large'
         >
-          Om oss
-        </Button>
-        <Button
-          className='btns'
-          buttonStyle='btn--primary'
-          buttonSize='btn--large'
-          onClick={console.log('hey')}
-        >
-          Kolla Trailer <i className='far fa-play-circle' />
+          Läs mer om vårt arbete
         </Button>
       </div>
     </div>

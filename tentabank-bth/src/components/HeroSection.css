@@ -43,6 +43,11 @@ video {
   .fa-play-circle {
     margin-left: 4px;
   }
+
+  .b {
+    color: white;
+    font-size: large;
+  }
   
   @media screen and (max-width: 960px) {
     .hero-container > h1 {
