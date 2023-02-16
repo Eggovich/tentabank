@@ -9,9 +9,9 @@ const Navbar = () => {
   return (
     <>
       <Nav>
-	  <div className="logo">
-   		 <img src={img} alt="logo"/> 
-  		</div>
+	  
+   		 <NavLink className= "logo" to="/" ><img src={img} alt="logo"/> </NavLink>
+  		
         <NavMenu>
           <NavLink to="/" activestyle="true">
             Hem

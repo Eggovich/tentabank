@@ -77,15 +77,12 @@ nav a {
   padding: 1em;
   background-color: transparent;
   text-decoration: none;
-  color: transparent;
+  color: gray;
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-nav a:hover {
-  background-color: #4d4dff;
-  color: transparent;
-}
+
 
 /* FOOTER */
 .footer-basic {
