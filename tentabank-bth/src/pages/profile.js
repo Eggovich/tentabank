@@ -3,7 +3,7 @@ import React from 'react';
 
 const Profile = () => {
 const {user, isAuthenticated} = useAuth0();
-
+console.log(user)
 return (
 	!isAuthenticated? 
 	(
@@ -15,6 +15,7 @@ return (
 	<div className='profile-info'>
 		<h1>{user.nickname}</h1>
 		<h1>{user.email}</h1>
+		<h1>{user.uploads}</h1>
 		<img src={user.picture} alt="logo"/> 
 	</div>
 	)

@@ -32,10 +32,12 @@ oauth.register(
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
+
 @app.route("/members")
 @cross_origin(supports_credentials=True)
 def members():
     return {"hej":"nej"}
+
 
 @app.route("/files")
 @cross_origin(supports_credentials=True)
@@ -46,6 +48,7 @@ def get_files():
     blobs = bucket.list_blobs()
     files = [{"name" : blob.name, "link" : bucket.blob(blob.name).generate_signed_url(datetime.today() + timedelta(1))} for blob in blobs]
     return jsonify({"files": files})
+
 
 @app.route("/upload", methods=["POST"])
 @cross_origin(supports_credentials=True)
@@ -71,11 +74,11 @@ def upload():
 
     return "File uploaded successfully", 200
 
-@app.route("/auth")
-@cross_origin(supports_credentials=True)
-def auth():
-    pass
 
+@app.route("/login")
+@cross_origin(supports_credentials=True)
+def login():
+    return {"Hej":1000}
 if __name__ == "__main__":
     app.run(debug=True)
 
