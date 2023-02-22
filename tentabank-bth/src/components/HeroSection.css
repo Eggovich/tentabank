@@ -5,7 +5,13 @@ video {
     position: fixed;
     z-index: -1;
   }
-  
+
+h1, b {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */  
+}
+
   .hero-container {
     /* background: url('/images/img-home.jpg') center center/cover no-repeat; */
     height: 100vh;
