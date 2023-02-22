@@ -9,7 +9,7 @@ const About = () => {
 return (
    
     <div>
-        <p>DATA</p>
+        <h3>Under Construction</h3>
     </div>
 )};
 
