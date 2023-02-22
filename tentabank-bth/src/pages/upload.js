@@ -10,6 +10,7 @@ const Upload = () => {
   const [uploaded, setUploaded] = useState(false);
   const [failedUpload, setFailedUpload] = useState(false);
   const {user, isAuthenticated} = useAuth0()
+  const [failedServer, setFailedServer] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,13 +28,13 @@ const Upload = () => {
       });
 
       if (!response.ok) {
+        setFailedUpload(true);
         throw new Error("Upload failed");
       }
-      user.app_metadata.uploads ++
       setUploaded(true);
     } catch (error) {
+      setFailedServer(true);
       console.error(error);
-      setFailedUpload(true);
     }
     
   };
@@ -44,6 +45,7 @@ const Upload = () => {
       { uploaded ? (
         <div className="upload-success">
           File uploaded successfully!
+          <button onClick={setUploaded(false)} className="submit-button">Ladda up igen</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
@@ -62,6 +64,7 @@ const Upload = () => {
         </form>
       )}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}
+      {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
     </div>
     ):(
       <div className="error-message">

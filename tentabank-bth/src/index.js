@@ -15,6 +15,8 @@ const auth0config = {
   authorizationParams: {
     audience: audienc,
     redirect_uri: window.location.origin,
+    scope: "read:current_user update:current_user_metadata read:current_user_app_metadata update:current_user_app_metadata",
+    prompt:"consent"
   }
 };
 
