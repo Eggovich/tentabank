@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Browse = () => {
   const [data, setData] = useState([]);
@@ -11,7 +10,7 @@ const Browse = () => {
   const [subjects, setSubjects] = useState([]);
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
-  const {user, isAuthenticated} = useAuth0()
+  const isAuthenticated = useState(true)
 
 
   useEffect(() => {
@@ -80,7 +79,7 @@ const Browse = () => {
     
   }
   return (
-    isAuthenticated && user.email_verified?(
+    isAuthenticated ? (
     <div>
       <div>
         <input

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Upload = () => {
@@ -9,9 +8,8 @@ const Upload = () => {
   const [grade, setGrade] = useState("");
   const [uploaded, setUploaded] = useState(false);
   const [failedUpload, setFailedUpload] = useState(false);
-  const {user, isAuthenticated} = useAuth0()
   const [failedServer, setFailedServer] = useState(false);
-
+  const isAuthenticated = useState(true)
   const handleSubmit = async (e) => {
     e.preventDefault();
 

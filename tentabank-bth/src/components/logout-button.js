@@ -1,10 +1,10 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useState } from "react"
 
 const LogoutButtom = () => {
-    const { logout, isAuthenticated } = useAuth0()
+    const isAuthenticated = useState(true)
     return (
         isAuthenticated && (
-            <button className="sign-in" onClick= {() => logout()}>
+            <button className="sign-in">
                 Logga ut
             </button>
         )

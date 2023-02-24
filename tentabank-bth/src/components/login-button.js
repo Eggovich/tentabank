@@ -1,10 +1,11 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useState } from "react"
+
 
 const LoginButtom = () => {
-    const { loginWithRedirect, isAuthenticated } = useAuth0()
+    const isAuthenticated  = useState(false)
     return (
         !isAuthenticated && (
-            <button className="sign-in" onClick= {() => loginWithRedirect()}>
+            <button className="sign-in">
                 Logga in
             </button>
         )
