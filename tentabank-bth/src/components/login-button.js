@@ -1,14 +1,14 @@
 import { useState } from "react"
-
+import { NavLink } from "react-router-dom"
+import { useCookies } from "react-cookie"
 
 const LoginButtom = () => {
-    const isAuthenticated  = useState(false)
+    const [cookies] = useCookies(["user"])
+    console.log(cookies)
     return (
-        !isAuthenticated && (
-            <button className="sign-in">
-                Logga in
-            </button>
-        )
+        <button>
+            <NavLink className="sign-in" to="/login">Logga in</NavLink>
+        </button>
     )
 }
 

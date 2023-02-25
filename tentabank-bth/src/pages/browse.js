@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import {useCookies} from 'react-cookie'
 
 const Browse = () => {
   const [data, setData] = useState([]);
@@ -10,7 +11,7 @@ const Browse = () => {
   const [subjects, setSubjects] = useState([]);
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
-  const isAuthenticated = useState(true)
+  const cookies = useCookies(["User"])
 
 
   useEffect(() => {
@@ -79,7 +80,7 @@ const Browse = () => {
     
   }
   return (
-    isAuthenticated ? (
+    cookies.loggedIn ? (
     <div>
       <div>
         <input

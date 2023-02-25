@@ -1,16 +1,11 @@
-import { useEffect, useState} from "react";
-import useFetch from "react-fetch-hook"
-
+import React, { useState, useEffect } from "react";
 
 const About = () => {
-    const {data} = useFetch('http://localhost:5000/login');
-    if (data){
-    console.log(data.Hej);}
-return (
-   
+  return(
     <div>
-        <h3>Under Construction</h3>
+      <h1>Under Construction</h1>
     </div>
-)};
+  )
+};
 
 export default About;

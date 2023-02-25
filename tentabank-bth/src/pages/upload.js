@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 
 
 const Upload = () => {
@@ -9,7 +10,7 @@ const Upload = () => {
   const [uploaded, setUploaded] = useState(false);
   const [failedUpload, setFailedUpload] = useState(false);
   const [failedServer, setFailedServer] = useState(false);
-  const isAuthenticated = useState(true)
+  const cookies = useCookies(["user"])
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,7 +39,7 @@ const Upload = () => {
   };
 
   return (
-    isAuthenticated?(
+    cookies.loggedIn?(
     <div className="upload-form">
       { uploaded ? (
         <div className="upload-success">
