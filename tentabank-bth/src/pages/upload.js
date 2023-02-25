@@ -10,7 +10,7 @@ const Upload = () => {
   const [uploaded, setUploaded] = useState(false);
   const [failedUpload, setFailedUpload] = useState(false);
   const [failedServer, setFailedServer] = useState(false);
-  const cookies = useCookies(["user"])
+  const [cookies, setCookies] = useCookies(["user"])
   const handleSubmit = async (e) => {
     e.preventDefault();
 

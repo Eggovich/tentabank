@@ -11,7 +11,7 @@ const Browse = () => {
   const [subjects, setSubjects] = useState([]);
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
-  const cookies = useCookies(["User"])
+  const [cookies] = useCookies(["User"])
 
 
   useEffect(() => {

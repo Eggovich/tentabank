@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { NavLink } from "react-router-dom";
 
 
@@ -10,7 +11,7 @@ const Signup = () => {
   const [failedUpload, setFailedUpload] = useState(false);
   const [failedEmail, setFailedEmail] = useState(false);
   const [failedServer, setFailedServer] = useState(false);
-  const isAuthenticated = useState(true)
+  const [cookies, setCookies] = useCookies(["user"])
 
 
 
@@ -45,7 +46,7 @@ const Signup = () => {
   };
 
   return (
-    isAuthenticated?(
+    cookies.loggedIn?(
     <div className="upload-form">
       { uploaded ? (
         <div className="upload-success">
