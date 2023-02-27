@@ -1,0 +1,13 @@
+.profile-name{
+    align-items: center center;
+    background-color: transparent;
+    grid-column: auto;
+    size: 72px;
+}
+
+.file-names{
+    grid-column: auto;
+    align-items: center center;
+    padding: auto;
+    
+}
