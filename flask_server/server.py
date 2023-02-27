@@ -1,4 +1,4 @@
-from flask import Flask, Response, request, session, redirect, url_for
+from flask import Flask, Response, request, session, redirect, url_for, send_from_directory
 import os
 from flask_cors import CORS, cross_origin
 from google.cloud import storage
@@ -143,7 +143,6 @@ def upload():
     date = request.form.get("date")
     grade = request.form.get("grade")
     user_id = request.form.get("user_id")
-    print(file)
     # Validate the form data
     if not all([file, cource_code, date, grade, user_id]):
         return "Please provide all the required fields", 400
@@ -152,7 +151,7 @@ def upload():
         return "shit is wrong", 401
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file_path = "/"+ f"{filename}"
     # Categorize the file
     file_name = f"{cource_code}/{date}/{grade}/{file.filename}"
     # Upload to GCS
@@ -171,10 +170,15 @@ def upload():
                         pending 
                         (file_name, cource_code, grade, exam_date, file_data, user_id, created_on) 
                     VALUES 
-                        ('{file.filename}', '{cource_code}', '{grade}', '{date}', '{file_path}','{user_id}', CURDATE())""")
+                        ('{file.filename}', '{cource_code}', '{grade}', '{date}', '{redirect(url_for('download_file', name=filename))}','{user_id}', CURDATE())""")
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200
+
+
+@app.route('/upload/<name>')
+def download_file(name):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
 
 
 if __name__ == "__main__":
