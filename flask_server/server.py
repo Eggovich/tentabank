@@ -108,9 +108,16 @@ def servertest():
         FROM 
             usertable
         """)
-    testdata = cnx.fetchall()
+    testusers = cnx.fetchall()
+    cnx.execute("""
+        SELECT 
+            * 
+        FROM 
+            pending
+        """)
+    testfiler = cnx.fetchall()
     connection.close()
-    return jsonify({"files": testdata})
+    return jsonify({"users": testusers, "filer": testfiler})
     
 
 @app.route("/files")
