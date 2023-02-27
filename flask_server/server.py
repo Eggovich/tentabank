@@ -1,4 +1,4 @@
-from flask import Flask, Response, request, session, redirect, url_for, send_from_directory
+from flask import Flask, Response, request, session, redirect, url_for, send_from_directory, send_file
 import os
 from flask_cors import CORS, cross_origin
 from google.cloud import storage
@@ -8,7 +8,7 @@ import mysql.connector as mysql
 from decouple import config
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = "./Exams"
+UPLOAD_FOLDER = "C:/Users/egong/OneDrive/Dokument/GitHub/tentabank/flask_server/Exams"
 ALLOWED_EXTENSIONS = {'pdf'}
 
 
@@ -137,7 +137,6 @@ def get_files():
     cnx.execute(f"""SELECT * FROM pending""")
     result = cnx.fetchall()
     cnx.close()
-    print(result)
     return jsonify({"files": result})
 
 
@@ -157,10 +156,13 @@ def upload():
     if not file or not allowed_file(file.filename):
         return "shit is wrong", 401
     filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     file_path = "/"+ f"{filename}"
+    direct = app.config['UPLOAD_FOLDER'] + file_path
+    file.save(direct)
+    
+    redirect(url_for('download_file', name=file_path))
     # Categorize the file
-    file_name = f"{cource_code}/{date}/{grade}/{file.filename}"
+    #file_name = f"{cource_code}/{date}/{grade}/{file.filename}"
     # Upload to GCS
     #storage_client = storage.Client()
     #bucket = storage_client.bucket("hanna_data_bucket")
@@ -177,14 +179,15 @@ def upload():
                         pending 
                         (file_name, cource_code, grade, exam_date, file_data, user_id, created_on) 
                     VALUES 
-                        ('{file.filename}', '{cource_code}', '{grade}', '{date}', '{redirect(url_for('download_file', name=filename))}','{user_id}', CURDATE())""")
+                        ('{file.filename}', '{cource_code}', '{grade}', '{date}', '{f"http://localhost:5000/download{file_path}"}','{user_id}', CURDATE())""")
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200
 
 
-@app.route('/upload/<name>')
-def download_file(name):
+@app.route('/download/<name>', methods = ["GET"])
+@cross_origin(supports_credentials=True)
+def download_file(name = None):
     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
 
 

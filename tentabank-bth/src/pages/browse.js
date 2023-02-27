@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {useCookies} from 'react-cookie'
+import { NavLink } from 'react-router-dom';
 
 const Browse = () => {
   const [data, setData] = useState([]);
@@ -12,13 +13,13 @@ const Browse = () => {
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
   const [cookies] = useCookies(["User"])
+  const [pdf, setPdf] = useState("")
 
 
   useEffect(() => {
     fetch('http://localhost:5000/files')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         //GCS SOLUTION
         //const mappedData = data.files.map(file => ({
           //...file,
@@ -56,13 +57,13 @@ const Browse = () => {
     } 
     
     setFilteredData(data.filter(file => {
-      if (searchTerm && !file.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (searchTerm && !file.file_name.toLowerCase().includes(searchTerm.toLowerCase())) {
         return false;
       }
-      if (sortBySubject && file.subject !== sortBySubject) {
+      if (sortBySubject && file.cource_code !== sortBySubject) {
         return false;
       }
-      if (sortByDate && file.date !== sortByDate) {
+      if (sortByDate && file.exam_date !== sortByDate) {
         return false;
       }
       if (sortByGrade && file.grade !== sortByGrade) {
@@ -79,12 +80,11 @@ const Browse = () => {
     let temp = [];
     console.log(data.length)
     for (let i = 0; i < data.length; i++){
-      if (!temp.includes(data[i].date)){
-        temp.push(data[i].date)
+      if (!temp.includes(data[i].exam_date)){
+        temp.push(data[i].exam_date)
       }
     }
     setDates(temp)
-    console.log(dates, temp, data)
   }
 
 
@@ -155,9 +155,9 @@ const Browse = () => {
               <td>{file.date}</td>
               <td>{file.grade}</td>
               <td>
-              <form action={file.link}>
-                <input type="submit" value="Download" />
-              </form>
+              <a href={file.file_data}>
+              Download
+              </a>
               </td>
             </tr>
           ))}
