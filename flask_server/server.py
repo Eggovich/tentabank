@@ -1,4 +1,4 @@
-from flask import Flask, Response, request, session
+from flask import Flask, Response, request, session, redirect, url_for
 import os
 from flask_cors import CORS, cross_origin
 from google.cloud import storage
@@ -6,14 +6,26 @@ from flask import jsonify
 from datetime import timedelta, datetime
 import mysql.connector as mysql
 from decouple import config
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = "./Exams"
+ALLOWED_EXTENSIONS = {'pdf'}
+
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 CORS(app, support_credentials=True)
 
 MYSQL_USER =  config("MYSQL_USER") #replace with your user name.
 MYSQL_PASS =  config("MYSQL_PASS") #replace with your MySQL server password
 MYSQL_DATABASE = config("MYSQL_DATABASE")#replace with your database name
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route("/signup", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
@@ -104,12 +116,22 @@ def servertest():
 @app.route("/files")
 @cross_origin(supports_credentials=True)
 def get_files():
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'ServiceKey_GoogleCloud.json'
-    client = storage.Client()
-    bucket = client.get_bucket("hanna_data_bucket")
-    blobs = bucket.list_blobs()
-    files = [{"name" : blob.name, "link" : bucket.blob(blob.name).generate_signed_url(datetime.today() + timedelta(1))} for blob in blobs]
-    return jsonify({"files": files})
+    #GCS SOLUTION
+    #os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'ServiceKey_GoogleCloud.json'
+    #client = storage.Client()
+    #bucket = client.get_bucket("hanna_data_bucket")
+    #blobs = bucket.list_blobs()
+    #files = [{"name" : blob.name, "link" : bucket.blob(blob.name).generate_signed_url(datetime.today() + timedelta(1))} for blob in blobs]
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute(f"""SELECT * FROM pending""")
+    result = cnx.fetchall()
+    cnx.close()
+    print(result)
+    return jsonify({"files": result})
 
 
 @app.route("/upload", methods=["POST"])
@@ -117,23 +139,41 @@ def get_files():
 def upload():
     # Get the file and form data from the request
     file = request.files.get("file")
-    name = request.form.get("name").upper()
+    cource_code = request.form.get("name").upper()
     date = request.form.get("date")
     grade = request.form.get("grade")
-
+    user_id = request.form.get("user_id")
+    print(file)
     # Validate the form data
-    if not all([file, name, date, grade]):
+    if not all([file, cource_code, date, grade, user_id]):
         return "Please provide all the required fields", 400
-
+    
+    if not file or not allowed_file(file.filename):
+        return "shit is wrong", 401
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     # Categorize the file
-    file_path = f"{name}/{date}/{grade}/{file.filename}"
-
+    file_name = f"{cource_code}/{date}/{grade}/{file.filename}"
     # Upload to GCS
-    storage_client = storage.Client()
-    bucket = storage_client.bucket("hanna_data_bucket")
-    blob = bucket.blob(file_path)
-    blob.upload_from_file(file)
+    #storage_client = storage.Client()
+    #bucket = storage_client.bucket("hanna_data_bucket")
+    #blob = bucket.blob(file_name)
+    #blob.upload_from_file(file)
 
+    #Upload to MYSQL
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute(f"""INSERT INTO 
+                        pending 
+                        (file_name, cource_code, grade, exam_date, file_data, user_id, created_on) 
+                    VALUES 
+                        ('{file.filename}', '{cource_code}', '{grade}', '{date}', '{file_path}','{user_id}', CURDATE())""")
+    cnx.execute("""COMMIT""")
+    cnx.close()
     return "File uploaded successfully", 200
 
 

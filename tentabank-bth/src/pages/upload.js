@@ -19,6 +19,7 @@ const Upload = () => {
     formData.append("name", name);
     formData.append("date", date);
     formData.append("grade", grade);
+    formData.append("user_id", cookies.user_id)
 
     try {
       const response = await fetch("http://localhost:5000/upload", {
@@ -48,7 +49,7 @@ const Upload = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <input type="file" className="input-field" onChange={(e) => setFile(e.target.files[0])} />
+          <input type="file" accept=".pdf" className="input-field" onChange={(e) => setFile(e.target.files[0])} />
           <input type="text" className="input-field" onChange={(e) => setName(e.target.value)} placeholder="Ma1435" />
           <input type="text" className="input-field" onChange={(e) => setDate(e.target.value)} placeholder="2023-02-02"/>
           <select className="dropdown" onChange={(e) => setGrade(e.target.value)}>

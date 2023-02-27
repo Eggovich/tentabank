@@ -18,17 +18,31 @@ const Browse = () => {
     fetch('http://localhost:5000/files')
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
+        //GCS SOLUTION
+        //const mappedData = data.files.map(file => ({
+          //...file,
+          //subject: file.name.split("/")[0],
+          //date: file.name.split("/")[1],
+          //grade: file.name.split("/")[2]
+        //}))
         const mappedData = data.files.map(file => ({
           ...file,
-          subject: file.name.split("/")[0],
-          date: file.name.split("/")[1],
-          grade: file.name.split("/")[2]
+          subject: file.cource_code,
+          date: file.exam_date,
+          grade: file.grade
         }))
         setData(mappedData);
         setFilteredData(mappedData);
-        let subjs = [...new Set(mappedData.map(file => file.subject))];
+        //let subjs = [...new Set(mappedData.map(file => file.subject))];
+        //setSubjects(subjs);
+        //let dats = [...new Set(mappedData.map(file => file.date))];
+        //setDates(dats);
+        //let grds = [...new Set(mappedData.map(file => file.grade))];
+        //setGrades(grds);
+        let subjs = [...new Set(mappedData.map(file => file.cource_code))];
         setSubjects(subjs);
-        let dats = [...new Set(mappedData.map(file => file.date))];
+        let dats = [...new Set(mappedData.map(file => file.exam_date))];
         setDates(dats);
         let grds = [...new Set(mappedData.map(file => file.grade))];
         setGrades(grds);
@@ -136,7 +150,7 @@ const Browse = () => {
         <tbody>
           {filteredData.map((file) => (
             <tr key={file.name}>
-              <td>{file.name.split('/').pop()}</td>
+              <td>{file.file_name}</td>
               <td>{file.subject}</td>
               <td>{file.date}</td>
               <td>{file.grade}</td>

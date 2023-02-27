@@ -18,12 +18,9 @@ const Navbar = () => {
           <NavLink to="/" activestyle="true">
             Hem
           </NavLink>
-          <NavLink to="/browse" activestyle="true">
-            Tentabank
-          </NavLink>
-          <NavLink to="/upload" activestyle="true">
-            Ladda upp
-          </NavLink>
+          {cookies.role !="Reviewer" && (<NavLink to="/browse" activestyle="true">Tentabank</NavLink>)}
+          {cookies.role != "Reviewer" && (<NavLink to="/upload" activestyle="true">Ladda upp</NavLink>)}
+          {cookies.role == "Reviewer" && (<NavLink to="/review" activestyle="true">Granska</NavLink>)}
           <NavLink to="/about" activestyle="true">
             Om oss
           </NavLink>

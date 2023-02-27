@@ -10,6 +10,7 @@ import Upload from './pages/upload';
 import Footer from './components/footer';
 import Login from './pages/login';
 import Signup from './pages/signup';
+import Review from './pages/review';
 
 function App() {
 
@@ -24,6 +25,7 @@ return (
 			<Route path='/profile' element={<Profile/>} />
 			<Route path='/login' element={<Login/>} />
 			<Route path='/signup' element={<Signup/>} />
+			<Route path='/review' element={<Review/>} />
 		</Routes>
 	<Footer />
 	</Router>
