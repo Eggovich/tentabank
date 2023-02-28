@@ -120,9 +120,9 @@ def servertest():
     return jsonify({"users": testusers, "filer": testfiler})
     
 
-@app.route("/files")
+@app.route("/accepted_files")
 @cross_origin(supports_credentials=True)
-def get_files():
+def get_accepted_files():
     #GCS SOLUTION
     #os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'ServiceKey_GoogleCloud.json'
     #client = storage.Client()
@@ -134,7 +134,27 @@ def get_files():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute(f"""SELECT * FROM pending""")
+    cnx.execute(f"""SELECT * FROM accepted""")
+    result = cnx.fetchall()
+    cnx.close()
+    return jsonify({"files": result})
+
+
+@app.route("/pending_files")
+@cross_origin(supports_credentials=True)
+def get_pending_files():
+    #GCS SOLUTION
+    #os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'ServiceKey_GoogleCloud.json'
+    #client = storage.Client()
+    #bucket = client.get_bucket("hanna_data_bucket")
+    #blobs = bucket.list_blobs()
+    #files = [{"name" : blob.name, "link" : bucket.blob(blob.name).generate_signed_url(datetime.today() + timedelta(1))} for blob in blobs]
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute(f"""SELECT * FROM pending order by created_on""")
     result = cnx.fetchall()
     cnx.close()
     return jsonify({"files": result})
@@ -189,6 +209,28 @@ def upload():
 @cross_origin(supports_credentials=True)
 def download_file(name = None):
     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+
+
+@app.route("/reviewed", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def reviewed():
+    # Get the file and form data from the request
+    file_id = request.form.get("id", type=int)
+    status = request.form.get("status")
+    # Validate the form date
+    if not all([file_id, status]):
+        
+        return "Please provide all the required fields", 400
+    
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute(f""" UPDATE pending SET accepted = "{status}" where id = "{file_id}" """)
+    cnx.execute("""COMMIT""")
+    cnx.close()
+    return "File uploaded successfully", 200    
 
 
 if __name__ == "__main__":
