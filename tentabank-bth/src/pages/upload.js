@@ -39,7 +39,6 @@ const Upload = () => {
         setFailedUpload(true);
         throw new Error("Upload failed");
       }else{
-      console.log("Du kom hit")
       handleUpload();
       }
     } catch (error) {

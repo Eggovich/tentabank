@@ -46,7 +46,6 @@ const Signup = () => {
   };
 
   return (
-    cookies.loggedIn?(
     <div className="upload-form">
       { uploaded ? (
         <div className="upload-success">
@@ -68,11 +67,6 @@ const Signup = () => {
       {failedEmail === true && (<p className="errormessage">Email is already in use</p>)}
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
     </div>
-    ):(
-      <div className="error-message">
-        <h3>Du måste logga in för att kunna lämna in tentor</h3>
-      </div>
-    )
   );
 };
 export default Signup;

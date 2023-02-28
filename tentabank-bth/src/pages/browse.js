@@ -17,7 +17,7 @@ const Browse = () => {
 
 
   useEffect(() => {
-    fetch('http://localhost:5000/files')
+    fetch('http://localhost:5000/accepted_files')
       .then((res) => res.json())
       .then((data) => {
         //GCS SOLUTION
