@@ -17,8 +17,15 @@ const [dates, setDates] = useState([]);
 const [grades, setGrades] = useState([]);
 const [status, setStatus] = useState([]);
 
+const formData = new FormData();
+formData.append("id", cookies.user_id);
+
 useEffect(() => {
-    fetch('http://localhost:5000/files')
+    fetch('http://localhost:5000/myfiles',
+    {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
@@ -29,29 +36,29 @@ useEffect(() => {
           //date: file.name.split("/")[1],
           //grade: file.name.split("/")[2]
         //}))
-        const mappedData = data.files.map(file => ({
+        const acceptedfiles = data.accepted.map(file => ({
           ...file,
           subject: file.cource_code,
           date: file.exam_date,
           grade: file.grade,
           status: file.accepted
         }))
-        setData(mappedData);
-        setFilteredData(mappedData);
-        //let subjs = [...new Set(mappedData.map(file => file.subject))];
-        //setSubjects(subjs);
-        //let dats = [...new Set(mappedData.map(file => file.date))];
-        //setDates(dats);
-        //let grds = [...new Set(mappedData.map(file => file.grade))];
-        //setGrades(grds);
-        let subjs = [...new Set(mappedData.map(file => file.cource_code))];
-        setSubjects(subjs);
-        let dats = [...new Set(mappedData.map(file => file.exam_date))];
-        setDates(dats);
-        let grds = [...new Set(mappedData.map(file => file.grade))];
-        setGrades(grds);
-        let acce = [...new Set(mappedData.map(file => file.accepted))];
-        setStatus(acce);
+        const pendingfiles = data.pending.map(file => ({
+            ...file,
+            subject: file.cource_code,
+            date: file.exam_date,
+            grade: file.grade,
+            status: file.accepted
+        }))
+        const deniedfiles = data.denied.map(file => ({
+          ...file,
+          subject: file.cource_code,
+          date: file.exam_date,
+          grade: file.grade,
+          status: file.accepted
+      }))
+        setData([acceptedfiles, pendingfiles, deniedfiles]);
+        setFilteredData([acceptedfiles, pendingfiles, deniedfiles]);
       });
   }, []);
 
@@ -82,7 +89,7 @@ useEffect(() => {
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((file) => {
+              {filteredData[0].map((file) => {
                 if (file.status === "accepted") {
                   return (
                     <tr className="file-names" key={file.name}>
@@ -115,7 +122,7 @@ useEffect(() => {
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((file) => {
+              {filteredData[1].map((file) => {
                 if (file.status === "pending") {
                   return (
                     <tr className="file-names" key={file.name}>
@@ -148,7 +155,7 @@ useEffect(() => {
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((file) => {
+              {filteredData[2].map((file) => {
                 if (file.status === "denied") {
                   return (
                     <tr className="file-names" key={file.name}>
