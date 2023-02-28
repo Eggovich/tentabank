@@ -100,7 +100,7 @@ def servertest():
                            passwd=MYSQL_PASS,
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
-
+    
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""
         SELECT 
@@ -118,6 +118,46 @@ def servertest():
     testfiler = cnx.fetchall()
     connection.close()
     return jsonify({"users": testusers, "filer": testfiler})
+
+@app.route("/myfiles", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def myfiles():
+    user_id = request.form.get("id")
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    print(user_id)
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute(f"""
+        SELECT 
+            * 
+        FROM 
+            pending
+        WHERE 
+            user_id = "{user_id}"
+        """)
+    pending = cnx.fetchall()
+    cnx.execute(f"""
+        SELECT 
+            * 
+        FROM 
+            accepted
+        WHERE 
+            user_id = "{user_id}"
+        """)
+    accepted = cnx.fetchall()    
+    cnx.execute(f"""
+        SELECT 
+            * 
+        FROM 
+            denied
+        WHERE 
+            user_id = "{user_id}"
+        """)
+    denied = cnx.fetchall()
+    connection.close()
+    return jsonify({"accepted": accepted, "pending": pending, "denied": denied})
     
 
 @app.route("/accepted_files")
