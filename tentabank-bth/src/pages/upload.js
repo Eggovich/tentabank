@@ -11,6 +11,14 @@ const Upload = () => {
   const [failedUpload, setFailedUpload] = useState(false);
   const [failedServer, setFailedServer] = useState(false);
   const [cookies, setCookies] = useCookies(["user"])
+
+  const handleUpload = () =>{
+    if (uploaded) {
+      setUploaded(false)
+    }else{
+      setUploaded(true)
+    }
+  } 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,8 +38,10 @@ const Upload = () => {
       if (!response.ok) {
         setFailedUpload(true);
         throw new Error("Upload failed");
+      }else{
+      console.log("Du kom hit")
+      handleUpload();
       }
-      setUploaded(true);
     } catch (error) {
       setFailedServer(true);
       console.error(error);
@@ -44,8 +54,8 @@ const Upload = () => {
     <div className="upload-form">
       { uploaded ? (
         <div className="upload-success">
-          File uploaded successfully!
-          <button onClick={setUploaded(false)} className="submit-button">Ladda up igen</button>
+          <h3>Din tenta är nu inlämnad och väntar på att granskas</h3>
+          <button onClick={handleUpload} className="submit-button">Ladda up igen</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
