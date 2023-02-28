@@ -70,11 +70,13 @@ useEffect(() => {
       </div>
     ) : (
       <div className="profile-page">
-        <div style={{ backgroundImage: `url(${img})` }}>
+        <div className='profile-card'>
+        
           <div className="container">
             <div className="profile-name"> Välkommen {cookies.username}!</div>
             <p>role:{cookies.role}</p>
           </div>
+        
         </div>
   
         <div className="file-container accepted">
