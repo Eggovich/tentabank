@@ -8,7 +8,7 @@ const Profile = () => {
 const [cookies, setCookie] = useCookies(['user']);
 const [data, setData] = useState([]);
 const [searchTerm, setSearchTerm] = useState('');
-const [filteredData, setFilteredData] = useState([]);
+const [filteredData, setFilteredData] = useState([[],[],[]]);
 const [sortBySubject, setSortBySubject] = useState('');
 const [sortByDate, setSortByDate] = useState('');
 const [sortByGrade, setSortByGrade] = useState('');
@@ -59,9 +59,9 @@ useEffect(() => {
       }))
         setData([acceptedfiles, pendingfiles, deniedfiles]);
         setFilteredData([acceptedfiles, pendingfiles, deniedfiles]);
+        console.log([acceptedfiles, pendingfiles, deniedfiles])
       });
   }, []);
-
 
   return (
     !cookies.loggedIn ? (
