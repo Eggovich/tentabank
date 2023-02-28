@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useCookies } from 'react-cookie';
 import './profile.css';
+import img from "..//components/images/img-1.jpg"
+
 
 const Profile = () => {
 const [cookies, setCookie] = useCookies(['user']);
@@ -13,6 +15,7 @@ const [sortByGrade, setSortByGrade] = useState('');
 const [subjects, setSubjects] = useState([]);
 const [dates, setDates] = useState([]);
 const [grades, setGrades] = useState([]);
+const [status, setStatus] = useState([]);
 
 useEffect(() => {
     fetch('http://localhost:5000/files')
@@ -30,7 +33,8 @@ useEffect(() => {
           ...file,
           subject: file.cource_code,
           date: file.exam_date,
-          grade: file.grade
+          grade: file.grade,
+          status: file.accepted
         }))
         setData(mappedData);
         setFilteredData(mappedData);
@@ -46,38 +50,129 @@ useEffect(() => {
         setDates(dats);
         let grds = [...new Set(mappedData.map(file => file.grade))];
         setGrades(grds);
+        let acce = [...new Set(mappedData.map(file => file.accepted))];
+        setStatus(acce);
       });
   }, []);
 
 
-return (
-	!cookies.loggedIn? 
-	(
-	<div className="error-message">
-		<h1>Logga in</h1>
-	</div>
-	) : (
-	<div>
-		<div className='profile-name'> Välkommen {cookies.username}!</div>
-	    <p>role:{cookies.role}</p>
-		{filteredData.map((file) => (
-            <tr className="file-names" key={file.name}>
-              <td>{file.file_name}</td>
-              <td>{file.subject}</td>
-              <td>{file.date}</td>
-              <td>{file.grade}</td>
-              <td>
-              <form action={file.link}>
-                <input type="submit" value="Download" />
-              </form>
-              </td>
-            </tr>
-          ))}
-	</div>
-
-	)
-
-);
+  return (
+    !cookies.loggedIn ? (
+      <div className="error-message">
+        <h1>Logga in</h1>
+      </div>
+    ) : (
+      <div className="profile-page">
+        <div style={{ backgroundImage: `url(${img})` }}>
+          <div className="container">
+            <div className="profile-name"> Välkommen {cookies.username}!</div>
+            <p>role:{cookies.role}</p>
+          </div>
+        </div>
+  
+        <div className="file-container accepted">
+          <h2>Accepted files</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Date</th>
+                <th>Grade</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.map((file) => {
+                if (file.status === "accepted") {
+                  return (
+                    <tr className="file-names" key={file.name}>
+                      <td>{file.file_name}</td>
+                      <td>{file.date}</td>
+                      <td>{file.grade}</td>
+                      <td>
+                        <form action={file.link}>
+                          <input type="submit" value="Download" />
+                        </form>
+                      </td>
+                    </tr>
+                  );
+                }
+                return null;
+              })}
+            </tbody>
+          </table>
+        </div>
+  
+        <div className="file-container pending">
+          <h2>Pending files</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Date</th>
+                <th>Grade</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.map((file) => {
+                if (file.status === "pending") {
+                  return (
+                    <tr className="file-names" key={file.name}>
+                      <td>{file.file_name}</td>
+                      <td>{file.date}</td>
+                      <td>{file.grade}</td>
+                      <td>
+                        <form action={file.link}>
+                          <input type="submit" value="Download" />
+                        </form>
+                      </td>
+                    </tr>
+                  );
+                }
+                return null;
+              })}
+            </tbody>
+          </table>
+        </div>
+  
+        <div className="file-container denied">
+          <h2>Denied files</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Date</th>
+                <th>Grade</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.map((file) => {
+                if (file.status === "denied") {
+                  return (
+                    <tr className="file-names" key={file.name}>
+                      <td>{file.file_name}</td>
+                      <td>{file.date}</td>
+                      <td>{file.grade}</td>
+                      <td>
+                        <form action={file.link}>
+                          <input type="submit" value="Download" />
+                        </form>
+                      </td>
+                    </tr>
+                  );
+                }
+                return null;
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )
+  );
+  
+  
 };
 
 export default Profile;
