@@ -56,6 +56,7 @@ nav .logo {
   width: auto;
   height: 100%;
   padding: 1em;
+  background-color: transparent;
 }
 
 nav .logo img {
@@ -63,6 +64,7 @@ nav .logo img {
   margin-right: 50px;
   height: 200%;
   width: auto;
+  background-color: transparent;
 }
 
 nav ul {
@@ -249,7 +251,7 @@ nav a {
   border: 1px solid #ff4242;
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  box-sizing: border-box;
+  box-sizing:content-box;
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
@@ -296,4 +298,8 @@ nav a {
   width:auto;
   height: auto;
   text-align: center;
+}
+
+.browse-display{
+  background-color: #4278ff;
 }

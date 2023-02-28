@@ -17,8 +17,8 @@ const LogoutButtom = () => {
     }
     return (
         
-        <button onClick={handleLogout}>
-            <NavLink className="sign-out1" to="/">Logga ut</NavLink>
+        <button className="sign-out1" onClick={handleLogout}>
+            <NavLink  to="/">Logga ut</NavLink>
         </button>
     )
 }
