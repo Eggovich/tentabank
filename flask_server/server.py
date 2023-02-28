@@ -8,7 +8,7 @@ import mysql.connector as mysql
 from decouple import config
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = "C:/Users/egong/OneDrive/Dokument/GitHub/tentabank/flask_server/Exams"
+UPLOAD_FOLDER = "./Exams"
 ALLOWED_EXTENSIONS = {'pdf'}
 
 
