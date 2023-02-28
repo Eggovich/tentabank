@@ -50,7 +50,6 @@ const Signup = () => {
       { uploaded ? (
         <div className="upload-success">
           <p>Konto skapat!</p>
-          {console.log("succes")}
         </div>
       ) : (
       <div>
@@ -61,11 +60,11 @@ const Signup = () => {
           <button type="submit" className="submit-button">Ladda upp</button>
         </form>
         <NavLink to="/login">Har du redan ett konto? Logga in här!</NavLink>
-      </div>
-      )}
+      </div>)}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}
       {failedEmail === true && (<p className="errormessage">Email is already in use</p>)}
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
+      
     </div>
   );
 };

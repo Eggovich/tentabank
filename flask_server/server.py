@@ -268,6 +268,7 @@ def reviewed():
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
     cnx.execute(f""" UPDATE pending SET accepted = "{status}" where id = "{file_id}" """)
+    cnx.execute(f""" DELETE FROM pending where id = "{file_id}" """)
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200    
