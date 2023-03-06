@@ -77,7 +77,6 @@ useEffect(() => {
           </div>
         
         </div>
-  
         <div className="file-container accepted">
           <h2>Accepted files</h2>
           <table>

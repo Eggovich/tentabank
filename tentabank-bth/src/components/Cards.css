@@ -1,12 +1,14 @@
 .cards {
     padding: 4rem;
-    background: #fff;
+    background-image: linear-gradient(rgba(255, 128, 0, 0),rgba(255, 128, 0),#fff);
   }
   
   h1 {
     text-align: center;
   }
-  
+  .subtitle{
+    color: #fff;
+  }
   .cards__container {
     display: flex;
     flex-flow: column;
@@ -26,6 +28,7 @@
   }
   
   .cards__item {
+    background-color: #ffffffaa;
     display: flex;
     flex: 1;
     margin: 0 1rem;

@@ -10,7 +10,7 @@ import img5 from "./bilder/omoss.png";
 function Cards() {
   return (
     <div className='cards'>
-      <h1>Kolla vårt utbud av tentor!</h1>
+      <h1 className='subtitle'>Kolla vårt utbud av tentor!</h1>
       <div className='cards__container'>
         <div className='cards__wrapper'>
           <ul className='cards__items'>
