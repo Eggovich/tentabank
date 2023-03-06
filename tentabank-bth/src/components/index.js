@@ -27,8 +27,8 @@ const Navbar = () => {
           <NavLink to="/profile" activestyle="true">
             Min sida
           </NavLink>
-          {!cookies.loggedIn && (<LoginButtom/>)}
-          {cookies.loggedIn && (<LogoutButtom/>)}
+          {!cookies.loggedIn && (<LoginButtom activestyle="false"/>)}
+          {cookies.loggedIn && (<LogoutButtom activestyle="false"/>)}
         </NavMenu>
       </Nav>
     </>

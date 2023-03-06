@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { useCookies } from "react-cookie"
+import "./login-out.css"
 
 
 const LogoutButtom = () => {
@@ -16,10 +17,7 @@ const LogoutButtom = () => {
         window.location.reload(false);
     }
     return (
-        
-        <button className="sign-out1" onClick={handleLogout}>
-            <NavLink  to="/">Logga ut</NavLink>
-        </button>
+    <NavLink onClick={handleLogout} className="sign-out1" to="/">Logga ut</NavLink>
     )
 }
 
