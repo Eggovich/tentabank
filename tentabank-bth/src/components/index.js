@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Nav, NavLink, NavMenu } from "./navbar";
 import img from "./bilder/logga-tentabank.png"
 import LoginButtom from "./login-button";
@@ -27,8 +27,8 @@ const Navbar = () => {
           <NavLink to="/profile" activestyle="true">
             Min sida
           </NavLink>
-          {!cookies.loggedIn && (<LoginButtom activestyle="false"/>)}
-          {cookies.loggedIn && (<LogoutButtom activestyle="false"/>)}
+          {!cookies.loggedIn && (<LoginButtom/>)}
+          {cookies.loggedIn && (<LogoutButtom/>)}
         </NavMenu>
       </Nav>
     </>

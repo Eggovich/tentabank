@@ -1,11 +1,10 @@
-import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import "./login-out.css"
 
 
 const LogoutButtom = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+    const [cookie, setcookies, removeCookie] = useCookies(['user'])
     const handleLogout = () => {
         removeCookie("user")
         removeCookie("username")
