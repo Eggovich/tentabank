@@ -139,7 +139,7 @@ const Browse = () => {
       </div>
       <table>
         <thead>
-          <tr>
+          <tr className='browse-display'>
             <th>Name</th>
             <th>Subject</th>
             <th>Date</th>

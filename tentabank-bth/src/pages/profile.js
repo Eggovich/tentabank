@@ -92,7 +92,7 @@ useEffect(() => {
             </thead>
             <tbody>
               {filteredData[0].map((file) => {
-                if (file.status === "Accepted") {
+                if (file.status === "accepted") {
                   return (
                     <tr className="file-names" key={file.name}>
                       <td>{file.file_name}</td>
@@ -158,7 +158,7 @@ useEffect(() => {
             </thead>
             <tbody>
               {filteredData[2].map((file) => {
-                if (file.status === "Denied") {
+                if (file.status === "denied") {
                   return (
                     <tr className="file-names" key={file.name}>
                       <td>{file.file_name}</td>
