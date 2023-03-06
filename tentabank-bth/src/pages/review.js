@@ -3,7 +3,6 @@ import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
 
 const Review = () => {
-  const [data, setData] = useState([]);
   const [review, setReview] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [cookies] = useCookies(["User"])
@@ -29,7 +28,6 @@ const Review = () => {
           grade: file.grade,
           id: file.id
         }))
-        setData(mappedData);
         setFilteredData(mappedData);
       });
   }, []);
@@ -64,6 +62,7 @@ const Review = () => {
       }  
     };
   return (
+    cookies.role == "Reviewer" ? (
     !review ? (
     <div>
       <div>
@@ -105,7 +104,13 @@ const Review = () => {
         </form>
     </div>
     )
+  ):(
+    <div>
+      <p className='error-message'>Du måste vara inloggad som granskare för att ha åtkomst till sidan</p>
+    </div>
+  )
   );
+  
 };
 
 export default Review;

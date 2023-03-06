@@ -1,4 +1,4 @@
-from flask import Flask, Response, request, session, redirect, url_for, send_from_directory, send_file
+from flask import Flask, request, redirect, url_for, send_from_directory
 import os
 from flask_cors import CORS, cross_origin
 from google.cloud import storage
@@ -286,6 +286,24 @@ def reviewed():
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200    
+
+@app.route("/erase", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def erase():
+    file_id = request.form.get("id", type=int)
+    table = request.form.get("status")
+    print(table, file_id) 
+    if not file_id and table:
+        return "error", 400
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute(f""" DELETE FROM {table} where id = "{file_id}" """)
+    cnx.execute("""COMMIT""")
+    cnx.close()
+    return "File uploaded successfully", 200  
 
 
 if __name__ == "__main__":

@@ -5,17 +5,8 @@ import img from "..//components/images/img-1.jpg"
 
 
 const Profile = () => {
-const [cookies, setCookie] = useCookies(['user']);
-const [data, setData] = useState([]);
-const [searchTerm, setSearchTerm] = useState('');
+const [cookies] = useCookies(['user']);
 const [filteredData, setFilteredData] = useState([[],[],[]]);
-const [sortBySubject, setSortBySubject] = useState('');
-const [sortByDate, setSortByDate] = useState('');
-const [sortByGrade, setSortByGrade] = useState('');
-const [subjects, setSubjects] = useState([]);
-const [dates, setDates] = useState([]);
-const [grades, setGrades] = useState([]);
-const [status, setStatus] = useState([]);
 
 const formData = new FormData();
 formData.append("id", cookies.user_id);
@@ -40,27 +31,40 @@ useEffect(() => {
           subject: file.cource_code,
           date: file.exam_date,
           grade: file.grade,
-          status: file.accepted
+          status: file.accepted,
+          id: file.id
         }))
         const pendingfiles = data.pending.map(file => ({
             ...file,
             subject: file.cource_code,
             date: file.exam_date,
             grade: file.grade,
-            status: file.accepted
+            status: file.accepted,
+            id: file.id
         }))
         const deniedfiles = data.denied.map(file => ({
           ...file,
           subject: file.cource_code,
           date: file.exam_date,
           grade: file.grade,
-          status: file.accepted
+          status: file.accepted,
+          id: file.id
       }))
-        setData([acceptedfiles, pendingfiles, deniedfiles]);
         setFilteredData([acceptedfiles, pendingfiles, deniedfiles]);
-        console.log([acceptedfiles, pendingfiles, deniedfiles])
       });
   }, []);
+
+
+  const handleErase = (id, status) =>{
+    const formData = new FormData();
+    formData.append("id", id)
+    formData.append("status", status)
+    fetch('http://localhost:5000/erase',
+    {
+      method: "POST",
+      body: formData,
+    })
+  }
 
   return (
     !cookies.loggedIn ? (
@@ -82,25 +86,31 @@ useEffect(() => {
           <table>
             <thead>
               <tr>
-                <th>File Name</th>
-                <th>Date</th>
-                <th>Grade</th>
-                <th>Action</th>
+                <th>Filnamn</th>
+                <th>Datum</th>
+                <th>Betyg</th>
+                <th>Ladda ner</th>
+                <th>Radera</th>
               </tr>
             </thead>
             <tbody>
               {filteredData[0].map((file) => {
                 return (
-                    <tr className="file-names" key={file.name}>
-                      <td>{file.file_name}</td>
-                      <td>{file.date}</td>
-                      <td>{file.grade}</td>
-                      <td>
-                        <form action={file.link}>
-                          <input type="submit" value="Download" />
-                        </form>
-                      </td>
-                    </tr>
+                  <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
+                    <td key={file.id + file.file_name}>{file.file_name}</td>
+                    <td key={file.id + file.date}>{file.date}</td>
+                    <td key={file.id + file.grade}>{file.grade}</td>
+                    <td key={file.id + file.link}>
+                      <form action={file.link}>
+                        <input type="submit" value="Download" />
+                      </form>
+                    </td>
+                    <td key={file.id}>
+                      <form onSubmit={() => handleErase(file.id, "accepted")}>
+                        <input type="submit" value="Radera"/>
+                      </form>
+                    </td>
+                  </tr>
                   );
               })}
             </tbody>
@@ -112,22 +122,28 @@ useEffect(() => {
           <table>
             <thead>
               <tr>
-                <th>File Name</th>
-                <th>Date</th>
-                <th>Grade</th>
-                <th>Action</th>
+                <th>Filnamn</th>
+                <th>Datum</th>
+                <th>Betyg</th>
+                <th>Ladda ner</th>
+                <th>Radera</th>
               </tr>
             </thead>
             <tbody>
               {filteredData[1].map((file) => {
                   return (
-                    <tr className="file-names" key={file.name}>
-                      <td>{file.file_name}</td>
-                      <td>{file.date}</td>
-                      <td>{file.grade}</td>
-                      <td>
+                    <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
+                      <td key={file.id + file.file_name}>{file.file_name}</td>
+                      <td key={file.id + file.date}>{file.date}</td>
+                      <td key={file.id + file.grade}>{file.grade}</td>
+                      <td key={file.id + file.link}>
                         <form action={file.link}>
                           <input type="submit" value="Download" />
+                        </form>
+                      </td>
+                      <td key={file.id}>
+                        <form onSubmit={() => handleErase(file.id, "pending")}>
+                          <input type="submit" value="Radera"/>
                         </form>
                       </td>
                     </tr>
@@ -142,25 +158,29 @@ useEffect(() => {
           <table>
             <thead>
               <tr>
-                <th>File Name</th>
-                <th>Date</th>
-                <th>Grade</th>
-                <th>Action</th>
+                <th>Filnamn</th>
+                <th>Datum</th>
+                <th>Betyg</th>
+                <th>Ladda ner</th>
+                <th>Radera</th>
               </tr>
             </thead>
             <tbody>
               {filteredData[2].map((file) => {
                   return (
-                    <tr className="file-names" key={file.name}>
-                      <td>{file.file_name}</td>
-                      <td>{file.date}</td>
-                      <td>{file.grade}</td>
-                      <td>
-                        <form action={file.link}>
-                          <input type="submit" value="Download" />
-                        </form>
-                      </td>
-                    </tr>
+                    <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
+                  <td key={file.id + file.file_name}>{file.file_name}</td>
+                  <td key={file.id + file.date}>{file.date}</td>
+                  <td key={file.id + file.grade}>{file.grade}</td>
+                  <td key={file.id + file.link}>
+                    <form action={file.link}>
+                      <input type="submit" value="Download" />
+                    </form>
+                  </td>
+                  <td key={file.id}>
+                    <form onSubmit={() => handleErase(file.id, "denied")}><input type="submit" value="Radera"/></form>
+                  </td>
+                </tr>
                   );
               })}
             </tbody>
