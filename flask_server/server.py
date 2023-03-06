@@ -113,11 +113,25 @@ def servertest():
         SELECT 
             * 
         FROM 
+            accepted
+        """)
+    accepted = cnx.fetchall()
+    cnx.execute("""
+        SELECT 
+            * 
+        FROM 
             pending
         """)
     testfiler = cnx.fetchall()
+    cnx.execute("""
+        SELECT 
+            * 
+        FROM 
+            denied
+        """)
+    denied = cnx.fetchall()
     connection.close()
-    return jsonify({"users": testusers, "filer": testfiler})
+    return jsonify({"users": testusers, "Accepterade": accepted, "Pending": testfiler, "Denied": denied})
 
 @app.route("/myfiles", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
