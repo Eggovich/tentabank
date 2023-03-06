@@ -91,8 +91,7 @@ useEffect(() => {
             </thead>
             <tbody>
               {filteredData[0].map((file) => {
-                if (file.status === "Accepted") {
-                  return (
+                return (
                     <tr className="file-names" key={file.name}>
                       <td>{file.file_name}</td>
                       <td>{file.date}</td>
@@ -104,8 +103,6 @@ useEffect(() => {
                       </td>
                     </tr>
                   );
-                }
-                return null;
               })}
             </tbody>
           </table>
@@ -124,7 +121,6 @@ useEffect(() => {
             </thead>
             <tbody>
               {filteredData[1].map((file) => {
-                if (file.status === "pending") {
                   return (
                     <tr className="file-names" key={file.name}>
                       <td>{file.file_name}</td>
@@ -136,9 +132,7 @@ useEffect(() => {
                         </form>
                       </td>
                     </tr>
-                  );
-                }
-                return null;
+                  )
               })}
             </tbody>
           </table>
@@ -157,7 +151,6 @@ useEffect(() => {
             </thead>
             <tbody>
               {filteredData[2].map((file) => {
-                if (file.status === "Denied") {
                   return (
                     <tr className="file-names" key={file.name}>
                       <td>{file.file_name}</td>
@@ -170,8 +163,6 @@ useEffect(() => {
                       </td>
                     </tr>
                   );
-                }
-                return null;
               })}
             </tbody>
           </table>

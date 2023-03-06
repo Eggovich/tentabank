@@ -133,6 +133,7 @@ def servertest():
     connection.close()
     return jsonify({"users": testusers, "Accepterade": accepted, "Pending": testfiler, "Denied": denied})
 
+
 @app.route("/myfiles", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def myfiles():
@@ -141,7 +142,6 @@ def myfiles():
                            passwd=MYSQL_PASS,
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
-    print(user_id)
     cnx = connection.cursor(dictionary=True)
     cnx.execute(f"""
         SELECT 
