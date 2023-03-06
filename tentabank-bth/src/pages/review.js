@@ -33,10 +33,14 @@ const Review = () => {
         setFilteredData(mappedData);
       });
   }, []);
+
+
   const handleReview = (file) =>{
     setReview(true)
     setFile(file)
   }
+
+
   const handleSubmit = async (e) =>{
     e.preventDefault();
 
@@ -51,6 +55,9 @@ const Review = () => {
   
         if (!response.ok) {
           throw new Error("Upload failed");
+        }else{
+          setReview(false)
+          window.location.reload(false);
         }
       } catch (error) {
         console.error(error);
@@ -94,7 +101,7 @@ const Review = () => {
             <option value="Accepted">Accepted</option>
             <option value="Denied">Denied</option>
           </select>
-          <button type="submit" className="submit-button">Ladda up</button>
+          <button type="submit" className="submit-button">Lämna in bedömning</button>
         </form>
     </div>
     )
