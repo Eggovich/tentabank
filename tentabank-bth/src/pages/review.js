@@ -57,7 +57,6 @@ const Review = () => {
           throw new Error("Upload failed");
         }else{
           setReview(false)
-          window.location.reload(false);
         }
       } catch (error) {
         console.error(error);

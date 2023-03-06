@@ -28,7 +28,6 @@ useEffect(() => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         //GCS SOLUTION
         //const mappedData = data.files.map(file => ({
           //...file,
