@@ -2,8 +2,8 @@
     background-color: #F2F2F2;
     color: #FF8001;
     width: 100%;
-  
     z-index: 0;
+    position: absolute;
   }
   
   .footer-basic footer {
