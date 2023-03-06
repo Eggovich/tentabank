@@ -96,8 +96,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("..//components/images/img-1.jpg");
-  background-size: cover;
+  background-image: url("..//components/bilder/img-9.png");
+  background-size:cover;
   border-radius: 1rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   padding: 2rem;

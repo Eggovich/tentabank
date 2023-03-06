@@ -142,6 +142,43 @@ body {
     .file-upload-button {
     background-color: #008CBA;
     border: none;
-    color: white;
-    padding: 8px 12
+    padding: 8px 12;
     }
+
+    /* Tabbellen med filerna */ 
+    .file-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      
+      .file-table th,
+      .file-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      
+      .file-table th {
+        background-color: #f2f2f2;
+        color: #FF8001;
+      }
+      
+      .file-table tbody tr:hover {
+        background-color: #f5f5f5;
+      }
+      
+      .file-actions {
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .file-actions a {
+        color: #007bff;
+        text-decoration: none;
+        margin-right: 10px;
+      }
+      
+      .file-actions a:hover {
+        text-decoration: underline;
+      }
+      
