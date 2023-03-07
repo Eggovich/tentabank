@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
 import './browse.css';
+import img from "..//components/bilder/img-8.png";
 
 
 const Browse = () => {
@@ -159,8 +160,9 @@ const Browse = () => {
                   <td>{file.date}</td>
                   <td>{file.grade}</td>
                   <td>
+                  
                     <a href={file.file_data}>
-                      Download
+                      Ladda ner
                     </a>
                   </td>
                 </tr>
