@@ -1,0 +1,20 @@
+.review-box{
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(255, 128, 0), #F2F2F2);
+    text-align: center;
+    padding: 10px;
+    position: relative;
+}
+
+.review-form{
+    position: absolute;
+    background-color: bisque;
+    border-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-radius: 30px;
+    display: block;
+    width: fit-content;
+    padding: 20px;
+    left: 42.5%;
+}

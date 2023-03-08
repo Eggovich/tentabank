@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
+import './review.css'
 
 const Review = () => {
   const [review, setReview] = useState(false);
@@ -8,6 +9,7 @@ const Review = () => {
   const [cookies] = useCookies(["User"])
   const [file, setFile] = useState("")
   const [status, setStatus] = useState("")
+  const [checked, setChecked] = useState(false)
 
 
   useEffect(() => {
@@ -61,6 +63,9 @@ const Review = () => {
         console.error(error);
       }  
     };
+  const handlechange = () => {
+    setChecked(!checked)
+  }
   return (
     cookies.role == "Reviewer" ? (
     !review ? (
@@ -93,16 +98,23 @@ const Review = () => {
       </table>
     </div>
     ) : (
-    <div>
-        <form onSubmit={handleSubmit}>
-          <select className="dropdown" onChange={(e) => setStatus(e.target.value)}>
-            <option value="">Bedömning</option>
-            <option value="Accepted">Accepted</option>
-            <option value="Denied">Denied</option>
-          </select>
-          <button type="submit" className="submit-button">Lämna in bedömning</button>
+      <div className="review-box">
+        <form className='review-form' onSubmit={handleSubmit}>
+          <div className='item'>
+            <select className="dropdown" onChange={(e) => setStatus(e.target.value)}>
+              <option value="">Bedömning</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Denied">Denied</option>
+            </select>
+          </div>
+          <div className='item'>
+            <label htmlFor="anon">
+              <input type="checkbox" id='anon' checked={checked} onChange={handlechange}/>Är tentan anonym?
+            </label>
+          </div>
+          <button disabled={!checked || !status}type="submit" className="submit-button">Lämna in bedömning</button>
         </form>
-    </div>
+      </div>
     )
   ):(
     <div>

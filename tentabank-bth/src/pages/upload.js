@@ -10,18 +10,41 @@ const Upload = () => {
   const [uploaded, setUploaded] = useState(false);
   const [failedUpload, setFailedUpload] = useState(false);
   const [failedServer, setFailedServer] = useState(false);
+  const [failedName, setFailedName] = useState(false)
   const [cookies, setCookies] = useCookies(["user"])
+  const [check, setChecked] = useState(false);
+
+
+  function checkData(){
+    console.log(date)
+    if (!file || !name || !date || !grade){
+      setFailedUpload(true)
+      return false
+    }
+    if (name.length !== 6 || /[0-9]/.test(name.slice(0,2)) || !/[0-9]/.test(name.slice(2,6))){
+      setFailedName(true)
+      return false
+    }
+  }
 
   const handleUpload = () =>{
-    if (uploaded) {
-      setUploaded(false)
-    }else{
-      setUploaded(true)
-    }
+    setUploaded(!uploaded)
   } 
+
+  function reset(){
+    setFailedName(false)
+    setFailedServer(false)
+    setFailedUpload(false)
+  }
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    reset()
+    setChecked(checkData())
+    if (!check){
+      return
+    }
     const formData = new FormData();
     formData.append("file", file);
     formData.append("name", name);
@@ -73,6 +96,7 @@ const Upload = () => {
         </form>
       )}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}
+      {failedName === true && (<p className="errormessage">Ogiltig kurskod</p>)}
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
     </div>
     ):(

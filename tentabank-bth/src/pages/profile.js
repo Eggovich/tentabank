@@ -73,16 +73,15 @@ const handleErase = (id, status) =>{
 
 const submit = (id, status) => {
     confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to do this.',
+      title: 'Bekräftelse av radering',
+      message: 'Är du säker på att du vill radera tentan?',
       buttons: [
         {
-          label: 'Yes',
+          label: 'Ja',
           onClick: () => handleErase(id, status)
         },
         {
-          label: 'No',
-          onClick: () => alert('Click No')
+          label: 'Nej'
         }
       ]
     });
