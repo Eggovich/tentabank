@@ -152,6 +152,9 @@ def myfiles():
             user_id = "{user_id}"
         """)
     pending = cnx.fetchall()
+    for exam in pending:
+        exam["exam_date"] = str(exam["exam_date"])
+        exam["created_on"] = str(exam["created_on"])
     cnx.execute(f"""
         SELECT 
             * 
@@ -160,7 +163,10 @@ def myfiles():
         WHERE 
             user_id = "{user_id}"
         """)
-    accepted = cnx.fetchall()    
+    accepted = cnx.fetchall()  
+    for exam in accepted:
+        exam["exam_date"] = str(exam["exam_date"])
+        exam["created_on"] = str(exam["created_on"])  
     cnx.execute(f"""
         SELECT 
             * 
@@ -170,6 +176,9 @@ def myfiles():
             user_id = "{user_id}"
         """)
     denied = cnx.fetchall()
+    for exam in denied:
+        exam["exam_date"] = str(exam["exam_date"])
+        exam["created_on"] = str(exam["created_on"])
     connection.close()
     return jsonify({"accepted": accepted, "pending": pending, "denied": denied})
     
@@ -191,6 +200,9 @@ def get_accepted_files():
     cnx.execute(f"""SELECT * FROM accepted""")
     result = cnx.fetchall()
     cnx.close()
+    for exam in result:
+        exam["exam_date"] = str(exam["exam_date"])
+        exam["created_on"] = str(exam["created_on"])
     return jsonify({"files": result})
 
 
@@ -211,6 +223,9 @@ def get_pending_files():
     cnx.execute(f"""SELECT * FROM pending order by created_on""")
     result = cnx.fetchall()
     cnx.close()
+    for exam in result:
+        exam["exam_date"] = str(exam["exam_date"])
+        exam["created_on"] = str(exam["created_on"])
     return jsonify({"files": result})
 
 

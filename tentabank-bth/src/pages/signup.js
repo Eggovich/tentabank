@@ -54,15 +54,15 @@ const Signup = () => {
       ) : (
       <div>
         <form onSubmit={handleSubmit}>
-          <input type="text" className="input-field" onChange={(e) => setName(e.target.value)} placeholder="Namn" />
+          <input type="text" className="input-field" onChange={(e) => setName(e.target.value)} placeholder="Smeknamn" />
           <input type="text" className="input-field" onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
           <input type="password" className="input-field" onChange={(e) => setPassword(e.target.value)} placeholder="Lösenord"/>
-          <button type="submit" className="submit-button">Ladda upp</button>
+          <button type="submit" className="submit-button">Skapa Konto</button>
         </form>
         <NavLink to="/login">Har du redan ett konto? Logga in här!</NavLink>
       </div>)}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}
-      {failedEmail === true && (<p className="errormessage">Email is already in use</p>)}
+      {failedEmail === true && (<p className="errormessage">Mejlen används redan i ett annat konto</p>)}
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
       
     </div>

@@ -174,7 +174,7 @@ const Browse = () => {
     ) :
     (
       <div className='error-message'>
-        <h3>Du behöver logga in och lämna en recension för att komma åt sidan.</h3>
+        <h3>Du behöver logga in och lämna tre tentor för att komma åt sidan.</h3>
         <NavLink to="/login">Logga in</NavLink>
       </div>
     )
