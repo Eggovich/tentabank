@@ -228,7 +228,33 @@ def upload():
         return "Please provide all the required fields", 400
     
     if not file or not allowed_file(file.filename):
-        return "shit is wrong", 401
+        return "Only Pdf allowed", 401
+    
+    if len(cource_code) != 6:
+        return "Invalid cource code", 402
+
+    digits = 0
+    for char in cource_code:
+        if char.isdigit():
+            digits += 1
+
+    if digits != 4:
+        return "Invalid cource code", 402
+    
+    if len(date) != 10:
+        return "Invalid date", 403
+    date.replace("-","/")
+    date_format = "%Y-%m-%d"
+    # using try-except blocks for handling the exceptions
+    try:
+    # formatting the date using strptime() function
+        dateObject = datetime.strptime(date, date_format)
+        print(dateObject)
+    # If the date validation goes wrong
+    except ValueError:
+    # printing the appropriate text if ValueError occurs
+        return "Invalid Date", 403
+
     filename = secure_filename(file.filename)
     file_path = "/"+ f"{filename}"
     direct = app.config['UPLOAD_FOLDER'] + file_path
@@ -286,6 +312,7 @@ def reviewed():
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200    
+
 
 @app.route("/erase", methods=["POST"])
 @cross_origin(supports_credentials=True)
