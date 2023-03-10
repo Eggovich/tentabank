@@ -96,9 +96,8 @@ const Browse = () => {
     setSearchTerm(evt.target.value);
     
   }
-  console.log(cookies.privleges)
   return (
-    cookies.loggedIn ? (cookies.privleges == 1 ? (
+    cookies.loggedIn ? (cookies.uploads > 2 ? (
       <div className="browse-page">
         <div className="search-bar">
           <input
