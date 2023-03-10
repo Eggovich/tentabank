@@ -34,7 +34,8 @@ const Browse = () => {
           ...file,
           subject: file.cource_code,
           date: file.exam_date,
-          grade: file.grade
+          grade: file.grade,
+          id: file.id
         }))
         setData(mappedData);
         setFilteredData(mappedData);
@@ -144,16 +145,16 @@ const Browse = () => {
           <table className="file-table">
             <thead>
               <tr className='browse-display'>
-                <th>Filnamn</th>
+                <th>Namn</th>
                 <th>Kurskod</th>
                 <th>Datum</th>
                 <th>Betyg</th>
-                <th>Val</th>
+                <th>Länk</th>
               </tr>
             </thead>
             <tbody>
               {filteredData.map((file) => (
-                <tr key={file.name}>
+                <tr key={file.id}>
                   <td>{file.file_name}</td>
                   <td>{file.subject}</td>
                   <td>{file.date}</td>
@@ -173,7 +174,7 @@ const Browse = () => {
     ) :
     (
       <div className='error-message'>
-        <h3>Du behöver logga in och lämna en recension för att komma åt sidan.</h3>
+        <h3>Du behöver logga in och lämna tre tentor för att komma åt sidan.</h3>
         <NavLink to="/login">Logga in</NavLink>
       </div>
     )

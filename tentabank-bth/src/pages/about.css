@@ -1,0 +1,70 @@
+/* Styles for team member containers */
+
+.team-member-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Add a max-width to the team member container so it doesn't take up too much space on larger screens */
+  
+  .team-member-container {
+    max-width: 400px;
+  }
+  
+  /* Add some margin to the team member container so it's not right up against the edge of the column */
+  
+  .team-member-container {
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+  .team-member-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .team-member {
+    text-align: center;
+  }
+  
+  .team-member-image {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    max-height: 200px;
+  }
+  
+  /* Styles for team member images */
+  
+  .team-member-image {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  /* Add some margin to the bottom of the team member image so there's some space between it and the text */
+  
+  .team-member-image {
+    margin-bottom: 15px;
+  }
+  
+  /* Styles for team member names and titles */
+  
+  .team-member h3, .team-member p {
+    margin: 0;
+    text-align: center;
+  }
+  
+  /* Add some margin to the bottom of the team member title so there's some space between it and the text */
+  
+  .team-member p {
+    margin-bottom: 15px;
+  }
+  
+  /* Make team members responsive to smaller screens */
+  
+  @media (max-width: 768px) {
+    .team-member-container {
+      max-width: 100%;
+    }
+  }
+  

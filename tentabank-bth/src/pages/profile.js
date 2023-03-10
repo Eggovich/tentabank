@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { useCookies } from 'react-cookie';
 import './profile.css';
 import img from "..//components/images/img-1.jpg"
+import {confirmAlert} from "react-confirm-alert"
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 
 const Profile = () => {
@@ -51,11 +53,12 @@ useEffect(() => {
           id: file.id
       }))
         setFilteredData([acceptedfiles, pendingfiles, deniedfiles]);
+        console.log("re-rendering")
       });
   }, []);
 
 
-  const handleErase = (id, status) =>{
+const handleErase = (id, status) =>{
     const formData = new FormData();
     formData.append("id", id)
     formData.append("status", status)
@@ -64,7 +67,25 @@ useEffect(() => {
       method: "POST",
       body: formData,
     })
+    window.location.reload(false)
   }
+
+
+const submit = (id, status) => {
+    confirmAlert({
+      title: 'Bekräftelse av radering',
+      message: 'Är du säker på att du vill radera tentan?',
+      buttons: [
+        {
+          label: 'Ja',
+          onClick: () => handleErase(id, status)
+        },
+        {
+          label: 'Nej'
+        }
+      ]
+    });
+  };
 
   return (
     !cookies.loggedIn ? (
@@ -82,7 +103,7 @@ useEffect(() => {
         
         </div>
         <div className="file-container accepted">
-          <h2>Accepted files</h2>
+          <h2>Accepterade tentor</h2>
           <table>
             <thead>
               <tr>
@@ -106,9 +127,7 @@ useEffect(() => {
                       </form>
                     </td>
                     <td key={file.id}>
-                      <form onSubmit={() => handleErase(file.id, "accepted")}>
-                        <input type="submit" value="Radera"/>
-                      </form>
+                      <button onClick={() => submit(file.id, "accepted")}>Radera</button>
                     </td>
                   </tr>
                   );
@@ -142,9 +161,7 @@ useEffect(() => {
                         </form>
                       </td>
                       <td key={file.id}>
-                        <form onSubmit={() => handleErase(file.id, "pending")}>
-                          <input type="submit" value="Radera"/>
-                        </form>
+                        <button onClick={() => submit(file.id, "pending")}>Radera</button>
                       </td>
                     </tr>
                   )
@@ -154,7 +171,7 @@ useEffect(() => {
         </div>
   
         <div className="file-container denied">
-          <h2>Denied files</h2>
+          <h2>Nekade tentor</h2>
           <table>
             <thead>
               <tr>
@@ -178,7 +195,7 @@ useEffect(() => {
                     </form>
                   </td>
                   <td key={file.id}>
-                    <form onSubmit={() => handleErase(file.id, "denied")}><input type="submit" value="Radera"/></form>
+                    <button onClick={() => submit(file.id, "denied")}>Radera</button>
                   </td>
                 </tr>
                   );

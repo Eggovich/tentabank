@@ -21,26 +21,7 @@ h1, h2, h3, h4, h5, h6, p, a, b, th {
   user-select: none; /* Standard syntax */
 }
 
-p{
-  width: 125px;
-  height: 36px;
 
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 10px;
-  line-height: 36px;
-
-  color: #000000;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 3;
-  flex-grow: 0;
-  text-align: center;
-  
-}
 
 /*The navbar container */
 nav {

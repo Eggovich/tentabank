@@ -10,18 +10,48 @@ const Upload = () => {
   const [uploaded, setUploaded] = useState(false);
   const [failedUpload, setFailedUpload] = useState(false);
   const [failedServer, setFailedServer] = useState(false);
+  const [failedDate, setFailedDate] = useState(false);
+  const [failedName, setFailedName] = useState(false)
+  const [failedFile, setFailedFile] = useState(false)
   const [cookies, setCookies] = useCookies(["user"])
 
-  const handleUpload = () =>{
-    if (uploaded) {
-      setUploaded(false)
-    }else{
-      setUploaded(true)
+
+  function checkData(){
+    if (!file || !name || !date || !grade){
+      setFailedUpload(true)
+      return false
     }
+    if (name.length !== 6 || /[0-9]/.test(name.slice(0,2)) || !/[0-9]/.test(name.slice(2,6))){
+      setFailedName(true)
+      return false
+    }
+    var dat;
+    dat = Date(date)
+    console.log(dat)
+    if (dat === "Invalid Date" || date.length !== 10){
+      setFailedDate(true)
+      return false
+    }
+    return true
+  }
+
+
+  const handleUpload = () =>{
+    setUploaded(!uploaded)
   } 
+
+
+  function reset(){
+    setFailedName(false)
+    setFailedServer(false)
+    setFailedUpload(false)
+    setFailedDate(false)
+  }
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    reset()
     const formData = new FormData();
     formData.append("file", file);
     formData.append("name", name);
@@ -34,15 +64,25 @@ const Upload = () => {
         method: "POST",
         body: formData,
       });
-
+      console.log(response)
+      if (response.status === 400){
+        setFailedUpload(true)
+      }
+      if (response.status === 401){
+        setFailedFile(true)
+      }
+      if (response.status === 402){
+        setFailedName(true)
+      }
+      if (response.status === 403){
+        setFailedDate(true)
+      }
       if (!response.ok) {
-        setFailedUpload(true);
         throw new Error("Upload failed");
       }else{
       handleUpload();
       }
     } catch (error) {
-      setFailedServer(true);
       console.error(error);
     }
     
@@ -73,6 +113,9 @@ const Upload = () => {
         </form>
       )}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}
+      {failedName === true && (<p className="errormessage">Ogiltig kurskod</p>)}
+      {failedDate === true && (<p className="errormessage">Ogiltigt Datum</p>)}
+      {failedFile === true && (<p className="errormessage">Ogiltigt filformat</p>)}
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
     </div>
     ):(
