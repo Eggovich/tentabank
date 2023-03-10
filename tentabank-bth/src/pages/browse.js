@@ -34,7 +34,8 @@ const Browse = () => {
           subject: file.cource_code,
           date: file.exam_date,
           grade: file.grade,
-          id: file.id
+          id: file.id,
+          akronym: file.exam_id
         }))
         setData(mappedData);
         setFilteredData(mappedData);
@@ -145,20 +146,22 @@ const Browse = () => {
           <table className="file-table">
             <thead>
               <tr className='browse-display'>
-                <th>Namn</th>
+                
                 <th>Kurskod</th>
                 <th>Datum</th>
                 <th>Betyg</th>
+                <th>Akronym</th>
                 <th>Länk</th>
               </tr>
             </thead>
             <tbody>
               {filteredData.map((file) => (
                 <tr key={file.id}>
-                  <td>{file.file_name}</td>
+                  
                   <td>{file.subject}</td>
                   <td>{file.date}</td>
                   <td>{file.grade}</td>
+                  <td>anonym</td>
                   <td>
                   
                     <a href={file.file_data}>
