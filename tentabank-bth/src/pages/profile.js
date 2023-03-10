@@ -34,7 +34,8 @@ useEffect(() => {
           date: file.exam_date,
           grade: file.grade,
           status: file.accepted,
-          id: file.id
+          id: file.id,
+          link: file.file_data
         }))
         const pendingfiles = data.pending.map(file => ({
             ...file,
@@ -42,7 +43,8 @@ useEffect(() => {
             date: file.exam_date,
             grade: file.grade,
             status: file.accepted,
-            id: file.id
+            id: file.id,
+            link: file.file_data
         }))
         const deniedfiles = data.denied.map(file => ({
           ...file,
@@ -50,7 +52,8 @@ useEffect(() => {
           date: file.exam_date,
           grade: file.grade,
           status: file.accepted,
-          id: file.id
+          id: file.id,
+          link: file.file_data
       }))
         setFilteredData([acceptedfiles, pendingfiles, deniedfiles]);
         setCookie("uploads", acceptedfiles.length, {path: '/'})
