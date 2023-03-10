@@ -1,7 +1,7 @@
 import React from 'react';
 import './Cards.css';
 import CardItem from './Carditems';
-import img1 from "./bilder/matte.png";
+import img10 from "./bilder/matte.png";
 import img2 from "./bilder/fysik.png";
 import img3 from "./bilder/tenta.png"
 import img4 from "./bilder/signup-icon.png";
@@ -15,7 +15,7 @@ function Cards() {
         <div className='cards__wrapper'>
           <ul className='cards__items'>
             <CardItem
-              src={img1}
+              src={img10}
               text='Sätt Stefan på plats genom att acea tentan!'
               label='Matte'
               path='/Browse'
