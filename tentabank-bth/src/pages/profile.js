@@ -141,7 +141,7 @@ const submit = (id, status, uploads) => {
         </div>
   
         <div className="file-container pending">
-          <h2>Pending files</h2>
+          <h2>Väntar på gransking</h2>
           <table>
             <thead>
               <tr>
@@ -206,7 +206,14 @@ const submit = (id, status, uploads) => {
               })}
             </tbody>
           </table>
+
         </div>
+        <div className='blank'>
+          
+        </div>
+        <button className='delete-account'>
+            Radera konto
+          </button>
       </div>
     )
   );

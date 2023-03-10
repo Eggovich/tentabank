@@ -96,6 +96,7 @@ const Browse = () => {
     setSearchTerm(evt.target.value);
     
   }
+  
   return (
     cookies.loggedIn ? (cookies.uploads > 2 ? (
       <div className="browse-page">
