@@ -236,9 +236,10 @@ def upload():
     cource_code = request.form.get("name").upper()
     date = request.form.get("date")
     grade = request.form.get("grade")
+    examId = request.form.get("examId")
     user_id = request.form.get("user_id")
     # Validate the form data
-    if not all([file, cource_code, date, grade, user_id]):
+    if not all([file, cource_code, date, grade, examId, user_id]):
         return "Please provide all the required fields", 400
     
     if not file or not allowed_file(file.filename):
@@ -289,11 +290,38 @@ def upload():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
+    cnx.execute(f"""
+                SELECT
+                    *
+                FROM
+                    pending
+                WHERE
+                cource_code = '{cource_code}'
+                AND
+                exam_date = '{date}'
+                AND
+                exam_id = '{examId}'""")
+    pending = cnx.fetchall()
+    cnx.execute(f"""
+                SELECT
+                    *
+                FROM
+                    accepted
+                WHERE
+                cource_code = '{cource_code}'
+                AND
+                exam_date = '{date}'
+                AND
+                exam_id = '{examId}'""")
+    accepted = cnx.fetchall()
+    if pending != [] or accepted != []:
+        cnx.close()
+        return "file already exists", 404
     cnx.execute(f"""INSERT INTO 
                         pending 
-                        (file_name, cource_code, grade, exam_date, file_data, user_id, created_on) 
+                        (file_name, cource_code, grade, exam_date, file_data, user_id, created_on, exam_id) 
                     VALUES 
-                        ('{file.filename}', '{cource_code}', '{grade}', '{date}', '{f"http://localhost:5000/download{file_path}"}','{user_id}', CURDATE())""")
+                        ('{file.filename}', '{cource_code}', '{grade}', '{date}', '{f"http://localhost:5000/download{file_path}"}','{user_id}', CURDATE(), '{examId}') """)
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200

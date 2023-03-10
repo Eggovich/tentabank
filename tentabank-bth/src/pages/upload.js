@@ -7,12 +7,14 @@ const Upload = () => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [grade, setGrade] = useState("");
+  const [examId, setExamId] = useState("")
   const [uploaded, setUploaded] = useState(false);
   const [failedUpload, setFailedUpload] = useState(false);
   const [failedServer, setFailedServer] = useState(false);
   const [failedDate, setFailedDate] = useState(false);
   const [failedName, setFailedName] = useState(false)
   const [failedFile, setFailedFile] = useState(false)
+  const [alreadyUploaded, setAlreadyUploaded] = useState(false)
   const [cookies, setCookies] = useCookies(["user"])
 
 
@@ -46,6 +48,7 @@ const Upload = () => {
     setFailedServer(false)
     setFailedUpload(false)
     setFailedDate(false)
+    setAlreadyUploaded(false)
   }
 
 
@@ -57,6 +60,7 @@ const Upload = () => {
     formData.append("name", name);
     formData.append("date", date);
     formData.append("grade", grade);
+    formData.append("examId", examId);
     formData.append("user_id", cookies.user_id)
 
     try {
@@ -76,6 +80,9 @@ const Upload = () => {
       }
       if (response.status === 403){
         setFailedDate(true)
+      }
+      if (response.status === 404){
+        setAlreadyUploaded(true)
       }
       if (!response.ok) {
         throw new Error("Upload failed");
@@ -101,6 +108,7 @@ const Upload = () => {
           <input type="file" accept=".pdf" className="input-field" onChange={(e) => setFile(e.target.files[0])} />
           <input type="text" className="input-field" onChange={(e) => setName(e.target.value)} placeholder="Ma1435" />
           <input type="text" className="input-field" onChange={(e) => setDate(e.target.value)} placeholder="2023-02-02"/>
+          <input type="text" className="input-field" onChange={(e) => setExamId(e.target.value)} placeholder="Anonymitetskod"/>
           <select className="dropdown" onChange={(e) => setGrade(e.target.value)}>
             <option value="">Betyg</option>
             <option value="A">A</option>
@@ -117,6 +125,7 @@ const Upload = () => {
       {failedDate === true && (<p className="errormessage">Ogiltigt Datum</p>)}
       {failedFile === true && (<p className="errormessage">Ogiltigt filformat</p>)}
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
+      {alreadyUploaded === true && (<p className="errormessage">Denna tenta är redan uppladdad</p>)}
     </div>
     ):(
       <div className="error-message">
