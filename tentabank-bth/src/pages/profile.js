@@ -7,7 +7,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 
 
 const Profile = () => {
-const [cookies] = useCookies(['user']);
+const [cookies, setCookie] = useCookies(['user']);
 const [filteredData, setFilteredData] = useState([[],[],[]]);
 
 const formData = new FormData();
@@ -53,12 +53,13 @@ useEffect(() => {
           id: file.id
       }))
         setFilteredData([acceptedfiles, pendingfiles, deniedfiles]);
-        console.log("re-rendering")
+        setCookie("uploads", acceptedfiles.length, {path: '/'})
       });
   }, []);
 
 
-const handleErase = (id, status) =>{
+const handleErase = (id, status, uploads) =>{
+    setCookie("uploads", uploads - 1, {path: '/'})
     const formData = new FormData();
     formData.append("id", id)
     formData.append("status", status)
@@ -71,14 +72,14 @@ const handleErase = (id, status) =>{
   }
 
 
-const submit = (id, status) => {
+const submit = (id, status, uploads) => {
     confirmAlert({
       title: 'Bekräftelse av radering',
       message: 'Är du säker på att du vill radera tentan?',
       buttons: [
         {
           label: 'Ja',
-          onClick: () => handleErase(id, status)
+          onClick: () => handleErase(id, status, uploads)
         },
         {
           label: 'Nej'
@@ -127,7 +128,7 @@ const submit = (id, status) => {
                       </form>
                     </td>
                     <td key={file.id}>
-                      <button onClick={() => submit(file.id, "accepted")}>Radera</button>
+                      <button onClick={() => submit(file.id, "accepted", cookies.uploads)}>Radera</button>
                     </td>
                   </tr>
                   );
