@@ -1,12 +1,11 @@
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
-import team1Img from '..//components/images/img-1.jpg';
-import team2Img from '..//components/images/img-2.jpg';
-import team3Img from '..//components/images/img-3.jpg';
-
+import team1Img from '..//components/bilder/simon.jpeg';
+import team2Img from '..//components/bilder/egon2.png';
+import team3Img from '..//components/bilder/hanna.jpeg';
 import './about.css';
 
-const AboutUs = () => {
+const About = () => {
   return (
     <Container>
       <Row className="my-5">
@@ -47,8 +46,8 @@ const AboutUs = () => {
       <Row className="my-5">
         <Col>
           <h2>Our Purpose</h2>
-          <p>In the following report an analyzation has been done on the product; 
-            Tentabank. This products purpose is to provide BTH students, who are the primary users,
+          <p>
+            This products purpose is to provide BTH students, who are the primary users,
              with a platform where they can share and discuss exam solutions. The goal is to encourage student 
              collaboration and make it simpler for students to study for exams by providing them with access to a variety of solutions. 
              This will be made with the help of the secondary user, which is a BTH employee who will review the exams before 
@@ -73,4 +72,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default About;
