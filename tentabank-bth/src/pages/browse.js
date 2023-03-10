@@ -16,7 +16,6 @@ const Browse = () => {
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
   const [cookies] = useCookies(["User"])
-  const [pdf, setPdf] = useState("")
 
 
   useEffect(() => {
@@ -97,8 +96,9 @@ const Browse = () => {
     setSearchTerm(evt.target.value);
     
   }
+  console.log(cookies.privleges)
   return (
-    cookies.loggedIn ? (
+    cookies.loggedIn ? (cookies.privleges == 1 ? (
       <div className="browse-page">
         <div className="search-bar">
           <input
@@ -171,10 +171,10 @@ const Browse = () => {
           </table>
         </div>
       </div>
-    ) :
+    ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
     (
       <div className='error-message'>
-        <h3>Du behöver logga in och lämna tre tentor för att komma åt sidan.</h3>
+        <h3>Du behöver logga in</h3>
         <NavLink to="/login">Logga in</NavLink>
       </div>
     )

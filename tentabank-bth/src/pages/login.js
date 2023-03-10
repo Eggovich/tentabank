@@ -21,6 +21,7 @@ const Login = () => {
     setCookie('password', currentUser.password, { path: '/' });
     setCookie("loggedIn", true, {path: '/' })
     setCookie("role", currentUser.role, {path: '/'})
+    setCookie("privleges", currentUser.browse_permission, {path: '/'})
   }
 
 

@@ -69,28 +69,27 @@ def login():
     if not all([email, password]):
         connection.close()
         return jsonify({"response":"Please provide all the required fields"}), 400
-    
+    # Create connection with database
     cnx = connection.cursor(dictionary=True)
-    cnx.execute("""SELECT 
-                        email, password 
+    # Fetch user based on email and password
+    
+    cnx.execute(f"""SELECT 
+                        *
                     FROM 
                         usertable
+                    WHERE
+                        email = "{email}"
+                    AND
+                        password = "{password}"
                 """)
-    userdict = cnx.fetchall()
-    users = [[dic["email"], dic["password"]] for dic in userdict]
-    for user in users:
-        if user[0] == email and user[1] == password:
-            cnx.execute(f"""SELECT 
-                                * 
-                            FROM 
-                                usertable 
-                            WHERE 
-                                email ='{email}' 
-                                AND password = '{password}'""")
-            currentuser = cnx.fetchall()
-            connection.close()
-            return jsonify({"response":currentuser[0]})
-    return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400
+    user = cnx.fetchall()
+    connection.close()
+    # If query comes back empty the user doens't exist
+    # Else it responds with the user info
+    if user == []:
+        return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400
+    return jsonify({"response":user[0]})        
+    
 
 
 @app.route("/servertest", methods=["GET"])
