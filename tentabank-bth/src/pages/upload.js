@@ -96,7 +96,7 @@ const Upload = () => {
             <option value="D">D</option>
             <option value="E">E</option>
           </select>
-          <button type="submit" className="submit-button">Ladda up</button>
+          <button type="submit" className="submit-button">Ladda upp</button>
         </form>
       )}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}

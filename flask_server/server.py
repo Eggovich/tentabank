@@ -380,6 +380,28 @@ def erase():
 def deleteAccount():
     pass
 
+
+@app.route("/userUpdate", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def userUpdate():
+    user_id = request.form.get("user_id", type=int)
+    username = request.form.get("username")
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute(f""" UPDATE
+                        usertable 
+                    SET 
+                        username = "{username}" 
+                    WHERE
+                        user_id = "{user_id}" """)
+    cnx.execute("""COMMIT""")
+    cnx.close()
+    return "Success", 200
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 

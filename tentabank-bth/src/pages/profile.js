@@ -9,10 +9,12 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 const Profile = () => {
 const [cookies, setCookie, removeCookie] = useCookies(['user']);
 const [filteredData, setFilteredData] = useState([[],[],[]]);
-
+const [editProfile, setEditProfile] = useState(false);
+const [userName, setUserName] = useState(cookies.username);
 const formData = new FormData();
 formData.append("id", cookies.user_id);
 
+/* Fetching all submitted exams from the user */
 useEffect(() => {
     fetch('http://localhost:5000/myfiles',
     {
@@ -129,20 +131,52 @@ const submit = (infolist) => {
     confirmAlert(options);
   };
 
+
+const handleUserUpdate = () =>{
+  const formData = new FormData();
+  formData.append("user_id",cookies.user_id)
+  formData.append("username", userName)
+  try{
+    fetch("http://localhost:5000/userUpdate", {
+    method: "POST",
+    body: formData,
+  });
+  }catch (error) {
+    console.error(error);
+  }
+  setCookie("username", userName, {path: '/'})
+  setEditProfile(false)
+}
   return (
     !cookies.loggedIn ? (
       <div className="error-message">
         <h1>Logga in</h1>
       </div>
     ) : (
+      editProfile ? (
+      <div className='profile-page'>
+        <p>hej här ska man kunna redigera mer grejer i framtiden!</p>
+        <form>
+          <label htmlFor="username">Smeknamn </label>
+          <input type="text" name="username" id="username" value={userName} placeholder={cookies.username} onChange={(e) => setUserName(e.target.value)} />
+        </form>
+        <div>
+          <button onClick={() => setEditProfile(false)}>Tillbaka till profilsidan</button>
+          <button onClick={() => handleUserUpdate()}>Spara ändringar</button>
+        </div>
+      </div>
+      ):(
       <div className="profile-page">
         <div className='profile-card'>
         
           <div className="container">
             <div className="profile-name"> Välkommen {cookies.username}!</div>
-            <p>role:{cookies.role}</p>
+            <p>role: {cookies.role}</p>
           </div>
         
+        </div>
+        <div>
+          <button className="edit" onClick={() => setEditProfile(true)}>Redigera profil</button>
         </div>
         <div className="file-container accepted">
           <h2>Accepterade tentor</h2>
@@ -254,8 +288,8 @@ const submit = (infolist) => {
         </button>
       </div>
     )
+    )
   );
-  
   
 };
 
