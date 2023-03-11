@@ -18,26 +18,6 @@ const Upload = () => {
   const [cookies, setCookies] = useCookies(["user"])
 
 
-  function checkData(){
-    if (!file || !name || !date || !grade){
-      setFailedUpload(true)
-      return false
-    }
-    if (name.length !== 6 || /[0-9]/.test(name.slice(0,2)) || !/[0-9]/.test(name.slice(2,6))){
-      setFailedName(true)
-      return false
-    }
-    var dat;
-    dat = Date(date)
-    console.log(dat)
-    if (dat === "Invalid Date" || date.length !== 10){
-      setFailedDate(true)
-      return false
-    }
-    return true
-  }
-
-
   const handleUpload = () =>{
     setUploaded(!uploaded)
   } 
@@ -68,7 +48,6 @@ const Upload = () => {
         method: "POST",
         body: formData,
       });
-      console.log(response)
       if (response.status === 400){
         setFailedUpload(true)
       }

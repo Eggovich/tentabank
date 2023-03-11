@@ -375,6 +375,11 @@ def erase():
     return "File uploaded successfully", 200  
 
 
+@app.route("/deleteAccount", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def deleteAccount():
+    pass
+
 if __name__ == "__main__":
     app.run(debug=True)
 

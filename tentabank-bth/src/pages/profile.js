@@ -7,7 +7,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 
 
 const Profile = () => {
-const [cookies, setCookie] = useCookies(['user']);
+const [cookies, setCookie, removeCookie] = useCookies(['user']);
 const [filteredData, setFilteredData] = useState([[],[],[]]);
 
 const formData = new FormData();
@@ -75,20 +75,58 @@ const handleErase = (id, status, uploads) =>{
   }
 
 
-const submit = (id, status, uploads) => {
-    confirmAlert({
+const handleDeleteAccount = (user_id) =>{
+  const formData = new FormData();
+  formData.append("user_id", user_id)
+  fetch('http://localhost:5000/deleteAccount',
+    {
+      method: "POST",
+      body: formData,
+    })
+  removeCookie("user")
+  removeCookie("username")
+  removeCookie("email")
+  removeCookie("password")
+  removeCookie("role")
+  removeCookie("user_id")
+  removeCookie("loggedIn")
+  removeCookie("uploads")
+  window.location.reload(false)
+}
+
+
+const submit = (infolist) => {
+  var options;
+  if (infolist.length == 3){
+    options = {
       title: 'Bekräftelse av radering',
       message: 'Är du säker på att du vill radera tentan?',
       buttons: [
         {
           label: 'Ja',
-          onClick: () => handleErase(id, status, uploads)
+          onClick: () => handleErase(infolist[0], infolist[1], infolist[2])
         },
         {
           label: 'Nej'
         }
       ]
-    });
+    }
+  }else{
+    options = {
+      title: 'Bekräftelse av konto-radering',
+      message: 'Är du säker på att du vill radera ditt konto?',
+      buttons: [
+        {
+          label: 'Ja',
+          onClick: () => handleDeleteAccount(infolist[0])
+        },
+        {
+          label: 'Nej'
+        }
+      ]
+    }
+  } 
+    confirmAlert(options);
   };
 
   return (
@@ -131,7 +169,7 @@ const submit = (id, status, uploads) => {
                       </form>
                     </td>
                     <td key={file.id}>
-                      <button onClick={() => submit(file.id, "accepted", cookies.uploads)}>Radera</button>
+                      <button onClick={() => submit([file.id, "accepted", cookies.uploads])}>Radera</button>
                     </td>
                   </tr>
                   );
@@ -165,7 +203,7 @@ const submit = (id, status, uploads) => {
                         </form>
                       </td>
                       <td key={file.id}>
-                        <button onClick={() => submit(file.id, "pending")}>Radera</button>
+                        <button onClick={() => submit([file.id, "pending", cookies.upload])}>Radera</button>
                       </td>
                     </tr>
                   )
@@ -199,7 +237,7 @@ const submit = (id, status, uploads) => {
                     </form>
                   </td>
                   <td key={file.id}>
-                    <button onClick={() => submit(file.id, "denied")}>Radera</button>
+                    <button onClick={() => submit([file.id, "denied", cookies.uploads])}>Radera</button>
                   </td>
                 </tr>
                   );
@@ -211,9 +249,9 @@ const submit = (id, status, uploads) => {
         <div className='blank'>
           
         </div>
-        <button className='delete-account'>
+        <button className='delete-account' onClick={() => submit([cookies.user_id])}>
             Radera konto
-          </button>
+        </button>
       </div>
     )
   );

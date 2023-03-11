@@ -13,6 +13,7 @@ const LogoutButtom = () => {
         removeCookie("role")
         removeCookie("user_id")
         removeCookie("loggedIn")
+        removeCookie("uploads")
         window.location.reload(false);
     }
     return (
