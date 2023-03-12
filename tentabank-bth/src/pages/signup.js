@@ -13,11 +13,15 @@ const Signup = () => {
   const [failedServer, setFailedServer] = useState(false);
   const [cookies, setCookies] = useCookies(["user"])
 
-
+  function reset(){
+    setFailedUpload(false)
+    setFailedEmail(false)
+    setFailedServer(false)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    reset()
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
@@ -62,7 +66,7 @@ const Signup = () => {
         <NavLink to="/login">Har du redan ett konto? Logga in här!</NavLink>
       </div>)}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}
-      {failedEmail === true && (<p className="errormessage">Mejlen används redan i ett annat konto</p>)}
+      {failedEmail === true && (<p className="errormessage">Denna mejlen används redan i ett annat konto</p>)}
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
       
     </div>

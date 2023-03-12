@@ -54,6 +54,7 @@ const Browse = () => {
       });
   }, []);
 
+
   const filterFiles = useCallback(() => {
     if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade) {
       setFilteredData(data);
@@ -77,9 +78,11 @@ const Browse = () => {
     }));
   }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade]);
   
+
   useEffect(() => {filterFiles();}, [filterFiles]);
   useEffect(() => {filterFiles();}, [filterFiles]);
 
+  
   function updateDates(data){
     let temp = [];
     console.log(data.length)
