@@ -63,9 +63,8 @@ const Review = () => {
         console.error(error);
       }  
     };
-  const handlechange = () => {
-    setChecked(!checked)
-  }
+  
+  
   return (
     cookies.role == "Reviewer" ? (
     !review ? (
@@ -109,7 +108,7 @@ const Review = () => {
           </div>
           <div className='item'>
             <label htmlFor="anon">
-              <input type="checkbox" id='anon' checked={checked} onChange={handlechange}/>Är tentan anonym?
+              <input type="checkbox" id='anon' checked={checked} onChange={setChecked(!checked)}/>Är tentan anonym?
             </label>
           </div>
           <button disabled={!checked || !status}type="submit" className="submit-button">Lämna in bedömning</button>

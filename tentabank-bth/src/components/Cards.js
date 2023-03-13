@@ -30,7 +30,7 @@ function Cards() {
           <ul className='cards__items'>
             <CardItem
               src={img3}
-              text='Bidra till tentabanken genom att lagga upp en tenta!'
+              text='Bidra till tentabanken genom att ladda upp en tenta!'
               label='Ladda upp'
               path='/upload'
             />

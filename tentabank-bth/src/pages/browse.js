@@ -164,9 +164,8 @@ const Browse = () => {
                   <td>{file.subject}</td>
                   <td>{file.date}</td>
                   <td>{file.grade}</td>
-                  <td>anonym</td>
+                  <td>{file.exam_id}</td>
                   <td>
-                  
                     <a href={file.file_data}>
                       Ladda ner
                     </a>
