@@ -16,7 +16,7 @@ function App() {
 
 return (
 	<Router>
-	<Navbar />
+	<Navbar/>
 		<Routes>
 			<Route exact path='/*' element={<Home />} />
 			<Route path='/about' element={<About/>} />
@@ -27,7 +27,7 @@ return (
 			<Route path='/signup' element={<Signup/>} />
 			<Route path='/review' element={<Review/>} />
 		</Routes>
-	<Footer />
+	<Footer/>
 	</Router>
 );
 }
