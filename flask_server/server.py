@@ -91,7 +91,6 @@ def login():
     return jsonify({"response":user[0]})        
     
 
-
 @app.route("/servertest", methods=["GET"])
 @cross_origin(supports_credentials=True)
 def servertest():
@@ -168,11 +167,15 @@ def myfiles():
         exam["created_on"] = str(exam["created_on"])  
     cnx.execute(f"""
         SELECT 
-            * 
+            file_name,cource_code,grade,exam_date,file_data,denied.user_id,rating,accepted,exam_id,denied.created_on,comment 
         FROM 
-            denied
+            denied 
+        JOIN 
+            comments 
+        ON 
+            denied.id=comments.file_id
         WHERE 
-            user_id = "{user_id}"
+            denied.user_id = "{user_id}"
         """)
     denied = cnx.fetchall()
     for exam in denied:
@@ -339,6 +342,8 @@ def reviewed():
     # Get the file and form data from the request
     file_id = request.form.get("id", type=int)
     status = request.form.get("status")
+    comment = request.form.get("comment")
+    user_id = request.form.get("user_id")
     # Validate the form date
     if not all([file_id, status]):
         
@@ -349,6 +354,12 @@ def reviewed():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
+    if comment != None:
+        cnx.execute(f""" INSERT INTO
+                            comments
+                            (file_id, user_id, comment, created_on)
+                        VALUES
+                            ("{file_id}", "{user_id}", "{comment}", curdate())""")
     cnx.execute(f""" UPDATE pending SET accepted = "{status}" where id = "{file_id}" """)
     cnx.execute(f""" DELETE FROM pending where id = "{file_id}" """)
     cnx.execute("""COMMIT""")

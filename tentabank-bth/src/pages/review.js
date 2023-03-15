@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useCookies} from 'react-cookie'
-import { NavLink } from 'react-router-dom';
 import './review.css'
 
 const Review = () => {
@@ -10,6 +9,7 @@ const Review = () => {
   const [file, setFile] = useState("")
   const [status, setStatus] = useState("")
   const [checked, setChecked] = useState(false)
+  const [comment, setComment] = useState("")
 
 
   useEffect(() => {
@@ -28,6 +28,7 @@ const Review = () => {
           subject: file.cource_code,
           date: file.exam_date,
           grade: file.grade,
+          exam_id: file.exam_id,
           id: file.id
         }))
         setFilteredData(mappedData);
@@ -47,6 +48,10 @@ const Review = () => {
     const formData = new FormData();
     formData.append("id", file.id)
     formData.append("status", status)
+    if (status === "denied"){
+      formData.append("comment", comment)
+      formData.append("user_id", cookies.user_id)
+    }
     try {
         const response = await fetch("http://localhost:5000/reviewed", {
           method: "POST",
@@ -66,7 +71,7 @@ const Review = () => {
   
   
   return (
-    cookies.role == "Reviewer" ? (
+    cookies.role === "Reviewer" ? (
     !review ? (
     <div>
       <div>
@@ -97,23 +102,30 @@ const Review = () => {
       </table>
     </div>
     ) : (
-      <div className="review-box">
-        <form className='review-form' onSubmit={handleSubmit}>
-          <div className='item'>
-            <select className="dropdown" onChange={(e) => setStatus(e.target.value)}>
-              <option value="">Bedömning</option>
-              <option value="Accepted">Accepted</option>
-              <option value="Denied">Denied</option>
-            </select>
+        <div className="container_review">
+          <div className="third-left">
+            <form className="reviewform" onSubmit={handleSubmit}>
+              <p>Granskning av {file.file_name}</p>
+              <label htmlFor="comment">Om tentan inte godkänns, ge en beskrivning om varför den inte blev det.</label>
+              <input className="review" type="text" id='comment' onChange={(e) => setComment(e.target.value)} placeholder="Kommentar"/><br/>
+              <label htmlFor="anon">Stämmer den inlämnade filen med medföljande uppgifter?</label>
+              <input className="checkbox" type="checkbox" id='anon' checked={checked} onChange={() => setChecked(!checked)}/><br/>
+            
+              <button disabled={!comment} type="submit" className="denied-button" onClick={() => setStatus("denied")}>Neka tentan</button>
+              <button disabled={!checked} type="submit" className="accepted-button" onClick={() => setStatus("accepted")}>Godkänn tentan</button>
+            </form>
           </div>
-          <div className='item'>
-            <label htmlFor="anon">
-              <input type="checkbox" id='anon' checked={checked} onChange={setChecked(!checked)}/>Är tentan anonym?
-            </label>
+          <div className="third-mid">
+            <iframe className="pdf_review" src={file.file_data}/>
           </div>
-          <button disabled={!checked || !status}type="submit" className="submit-button">Lämna in bedömning</button>
-        </form>
-      </div>
+          <div className="third-right">
+            <h1>Den givna infon om uppladdningen</h1>
+            <h3>Kurskod: {file.subject}</h3>
+            <h3>Datum: {file.exam_date}</h3>
+            <h3>Anonymitetskod: {file.exam_id}</h3>
+            <h3>Betyg: {file.grade}</h3>
+          </div>
+        </div>
     )
   ):(
     <div>

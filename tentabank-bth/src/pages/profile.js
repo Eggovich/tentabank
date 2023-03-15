@@ -55,7 +55,8 @@ useEffect(() => {
           grade: file.grade,
           status: file.accepted,
           id: file.id,
-          link: file.file_data
+          link: file.file_data,
+          comment: file.comment
       }))
         setFilteredData([acceptedfiles, pendingfiles, deniedfiles]);
         setCookie("uploads", acceptedfiles.length, {path: '/'})
@@ -254,6 +255,7 @@ const handleUserUpdate = () =>{
                 <th>Filnamn</th>
                 <th>Datum</th>
                 <th>Betyg</th>
+                <th>Kommentar</th>
                 <th>Ladda ner</th>
                 <th>Radera</th>
               </tr>
@@ -265,6 +267,7 @@ const handleUserUpdate = () =>{
                   <td key={file.id + file.file_name}>{file.file_name}</td>
                   <td key={file.id + file.date}>{file.date}</td>
                   <td key={file.id + file.grade}>{file.grade}</td>
+                  <td key={file.id + file.comment}>{file.comment}</td>
                   <td key={file.id + file.link}>
                     <form action={file.link}>
                       <input type="submit" value="Download" />
