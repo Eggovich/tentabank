@@ -15,7 +15,7 @@ const Browse = () => {
   const [subjects, setSubjects] = useState([]);
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
-  const [cookies] = useCookies(["User"])
+  const [cookies, setCookie] = useCookies(["User"])
 
 
   useEffect(() => {
@@ -54,7 +54,22 @@ const Browse = () => {
       });
   }, []);
 
-
+  useEffect( () => {
+    if (cookies.loggedIn){
+    const formData = new FormData();
+    formData.append("user_id", cookies.user_id)
+    fetch("http://localhost:5000/getuploads", {
+        method: "POST",
+        body: formData,
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setCookie("uploads", data.response.uploads)
+        }
+      )
+    }
+  }, []
+);
   const filterFiles = useCallback(() => {
     if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade) {
       setFilteredData(data);
@@ -101,6 +116,7 @@ const Browse = () => {
     
   }
   
+
   return (
     cookies.loggedIn ? (cookies.uploads > 2 ? (
       <div className="browse-page">

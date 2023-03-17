@@ -59,17 +59,16 @@ def signup():
 @app.route("/login", methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def login():
-    connection = mysql.connect(user=MYSQL_USER,
-                           passwd=MYSQL_PASS,
-                           database=MYSQL_DATABASE, 
-                           host='127.0.0.1')
     email = request.form.get("email")
     password = request.form.get("password")
     # Validate the form data
     if not all([email, password]):
-        connection.close()
         return jsonify({"response":"Please provide all the required fields"}), 400
     # Create connection with database
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
     # Fetch user based on email and password
     
@@ -413,6 +412,25 @@ def userUpdate():
     return "Success", 200
 
 
+@app.route("/getuploads", methods=["GET", "POST"])
+@cross_origin(supports_credentials=True)
+def getuploads():
+    user_id = request.form.get("user_id")
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute(f"""
+                SELECT
+                    uploads
+                FROM
+                    usertable
+                WHERE
+                    user_id = "{user_id}"
+                """)
+    uploads = cnx.fetchall()
+    return jsonify({"response": uploads[0]})
 if __name__ == "__main__":
     app.run(debug=True)
 

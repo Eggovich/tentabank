@@ -2,6 +2,7 @@ use Tentabank;
 drop table if exists pending;
 drop table if exists accepted;
 drop table if exists denied;
+drop table if exists comments;
 drop table if exists usertable;
 
 create table usertable(
@@ -60,6 +61,14 @@ accepted Varchar(255) default "denied",
 exam_id varchar(255) Not Null
 );
 
+create table comments(
+comment_id int not null auto_increment primary key,
+file_id int,
+user_id int,
+comment varchar(255),
+created_on date);
+
+
 drop trigger if exists accepted_review;
 DELIMITER //
 CREATE TRIGGER accepted_review 
@@ -67,13 +76,13 @@ AFTER UPDATE ON pending
 FOR EACH ROW
 BEGIN
 	IF NEW.accepted="accepted" THEN
-		INSERT INTO accepted (file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id)
-		SELECT file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id 
+		INSERT INTO accepted (id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id)
+		SELECT id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id 
 		FROM pending
 		WHERE pending.accepted = NEW.accepted;
 	ELSEIF NEW.accepted="denied" THEN
-		INSERT INTO denied (file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id)
-		SELECT file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id
+		INSERT INTO denied (id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id)
+		SELECT id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id
 		FROM pending
 		WHERE pending.accepted = NEW.accepted;
 	END IF;
@@ -108,6 +117,8 @@ SELECT * FROM pending;
 SELECT * FROM accepted;
 SELECT * FROM denied;
 SELECT * FROM usertable;
+select * from comments;
+select denied.created_on from denied join comments on denied.id=comments.file_id where denied.user_id = 2;
 INSERT INTO usertable (username, email, password, role) values ("Eggovich","e", "f", "Reviewer");
 INSERT INTO usertable (username, email, password) values ("Hanna", "h", "i");
 UPDATE pending SET accepted = "accepted" WHERE id = 2;
