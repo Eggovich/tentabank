@@ -110,20 +110,23 @@ const Review = () => {
               <input className="review" type="text" id='comment' onChange={(e) => setComment(e.target.value)} placeholder="Kommentar"/><br/>
               <label htmlFor="anon">Stämmer den inlämnade filen med medföljande uppgifter?</label>
               <input className="checkbox" type="checkbox" id='anon' checked={checked} onChange={() => setChecked(!checked)}/><br/>
-            
-              <button disabled={!comment} type="submit" className="denied-button" onClick={() => setStatus("denied")}>Neka tentan</button>
-              <button disabled={!checked} type="submit" className="accepted-button" onClick={() => setStatus("accepted")}>Godkänn tentan</button>
+              <div className="buttons">
+                <button disabled={!comment} type="submit" className="denied-button" onClick={() => setStatus("denied")}>Neka tentan</button>
+                <button disabled={!checked} type="submit" className="accepted-button" onClick={() => setStatus("accepted")}>Godkänn tentan</button>
+              </div>
             </form>
           </div>
           <div className="third-mid">
             <iframe className="pdf_review" src={file.file_data}/>
           </div>
           <div className="third-right">
-            <h1>Den givna infon om uppladdningen</h1>
-            <h3>Kurskod: {file.subject}</h3>
-            <h3>Datum: {file.exam_date}</h3>
-            <h3>Anonymitetskod: {file.exam_id}</h3>
-            <h3>Betyg: {file.grade}</h3>
+            <div className="reviewform">
+              <h1>Den givna infon om uppladdningen</h1>
+              <h3>Kurskod: {file.subject}</h3>
+              <h3>Datum: {file.exam_date}</h3>
+              <h3>Anonymitetskod: {file.exam_id}</h3>
+              <h3>Betyg: {file.grade}</h3>
+            </div>
           </div>
         </div>
     )

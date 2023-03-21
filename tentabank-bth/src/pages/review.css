@@ -1,9 +1,9 @@
 
 .accepted-button {
-    min-width: 300px;
+    min-width: 200px;
     min-height: 60px;
     font-family: 'Nunito', sans-serif;
-    font-size: 22px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1.3px;
     font-weight: 700;
@@ -21,9 +21,9 @@
     }
   
   .accepted-button::before {
-  content: '';
+    content: '';
     border-radius: 1000px;
-    min-width: calc(300px + 12px);
+    min-width: calc(200px + 12px);
     min-height: calc(60px + 12px);
     border: 6px solid #00FFCB;
     box-shadow: 0 0 60px rgba(0,255,203,.64);
@@ -57,10 +57,10 @@
   
   .denied-button {
     margin: 30px;
-    min-width: 300px;
+    min-width: 200px;
     min-height: 60px;
     font-family: 'Nunito', sans-serif;
-    font-size: 22px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1.3px;
     font-weight: 700;
@@ -80,7 +80,7 @@
   .denied-button::before {
   content: '';
     border-radius: 1000px;
-    min-width: calc(300px + 12px);
+    min-width: calc(200px + 12px);
     min-height: calc(60px + 12px);
     border: 6px solid #ed1d1dd7;
     box-shadow: 0 0 60px rgba(212, 78, 78, .64) ;
@@ -124,21 +124,22 @@
 }
 .third-left{
     float:left;        
-    width:33%;
+    width:33.33%;
     height:280px;
 }
 .third-mid{ 
     float:left;        
-    width:33%;
+    width:33.33%;
     height:280px;
     text-align: center;
 }
 .third-right{
     float:right;        
-    width:33%;
+    width:33.33%;
     height:280px; 
 }
 .pdf_review{
+    border-radius: 20px;
     width:100%;
     height:100vh;
 }
@@ -156,6 +157,9 @@
   text-align: center;
   position: relative;
   transition: all 0.2s ease-in-out;
+}
+.buttons{
+    display: inline-block;
 }
 p {
     font-weight: 500;
