@@ -49,11 +49,9 @@ const Sidebar = () => {
           onChange={handleSearch}
         />
         <ul className="category-list">
-        {
-            Array.isArray(filteredCategories) && filteredCategories.map((category) => (
+        {Array.isArray(filteredCategories) && filteredCategories.map((category) => (
                 <li key={category.cource_code}>{category.cource_code}</li>
-                ))
-                    }
+                ))}
         </ul>
       </div>
     </div>
