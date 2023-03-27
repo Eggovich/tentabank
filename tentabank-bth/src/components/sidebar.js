@@ -42,6 +42,7 @@ const Sidebar = () => {
       </button>
       <div className={`sidebar ${isVisible ? 'visible' : 'hidden'}`}>
         <input
+            className='input-sidebar'
           type="text"
           placeholder="Search categories"
           value={searchTerm}
