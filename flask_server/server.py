@@ -441,10 +441,10 @@ def get_categories():
                                host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""
-                SELECT 
-                    DISTINCT cource_code as name 
-                FROM 
-                    accepted
+                SELECT
+                    DISTINCT code_group_name AS name
+                FROM
+                    course_code_view;
                 """
                 )
     result = cnx.fetchall()
