@@ -8,18 +8,18 @@ const Sidebar = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Fetch categories from your API
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:5000/categories');
         const data = await response.json();
-        setCategories(data);
-        setFilteredCategories(data);
+        console.log('Data:', data);
+        setCategories(data.categories);
+        setFilteredCategories(data.categories);
       } catch (error) {
         console.error('Failed to fetch categories:', error);
       }
     };
-
+  
     fetchCategories();
   }, []);
 
@@ -49,10 +49,11 @@ const Sidebar = () => {
           onChange={handleSearch}
         />
         <ul className="category-list">
-        {Array.isArray(filteredCategories) && filteredCategories.map((category) => (
-                <li key={category.cource_code}>{category.cource_code}</li>
-                ))}
-        </ul>
+          {Array.isArray(filteredCategories) &&
+                filteredCategories.map((category) => (
+                <li key={category.name}>{category.name}</li>
+    ))}
+</ul>
       </div>
     </div>
   );
