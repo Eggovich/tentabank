@@ -432,6 +432,18 @@ def getuploads():
     uploads = cnx.fetchall()
     return jsonify({"response": uploads[0]})
 
+@app.route("/categories")
+@cross_origin(supports_credentials=True)
+def get_categories():
+    connection = mysql.connect(user=MYSQL_USER,
+                               passwd=MYSQL_PASS,
+                               database=MYSQL_DATABASE,
+                               host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute("SELECT DISTINCT cource_code as name FROM accepted")
+    result = cnx.fetchall()
+    cnx.close()
+    return jsonify({"categories": result})
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
 import './browse.css';
+import Sidebar from "..//components/sidebar"
 import img from "..//components/bilder/img-8.png";
 
 
@@ -120,6 +121,7 @@ const Browse = () => {
   return (
     cookies.loggedIn ? (cookies.uploads > 2 ? (
       <div className="browse-page">
+          <Sidebar />
         <div className="search-bar">
           <input
             type="text"
