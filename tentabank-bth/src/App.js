@@ -11,6 +11,7 @@ import Footer from './components/footer';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Review from './pages/review';
+import Browse2 from './pages/browse2';
 
 function App() {
 
@@ -26,6 +27,7 @@ return (
 			<Route path='/login' element={<Login/>} />
 			<Route path='/signup' element={<Signup/>} />
 			<Route path='/review' element={<Review/>} />
+			<Route path='/browse2' element={<Browse2/>} />
 		</Routes>
 	<Footer/>
 	</Router>

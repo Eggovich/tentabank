@@ -7,11 +7,8 @@
 }
 
 .toggle-btn {
-  margin-bottom: 1rem;
-  background-color: #4caf50;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
   border-radius: 4px;
