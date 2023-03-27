@@ -440,7 +440,13 @@ def get_categories():
                                database=MYSQL_DATABASE,
                                host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute("SELECT DISTINCT cource_code as name FROM accepted")
+    cnx.execute("""
+                SELECT 
+                    DISTINCT cource_code as name 
+                FROM 
+                    accepted
+                """
+                )
     result = cnx.fetchall()
     cnx.close()
     return jsonify({"categories": result})
