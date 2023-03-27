@@ -161,7 +161,7 @@ const Browse = () => {
               value={sortByDate}
               onChange={(e) => setSortByDate(e.target.value)}
             >
-              <option value="">Sort by Date</option>
+              <option value="">Filtrera datum</option>
                 {dates.map((date) => (
                   <option key={date} value={date}>
                     {date}

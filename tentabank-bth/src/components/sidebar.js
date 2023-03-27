@@ -22,9 +22,6 @@ const Sidebar = (props) => {
     fetchCategories();
   }, []);
 
-  const toggleSidebar = () => {
-    setIsVisible(!isVisible);
-  };
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);

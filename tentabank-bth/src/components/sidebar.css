@@ -1,38 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
-
-.toggle-btn {
-  position: relative;
-  left:90%;
-  background-color: #45a049;
-  color: white;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.toggle-btn:hover {
-  background-color: #45a049;
-}
-
 .sidebar {
   z-index: 1;
   position: inherit;
   top:50px;
-  left: -250px;
-  height: 100%;
-  width: 250px;
+  left: -25%;
+  height: 100vh;
+  width: 25%;
   background-color: #f1f1f1;
-  padding: 1rem;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
   transition: all 0.5s ease;
 }
 
 .sidebar.visible {
-  width: fit-content;
+  width: 25%;
   left: 0;
 }
 
