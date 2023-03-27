@@ -66,7 +66,7 @@ comment_id int not null auto_increment primary key,
 file_id int,
 user_id int,
 comment varchar(255),
-created_on date);
+created_on dateTIME);
 
 
 drop trigger if exists accepted_review;

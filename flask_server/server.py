@@ -431,6 +431,8 @@ def getuploads():
                 """)
     uploads = cnx.fetchall()
     return jsonify({"response": uploads[0]})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 

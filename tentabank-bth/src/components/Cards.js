@@ -7,6 +7,7 @@ import img3 from "./bilder/tenta.png"
 import img4 from "./bilder/signup-icon.png";
 import img5 from "./bilder/omoss.png";
 
+
 function Cards() {
   return (
     <div className='cards'>

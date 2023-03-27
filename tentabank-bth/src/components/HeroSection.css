@@ -39,6 +39,8 @@ h1, b {
   }
   
   .hero-btns {
+    animation-name: fadeIn;
+    animation-duration: 3s;
     margin-top: 32px;
   }
   
@@ -51,6 +53,8 @@ h1, b {
   }
 
   .b {
+    animation-name: fadeIn;
+    animation-duration: 2.5s;
     color: white;
     font-size: large;
   }
@@ -79,5 +83,21 @@ h1, b {
   
     .btn {
       width: 100%;
+    }
+  }
+
+  .title{
+    animation-name: fadeIn;
+    animation-duration: 2s;
+  }
+
+  @keyframes fadeIn{
+    from{
+      transform: translateY(-100px);
+      color: #ffffff00
+    }
+    to{
+      transform: translateY(0px);
+      color: #fff;
     }
   }
