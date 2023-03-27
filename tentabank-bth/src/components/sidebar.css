@@ -24,8 +24,7 @@
 
 .sidebar {
   position: fixed;
-  padding-top: 5vw;
-  top: 0;
+  top: 5rem;
   left: -250px;
   height: 100%;
   width: 250px;
