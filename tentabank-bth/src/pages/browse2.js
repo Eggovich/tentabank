@@ -18,6 +18,7 @@ const Browse = () => {
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
   const [sort, setSort] = useState("rating")
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect( () => {
     if (cookies.loggedIn){
@@ -134,6 +135,7 @@ const Browse = () => {
     }
   }
 
+
   return (
     cookies.loggedIn ? (cookies.uploads > 2 ? (
       <div className="browse-page">
@@ -144,22 +146,28 @@ const Browse = () => {
             value={searchTerm}
             onChange={(e)=>handleSearch(e)}
           />
-        </div>
-        <div className="exam_content">
+        </div>  
+        
+        <div className={`exam_content ${isVisible ? 'change' : 'static'}`}>
+          <Sidebar isVisible={isVisible}></Sidebar>
           <div className="sort">
-            <Sidebar/>
+            <div className= "menu_icon" onClick={() => setIsVisible(!isVisible)}>
+              <div className="bar1"></div>
+              <div className="bar2"></div>
+              <div className="bar3"></div>
+            </div>
             <select
-                className='date_filter'
-                value={sortByDate}
-                onChange={(e) => setSortByDate(e.target.value)}
+              className='date_filter'
+              value={sortByDate}
+              onChange={(e) => setSortByDate(e.target.value)}
             >
-                <option value="">Sort by Date</option>
+              <option value="">Sort by Date</option>
                 {dates.map((date) => (
-                <option key={date} value={date}>
+                  <option key={date} value={date}>
                     {date}
-                </option>
-            ))}
-          </select>
+                  </option>
+                ))}
+            </select>
             <button className="toggle_sort" onClick={() => handleSort()}>Sortera efter {sort}</button>
           </div>
           <div className="exams">

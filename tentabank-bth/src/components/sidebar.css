@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
-.container {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Roboto', sans-serif;
-}
 
 .toggle-btn {
+  position: relative;
+  left:90%;
+  background-color: #45a049;
   color: white;
   border: none;
   font-size: 1rem;
@@ -20,8 +18,9 @@
 }
 
 .sidebar {
-  position: fixed;
-  top: 5rem;
+  z-index: 1;
+  position: inherit;
+  top:50px;
   left: -250px;
   height: 100%;
   width: 250px;
@@ -33,8 +32,10 @@
 }
 
 .sidebar.visible {
+  width: fit-content;
   left: 0;
 }
+
 
 .input-sidebar[type='text'] {
   width: 100%;

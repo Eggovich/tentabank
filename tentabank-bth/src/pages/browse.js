@@ -121,7 +121,6 @@ const Browse = () => {
   return (
     cookies.loggedIn ? (cookies.uploads > 2 ? (
       <div className="browse-page">
-          <Sidebar />
         <div className="search-bar">
           <input
             type="text"
