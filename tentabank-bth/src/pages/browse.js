@@ -17,6 +17,23 @@ const Browse = () => {
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
 
+  useEffect( () => {
+    if (cookies.loggedIn){
+    const formData = new FormData();
+    formData.append("user_id", cookies.user_id)
+    fetch("http://localhost:5000/getuploads", {
+        method: "POST",
+        body: formData,
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setCookie("uploads", data.response.uploads)
+        }
+      )
+    }
+  }, []
+);
+
 
   useEffect(() => {
     fetch('http://localhost:5000/accepted_files')
@@ -54,22 +71,6 @@ const Browse = () => {
       });
   }, []);
 
-  useEffect( () => {
-    if (cookies.loggedIn){
-    const formData = new FormData();
-    formData.append("user_id", cookies.user_id)
-    fetch("http://localhost:5000/getuploads", {
-        method: "POST",
-        body: formData,
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        setCookie("uploads", data.response.uploads)
-        }
-      )
-    }
-  }, []
-);
   const filterFiles = useCallback(() => {
     if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade) {
       setFilteredData(data);
@@ -112,8 +113,7 @@ const Browse = () => {
 
   function handleSearch(evt){
     updateDates(filteredData);
-    setSearchTerm(evt.target.value);
-    
+    setSearchTerm(evt.target.value); 
   }
   
 
