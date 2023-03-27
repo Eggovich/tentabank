@@ -1,0 +1,54 @@
+.browse-page{
+}
+
+.exam_content{
+    position: relative;
+    background-color: antiquewhite;
+}
+
+.sort{
+    position: relative;
+    display: inline-block;
+    width:100%
+}
+
+.date_filter{
+    position: relative;
+}
+
+.toggle_sort{
+    position: relative;
+}
+
+.cource_bar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+    }
+    
+    /* Style the input field */
+.cource_bar input[type=text] {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 100%;
+    text-align: center;
+    }
+    
+    /* Style the select field */
+.cource_bar select {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    }
+
+.cource_bar ::placeholder{
+    text-align: center;
+    }
+
+.exams{
+    display: grid;
+}
