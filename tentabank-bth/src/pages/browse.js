@@ -79,7 +79,7 @@ const Browse = () => {
     } 
     
     setFilteredData(data.filter(file => {
-      if (searchTerm && !file.file_name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (searchTerm && !file.cource_code.toLowerCase().includes(searchTerm.toLowerCase())) {
         return false;
       }
       if (sortBySubject && file.cource_code !== sortBySubject) {

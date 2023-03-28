@@ -11,6 +11,7 @@ import Footer from './components/footer';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Review from './pages/review';
+import Testhanna from './pages/testhanna';
 
 function App() {
 
@@ -26,6 +27,7 @@ return (
 			<Route path='/login' element={<Login/>} />
 			<Route path='/signup' element={<Signup/>} />
 			<Route path='/review' element={<Review/>} />
+			<Route path='/testhanna' element={<Testhanna/>} />
 		</Routes>
 	<Footer/>
 	</Router>
