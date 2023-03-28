@@ -136,40 +136,36 @@ const Browse = () => {
 
   return (
     cookies.loggedIn ? (cookies.uploads > 0 ? (
-    <div>
-        <nav class="product-filter">
-
-        <h1>Tentor</h1>
-        
-        <div class="sort1">
-          <div class="collection-sort">
-            <label>Filtrera datum:</label>
-            <select>
-              <option value="/">All Jackets</option>
-            </select>
-          </div>
-      
-          <div class="collection-sort">
-            <label>Sortera efter:</label>
-            <select>
-              <option value="rating">rating</option>
-              <option value="betyg">betyg</option>
-            </select>
-          </div>
-      
-        </div>
-      
-        </nav>
-        <section class="products">
+    <div className="browse-page3">
+        <div className="sidebar3"><h1>Ämnen</h1></div>
+        <div className="filter3"><h1>Filter</h1></div>
         {filteredData.map((file) => (
-        <examCard>
-            cource_code={file.subject}
-            date={file.date}
-            grade={file.grade}
-            rating={file.rating}
-        </examCard>
-        ))}
-        </section>
+                <examCard>
+                    cource_code={file.subject}
+                    date={file.date}
+                    grade={file.grade}
+                    rating={file.rating}
+                </examCard>
+            ))}
+        
+        <div className="test-item">2</div>
+        <div className="test-item">3</div>
+        <div className="test-item">4</div>
+        <div className="test-item">5</div>
+        <div className="test-item">6</div>
+        <div className="test-item">7</div>
+        <div className="test-item">8</div>
+        <div className="test-item">9</div>
+        <div className="test-item">10</div>
+        <div className="test-item">11</div>
+        <div className="test-item">12</div>
+        <div className="test-item">13</div>
+        <div className="test-item">14</div>
+        <div className="test-item">15</div>
+        <div className="test-item">16</div>
+        <div className="test-item">17</div>
+        <div className="test-item">18</div>
+        
     </div>
     ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
     (
