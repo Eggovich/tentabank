@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
-import './browse.css';
-import Sidebar from "..//components/sidebar"
-import img from "..//components/bilder/img-8.png";
+import './browse3.css';
 
 
 const Browse = () => {
@@ -17,6 +15,8 @@ const Browse = () => {
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
+  const [sort, setSort] = useState("rating")
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect( () => {
     if (cookies.loggedIn){
@@ -53,7 +53,8 @@ const Browse = () => {
           date: file.exam_date,
           grade: file.grade,
           id: file.id,
-          akronym: file.exam_id
+          akronym: file.exam_id,
+          rating: file.rating
         }))
         setData(mappedData);
         setFilteredData(mappedData);
@@ -79,7 +80,7 @@ const Browse = () => {
     } 
     
     setFilteredData(data.filter(file => {
-      if (searchTerm && !file.cource_code.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (searchTerm && !file.file_name.toLowerCase().includes(searchTerm.toLowerCase())) {
         return false;
       }
       if (sortBySubject && file.cource_code !== sortBySubject) {
@@ -118,81 +119,54 @@ const Browse = () => {
   }
   
 
+  function handleSort(){
+    if (sort === "betyg"){
+        setSort("rating")
+        filteredData.sort((a, b) => {
+            return a.grade - b.grade
+        })
+    }else{
+        setSort("betyg")
+        filteredData.sort((a, b) => {
+            return a.rating - b.rating
+        })
+    }
+  }
+
+
   return (
-    cookies.loggedIn ? (cookies.uploads > 2 ? (
-      <div className="browse-page">
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e)=>handleSearch(e)}
-          />
-          <select
-            value={sortBySubject}
-            onChange={(e) => setSortBySubject(e.target.value)}
-          >
-            <option value="">Sort by Subject</option>
-            {subjects.map((subject) => (
-              <option key={subject} value={subject}>
-                {subject}
-              </option>
+    cookies.loggedIn ? (cookies.uploads > 0 ? (
+    <div className="browse-page3">
+        <div className="sidebar3"><h1>Ämnen</h1></div>
+        <div className="filter3"><h1>Filter</h1></div>
+        {filteredData.map((file) => (
+                <examCard>
+                    cource_code={file.subject}
+                    date={file.date}
+                    grade={file.grade}
+                    rating={file.rating}
+                </examCard>
             ))}
-          </select>
-          <select
-            value={sortByDate}
-            onChange={(e) => setSortByDate(e.target.value)}
-          >
-            <option value="">Sort by Date</option>
-            {dates.map((date) => (
-              <option key={date} value={date}>
-                {date}
-              </option>
-            ))}
-          </select>
-          <select
-            value={sortByGrade}
-            onChange={(e) => setSortByGrade(e.target.value)}
-          >
-            <option value="">Sort by Grade</option>
-            {grades.map((grade) => (
-              <option key={grade} value={grade}>
-                {grade}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="table-wrapper">
-          <table className="file-table">
-            <thead>
-              <tr className='browse-display'>
-                
-                <th>Kurskod</th>
-                <th>Datum</th>
-                <th>Betyg</th>
-                <th>Akronym</th>
-                <th>Länk</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((file) => (
-                <tr key={file.id}>
-                  
-                  <td>{file.subject}</td>
-                  <td>{file.date}</td>
-                  <td>{file.grade}</td>
-                  <td>{file.exam_id}</td>
-                  <td>
-                    <a href={file.file_data}>
-                      Ladda ner
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+        
+        <div className="test-item">2</div>
+        <div className="test-item">3</div>
+        <div className="test-item">4</div>
+        <div className="test-item">5</div>
+        <div className="test-item">6</div>
+        <div className="test-item">7</div>
+        <div className="test-item">8</div>
+        <div className="test-item">9</div>
+        <div className="test-item">10</div>
+        <div className="test-item">11</div>
+        <div className="test-item">12</div>
+        <div className="test-item">13</div>
+        <div className="test-item">14</div>
+        <div className="test-item">15</div>
+        <div className="test-item">16</div>
+        <div className="test-item">17</div>
+        <div className="test-item">18</div>
+        
+    </div>
     ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
     (
       <div className='error-message'>

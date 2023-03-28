@@ -1,0 +1,92 @@
+.browse-page{
+    overflow: hidden;
+}
+.exam_content{
+    position: relative;
+    background-color: antiquewhite;
+    transition: all 0.5s ease;
+}
+
+.sort{
+    position: relative;
+    top:0px;
+    display: inline-block;
+    width:100%
+}
+
+.date_filter{
+    left: 50%;
+    position: relative;
+}
+
+.toggle_sort{
+    position: relative;
+    left: 50%;
+}
+
+.cource_bar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+    }
+    
+    /* Style the input field */
+.cource_bar input[type=text] {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 20px;
+    text-align: center;
+    }
+    
+    /* Style the select field */
+.cource_bar select {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    }
+
+.cource_bar ::placeholder{
+    text-align: center;
+    }
+
+.exams{
+    display:flex;
+    flex-direction: column;
+}
+
+.menu_icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    padding-left: 10px;
+  }
+  
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: all 0.5s;
+  }
+.exam_content.change{
+    position: relative;
+    left:25%;
+}
+.exam_content.static{
+    position: relative;
+    left:0%
+}
+.change .bar1 {
+    transform: translate(0, 11px) rotate(-45deg);
+  }
+  
+.change .bar2 {opacity: 0;}
+  
+.change .bar3 {
+    transform: translate(0, -11px) rotate(45deg);
+  }

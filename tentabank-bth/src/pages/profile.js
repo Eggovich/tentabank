@@ -65,7 +65,9 @@ useEffect(() => {
 
 
 const handleErase = (id, status, uploads) =>{
-    setCookie("uploads", uploads - 1, {path: '/'})
+    if (status == "accepted"){
+      setCookie("uploads", uploads - 1, {path: '/'})
+    }
     const formData = new FormData();
     formData.append("id", id)
     formData.append("status", status)
@@ -184,7 +186,7 @@ const handleUserUpdate = () =>{
           <table>
             <thead>
               <tr>
-                <th>Filnamn</th>
+                <th>Kurskod</th>
                 <th>Datum</th>
                 <th>Betyg</th>
                 <th>Ladda ner</th>
@@ -195,7 +197,7 @@ const handleUserUpdate = () =>{
               {filteredData[0].map((file) => {
                 return (
                   <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
-                    <td key={file.id + file.file_name}>{file.file_name}</td>
+                    <td key={file.id + file.file_name}>{file.subject}</td>
                     <td key={file.id + file.date}>{file.date}</td>
                     <td key={file.id + file.grade}>{file.grade}</td>
                     <td key={file.id + file.link}>
@@ -218,7 +220,7 @@ const handleUserUpdate = () =>{
           <table>
             <thead>
               <tr>
-                <th>Filnamn</th>
+                <th>Kurskod</th>
                 <th>Datum</th>
                 <th>Betyg</th>
                 <th>Ladda ner</th>
@@ -229,7 +231,7 @@ const handleUserUpdate = () =>{
               {filteredData[1].map((file) => {
                   return (
                     <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
-                      <td key={file.id + file.file_name}>{file.file_name}</td>
+                      <td key={file.id + file.file_name}>{file.subject}</td>
                       <td key={file.id + file.date}>{file.date}</td>
                       <td key={file.id + file.grade}>{file.grade}</td>
                       <td key={file.id + file.link}>
@@ -252,7 +254,7 @@ const handleUserUpdate = () =>{
           <table>
             <thead>
               <tr>
-                <th>Filnamn</th>
+                <th>Kurskod</th>
                 <th>Datum</th>
                 <th>Betyg</th>
                 <th>Kommentar</th>
@@ -264,7 +266,7 @@ const handleUserUpdate = () =>{
               {filteredData[2].map((file) => {
                   return (
                     <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
-                  <td key={file.id + file.file_name}>{file.file_name}</td>
+                  <td key={file.id + file.file_name}>{file.subject}</td>
                   <td key={file.id + file.date}>{file.date}</td>
                   <td key={file.id + file.grade}>{file.grade}</td>
                   <td key={file.id + file.comment}>{file.comment}</td>

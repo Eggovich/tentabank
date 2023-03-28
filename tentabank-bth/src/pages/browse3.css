@@ -1,0 +1,38 @@
+.browse-page3{
+    overflow: hidden;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+    grid-column-gap: 6px;
+    grid-row-gap:6px;
+    border-color: black;
+    padding: 10px;
+    overflow-wrap: row;
+
+}
+
+.sidebar3{
+    overflow: hidden;
+    border-radius: 20px;
+    grid-row-start: 1;
+    grid-row-end: 8;
+    grid-column: 1;
+    background-color: bisque;
+}
+.sidebar3 h1{
+    text-align: center;
+}
+.filter3{
+    overflow: hidden;
+    border-radius: 10px;
+    grid-row: 1;
+    grid-column: 2/6;
+    background-color: aquamarine;
+}
+
+.test-item{
+    border-radius: 5px;
+    background-color: antiquewhite;
+    border-style: solid;
+    border-color: black;
+}

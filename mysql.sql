@@ -113,6 +113,19 @@ WHERE usertable.user_id = OLD.user_id;
 END//
 DELIMITER ;
 
+drop view if exists course_code_view;    
+CREATE VIEW course_code_view AS
+SELECT DISTINCT
+    CASE SUBSTRING(cource_code, 1, 2)
+        WHEN 'MA' THEN 'Matematik kurser'
+        WHEN 'IY' THEN 'Ekonomi Kurser'
+        WHEN 'PA' THEN 'Programerings Kurser'
+        ELSE SUBSTRING(cource_code, 1, 2)
+    END AS code_group_name,
+    cource_code
+FROM
+    accepted;
+
 SELECT * FROM pending;
 SELECT * FROM accepted;
 SELECT * FROM denied;
