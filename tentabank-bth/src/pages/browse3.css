@@ -1,0 +1,39 @@
+.product-filter {
+    display: flex;
+  }
+.product-filter h1 {
+    flex-grow: 1;
+  }
+.sort1 {
+    display: flex;
+  }
+  .collection-sort {
+    display: flex;
+    flex-direction: column;
+  }
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .product-card {
+    padding: 2%;
+    flex-grow: 1;
+    flex-basis: 16%;
+  
+    display: flex; /* so child elements can use flexbox stuff too! */
+  }
+  .product-card {
+    flex: 1 16%;
+  }
+  .product-image img {
+    max-width: 100%;
+  }
+  .product-info {
+    margin-top: auto;
+  }
+  @media (max-width: 920px) {
+    .product-card {
+      flex: 1 21%;
+    }
+  }

@@ -166,7 +166,7 @@ def myfiles():
         exam["created_on"] = str(exam["created_on"])  
     cnx.execute(f"""
         SELECT 
-            file_name,cource_code,grade,exam_date,file_data,denied.user_id,rating,accepted,exam_id,denied.created_on,comment 
+            id,file_name,cource_code,grade,exam_date,file_data,denied.user_id,rating,accepted,exam_id,denied.created_on,comment 
         FROM 
             denied 
         JOIN 
@@ -180,6 +180,7 @@ def myfiles():
     for exam in denied:
         exam["exam_date"] = str(exam["exam_date"])
         exam["created_on"] = str(exam["created_on"])
+    print(denied)
     connection.close()
     return jsonify({"accepted": accepted, "pending": pending, "denied": denied})
     
@@ -432,6 +433,7 @@ def getuploads():
     uploads = cnx.fetchall()
     return jsonify({"response": uploads[0]})
 
+
 @app.route("/categories")
 @cross_origin(supports_credentials=True)
 def get_categories():
@@ -450,6 +452,7 @@ def get_categories():
     result = cnx.fetchall()
     cnx.close()
     return jsonify({"categories": result})
+
 
 if __name__ == "__main__":
     app.run(debug=True)

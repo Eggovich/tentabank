@@ -12,6 +12,7 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import Review from './pages/review';
 import Browse2 from './pages/browse2';
+import Browse3 from './pages/browse3';
 
 function App() {
 
@@ -28,6 +29,7 @@ return (
 			<Route path='/signup' element={<Signup/>} />
 			<Route path='/review' element={<Review/>} />
 			<Route path='/browse2' element={<Browse2/>} />
+			<Route path='/browse3' element={<Browse3/>} />
 		</Routes>
 	<Footer/>
 	</Router>
