@@ -101,6 +101,14 @@
     font-size: 18px;
     line-height: 24px;
   }
+
+  .displayStack__1,
+  .displayStack__2{
+    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   
   @media only screen and (min-width: 1200px) {
     .content__blog__container {

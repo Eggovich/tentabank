@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {FaStar} from 'react-icons/fa';
+
 
 function CardItemsexam(props) {
   return (
@@ -13,7 +15,19 @@ function CardItemsexam(props) {
             />
           </figure>
           <div className='cards__item__info'>
-          <thead>
+            <div className='displayStack__1'>
+              <div className='cards_item_text'>{props.courseCode}</div>
+              <div className='cards_item_text'>Betyg: {props.Grade}</div>
+            </div>
+            <div className='displayStack__2'>
+              <div className='cards_item_text'>{props.Date}</div>
+              <div className='productRating'>
+                {[...Array(+props.Rating)].map((index) => (
+                  <FaStar id={index + 1 } key={index} />
+                ))}
+              </div>
+            </div>
+          {/*<thead>
               <tr>
                 <th><h5 className='cards__item__text'>{props.courseCode}</h5></th>
                 <th><h5 className='cards__item__text'>{props.Grade}</h5></th>
@@ -24,7 +38,7 @@ function CardItemsexam(props) {
                 <th><h5 className='cards__item__text'>{props.Date}</h5></th>
                 <th><h5 className='cards__item__text'>{props.Rating}</h5></th>
               </tr>
-            </thead>
+  </ thead>*/}
 
             {/* <h5 className='cards__item__text'>{props.courseCode}</h5> */}
             {/* <h5 className='cards__item__text'>{props.Grade}</h5> */}
