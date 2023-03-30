@@ -465,7 +465,7 @@ def get_exam_comments(exam_id):
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""
                 SELECT
-                    *
+                    username, file_id, comment, created_on
                 FROM
                     comments
                 JOIN 
