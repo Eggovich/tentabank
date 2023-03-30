@@ -19,6 +19,7 @@ const Browse = () => {
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
   const [showComments, setShowComments] = useState({});
+  const [selectedExam, setSelectedExam] = useState(null);
 
 
   useEffect( () => {
@@ -120,10 +121,16 @@ const Browse = () => {
     setSearchTerm(evt.target.value); 
   }
   
+  const handleExamClick = (exam) => {
+    setSelectedExam(exam);
+  }
+
 
   return (
-    cookies.loggedIn ? (cookies.uploads > 2 ? (
-      <div className="browse-page">
+    cookies.loggedIn ? 
+    (cookies.uploads > 2 ? 
+      (!selectedExam ? 
+        (<div className="browse-page">
         <div className="search-bar">
           <input
             type="text"
@@ -196,6 +203,11 @@ const Browse = () => {
                       Visa kommentarer
                     </button>
                   </td>
+                  <td>
+                  <button key={file.id} onClick={() => handleExamClick(file)}>
+                    Tenta sidan
+                    </button>
+                  </td>
                 </tr>
                 {showComments[file.id] && (
                   <tr>
@@ -209,8 +221,39 @@ const Browse = () => {
           </tbody>
         </table>
       </div>
+      <div>
+        {/* Replace this part with your exam cards logic and structure */}
+        {filteredData.map((exam) => (
+          <div key={exam.id} onClick={() => handleExamClick(exam)}>
+            {/* Render exam card content here */}
+          </div>
+        ))}
+      </div>
     </div>
-  ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
+    
+  )
+  :
+  (
+    // Exam card component
+    <div>
+      <button classname="" onClick={() => setSelectedExam(null)}>Go back to exam list</button>
+      <h1>{selectedExam.name}</h1>
+      <p>Course Code: {selectedExam.cource_code}</p>
+      <p>Exam Date: {selectedExam.exam_date}</p>
+      <p>Grade: {selectedExam.grade}</p>
+      <p>Anonymity Code: {selectedExam.exam_id}</p>
+      <iframe>
+        Tentan
+      </iframe>
+      {/* Add more exam details here, or import a separate ExamDetails component */}
+      
+    </div>
+  ))
+
+  :
+  (<p>Lämna tre tentor för att komma åt sidan.</p>)) 
+  
+  :
     (
       <div className='error-message'>
         <h3>Du behöver logga in</h3>
