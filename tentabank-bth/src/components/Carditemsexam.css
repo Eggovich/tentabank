@@ -1,0 +1,42 @@
+.master{
+ z-index: 1;
+ overflow: hidden;
+ background-color: aquamarine;
+ height:fit-content;
+ width: fit-content;
+ border-radius: 10px;
+ margin: 2px;
+}
+.image{
+    position: relative;
+    height: 50%;
+    width:100%
+}
+.fig{
+    background-color: bisque;
+    position: relative;
+    height: 50%;
+    width: 100%;
+}
+
+.exam_info{
+    height: fit-content;
+    width: 100%;
+    padding: 10px;
+}
+
+.floor_1{
+    position: relative;
+    bottom:0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.floor_2{
+    justify-content: space-between;
+    display: flex;
+}
+
+.exam_text{
+    font-size: 1rem;
+}
