@@ -13,9 +13,9 @@ function Cardsexam() {
             <CardItemsexam
               src={img10}
               courseCode='IY1442'
-              Grade='A'
-              Rating='5'
-              Date='2020-05-03'
+              grade='A'
+              rating='5'
+              date='2020-05-03'
               label='Ekonomi'
               path='/Browse'
             />

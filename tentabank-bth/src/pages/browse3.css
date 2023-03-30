@@ -36,3 +36,15 @@
     border-style: solid;
     border-color: black;
 }
+
+.exam_square{
+    background-color: blue;
+    grid-row: 2/8;
+    grid-column: 2/7;
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+}

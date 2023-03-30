@@ -1,28 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {FaStar} from 'react-icons/fa';
+import './Carditemsexam.css'
 
 
 function CardItemsexam(props) {
   return (
-    <>
-      <li className='cards__item'>
-        <Link className='cards__item__link' to={props.path}>          <figure className='cards__item__pic-wrap' data-category={props.label}>
+      <div className='master'>        
+          <figure className='fig' data-category={props.label}>
             <img
-              className='cards__item__img'
+              className='image'
               alt='Travel Image'
               src={props.src}
             />
           </figure>
-          <div className='cards__item__info'>
-            <div className='displayStack__1'>
-              <div className='cards_item_text'>{props.courseCode}</div>
-              <div className='cards_item_text'>Betyg: {props.Grade}</div>
+          <div className='exam_info'>
+            <div className='floor_1'>
+              <div className='exam_text'>{props.courseCode}</div>
+              <div className='exam_text'>Betyg: {props.grade}</div>
             </div>
-            <div className='displayStack__2'>
-              <div className='cards_item_text'>{props.Date}</div>
+            <div className='floor_2'>
+              <div className='exam_text'>{props.date}</div>
               <div className='productRating'>
-                {[...Array(+props.Rating)].map((index) => (
+                {[...Array(+props.rating)].map((index) => (
                   <FaStar id={index + 1 } key={index} />
                 ))}
               </div>
@@ -43,9 +42,7 @@ function CardItemsexam(props) {
             {/* <h5 className='cards__item__text'>{props.courseCode}</h5> */}
             {/* <h5 className='cards__item__text'>{props.Grade}</h5> */}
           </div>
-        </Link>
-      </li>
-    </>
+      </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
+import Carditemsexam from '../components/Carditemsexam';
 import './browse3.css';
 
 
@@ -139,32 +140,17 @@ const Browse = () => {
     <div className="browse-page3">
         <div className="sidebar3"><h1>Ämnen</h1></div>
         <div className="filter3"><h1>Filter</h1></div>
+        <div className='exam_square'>
+        
         {filteredData.map((file) => (
-                <examCard>
-                    cource_code={file.subject}
+                <Carditemsexam courseCode={file.subject}
                     date={file.date}
                     grade={file.grade}
-                    rating={file.rating}
-                </examCard>
+                    /*rating={file.rating.toString()}*/
+                    rating="5"
+                    label="matte"/>
             ))}
-        
-        <div className="test-item">2</div>
-        <div className="test-item">3</div>
-        <div className="test-item">4</div>
-        <div className="test-item">5</div>
-        <div className="test-item">6</div>
-        <div className="test-item">7</div>
-        <div className="test-item">8</div>
-        <div className="test-item">9</div>
-        <div className="test-item">10</div>
-        <div className="test-item">11</div>
-        <div className="test-item">12</div>
-        <div className="test-item">13</div>
-        <div className="test-item">14</div>
-        <div className="test-item">15</div>
-        <div className="test-item">16</div>
-        <div className="test-item">17</div>
-        <div className="test-item">18</div>
+        </div>
         
     </div>
     ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
