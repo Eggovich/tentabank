@@ -1,6 +1,8 @@
 import React from 'react';
 import {FaStar} from 'react-icons/fa';
 import './Carditemsexam.css'
+import StarRating from './Starrating';
+import SetstarRating from './Setstarrating';
 
 
 function CardItemsexam(props) {
@@ -20,27 +22,8 @@ function CardItemsexam(props) {
             </div>
             <div className='floor_2'>
               <div className='exam_text'>{props.date}</div>
-              <div className='productRating'>
-                {[...Array(+props.rating)].map((index) => (
-                  <FaStar id={index + 1 } key={index} />
-                ))}
-              </div>
+              <StarRating rating={props.rating} exam_id={props.exam_id}/>
             </div>
-          {/*<thead>
-              <tr>
-                <th><h5 className='cards__item__text'>{props.courseCode}</h5></th>
-                <th><h5 className='cards__item__text'>{props.Grade}</h5></th>
-              </tr>
-            </thead>
-            <thead>
-              <tr>
-                <th><h5 className='cards__item__text'>{props.Date}</h5></th>
-                <th><h5 className='cards__item__text'>{props.Rating}</h5></th>
-              </tr>
-  </ thead>*/}
-
-            {/* <h5 className='cards__item__text'>{props.courseCode}</h5> */}
-            {/* <h5 className='cards__item__text'>{props.Grade}</h5> */}
           </div>
       </div>
   );

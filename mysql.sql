@@ -4,6 +4,7 @@ drop table if exists accepted;
 drop table if exists denied;
 drop table if exists comments;
 drop table if exists usertable;
+drop table if exists rating;
 
 create table usertable(
 user_id int NOT NULL auto_increment,
@@ -68,6 +69,12 @@ user_id int,
 comment varchar(255),
 created_on dateTIME);
 
+create table rating(
+user_id int,
+exam_id int,
+rating int,
+PRIMARY KEY (user_id, exam_id)
+);
 
 drop trigger if exists accepted_review;
 DELIMITER //
