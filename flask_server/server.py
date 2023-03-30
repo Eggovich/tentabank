@@ -444,14 +444,29 @@ def get_categories():
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""
                 SELECT
-                    DISTINCT code_group_name AS name
+                    *
                 FROM
-                    course_code_view;
+                    course_code_view
                 """
                 )
-    result = cnx.fetchall()
+    all = cnx.fetchall()
+    cnx.execute("""
+                SELECT
+                    distinct code_group_name
+                FROM
+                    course_code_view
+                """
+                )
+    temp = cnx.fetchall()
     cnx.close()
-    return jsonify({"categories": result})
+    categories = []
+    for item in temp:
+        categories.append({"cat" : item["code_group_name"], "courses":[]})
+    for cat in categories:
+        for course in all:
+            if cat["cat"] == course["code_group_name"]:
+                cat["courses"].append(course["cource_code"])
+    return jsonify({"categories": categories})
 
 
 @app.route("/exams/<int:exam_id>/comments", methods=["GET"])

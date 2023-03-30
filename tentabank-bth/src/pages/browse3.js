@@ -21,6 +21,24 @@ const Browse = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [showComments, setShowComments] = useState({});
   const [selectedExam, setSelectedExam] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [filteredCategories, setFilteredCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/categories');
+        const data = await response.json();
+        setCategories(data.categories);
+        setFilteredCategories(data.categories);
+        console.log(data.categories)
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      }
+    };
+  
+    fetchCategories();
+  }, []);
 
   useEffect( () => {
     if (cookies.loggedIn){
@@ -143,7 +161,20 @@ const Browse = () => {
       (cookies.uploads > 0 ? 
         (!selectedExam ? (
         <div className="browse-page3">
-          <div className="sidebar3"><h1>Ämnen</h1></div>
+          <div className="sidebar3">
+            <h1>Ämnen</h1>
+            <ul className="category-list">
+              {filteredCategories.map((category) => (
+                <li key={category.cat}>
+                  {category.cat}
+                  {category.courses.map((course) => (
+                  <li key={course}>{course}</li>
+                  ))}
+                </li>
+                
+              ))}
+            </ul>
+          </div>
           <div className="filter3"><h1>Filter</h1></div>
           <div className='exam_square'>
         
@@ -153,10 +184,9 @@ const Browse = () => {
                     courseCode={file.subject}
                     date={file.date}
                     grade={file.grade}
-                    /*rating={file.rating.toString()}*/
+                    /*rating={file.rating}*/
                     rating="5"
                     label="matte"
-                    
                   />
               </div>
           ))}
