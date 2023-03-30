@@ -178,7 +178,6 @@ const Browse = () => {
               <div className="comments-wrapper">
                 <Comments examId={selectedExam.id} userId={cookies.user_id} />
               </div>
-              {/* Add more exam details here, or import a separate ExamDetails component */}
             </div>
 
         )

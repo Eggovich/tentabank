@@ -105,7 +105,7 @@
   
   .exam-details iframe {
     width: 70%;
-    height: 600px;
+    height:100vh;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 20px;
