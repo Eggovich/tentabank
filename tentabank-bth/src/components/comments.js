@@ -4,12 +4,13 @@ import './comments.css';
 const Comments = ({ examId, userId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [posted, setPosted] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:5000/exams/${examId}/comments`)
       .then((res) => res.json())
       .then((data) => setComments(data.comments));
-  }, [examId]);
+  }, [examId, posted]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,14 +26,13 @@ const Comments = ({ examId, userId }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setComments([
-          ...comments,
-          { comment_id: Date.now(), comment: newComment, created_on: new Date() },
-        ]);
         setNewComment('');
+        setPosted(!posted)
       });
   };
 
+
+  
   return (
     <div className="comment-section">
       <div className="comment-input">
@@ -47,8 +47,9 @@ const Comments = ({ examId, userId }) => {
       <ul className="comment-list">
         {comments.map((comment) => (
           <li key={comment.comment_id} className="comment-item">
-            <span className="comment-author">{comment.username}</span>
-            <span className="comment-text">{comment.comment}</span>
+            <li className="comment-author">{comment.username}</li>
+            <li className='comment-author'>{comment.created_on}</li>
+            <li className="comment-text">{comment.comment}</li>
           </li>
         ))}
       </ul>

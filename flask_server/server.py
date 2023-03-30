@@ -480,9 +480,13 @@ def get_exam_comments(exam_id):
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""
                 SELECT
-                    *
+                    username, file_id, comment, created_on
                 FROM
                     comments
+                JOIN 
+                    usertable
+                ON
+                    usertable.user_id = comments.user_id
                 WHERE
                     file_id = %s
                 """, (exam_id,)
@@ -514,6 +518,13 @@ def create_comment():
     connection.commit()
     cnx.close()
     return jsonify({"message": "Comment created"})
+
+@app.route("/updaterating", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def updaterating():
+    rating = request.form.get("rating")
+    user_id = request.form.get("user_id")
+    exam_id = request.form.get("exam_id")
  
 
 if __name__ == "__main__":

@@ -14,7 +14,7 @@ function Cardsexam() {
               src={img10}
               courseCode='IY1442'
               grade='A'
-              rating='5'
+              rating={2}
               date='2020-05-03'
               label='Ekonomi'
               path='/Browse'
