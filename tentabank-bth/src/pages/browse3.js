@@ -163,17 +163,24 @@ const Browse = () => {
           </div>
         </div>
         ):(
-          <div className="exam-details">
-            <button className="back-button" onClick={() => setSelectedExam(null)}>Go back to exam list</button>
+            <div className="exam-details">
+              <button className="back-button" onClick={() => setSelectedExam(null)}>Go back to exam list</button>
               <h1>{selectedExam.name}</h1>
-              <p>Course Code: {selectedExam.cource_code}</p>
-              <p>Exam Date: {selectedExam.exam_date}</p>
-              <p>Grade: {selectedExam.grade}</p>
-              <p>Anonymity Code: {selectedExam.exam_id}</p>
-            <iframe className="exam-iframe" src={selectedExam.file_data}></iframe>
-            <Comments examId={selectedExam.id} userId={cookies.user_id} />
-            {/* Add more exam details here, or import a separate ExamDetails component */}
+              <div className="exam-info">
+                <p>Course Code: {selectedExam.cource_code}</p>
+                <p>Exam Date: {selectedExam.exam_date}</p>
+                <p>Grade: {selectedExam.grade}</p>
+                <p>Anonymity Code: {selectedExam.exam_id}</p>
+              </div>
+              <iframe className="exam-iframe" src={selectedExam.file_data}>
+                Tentan
+              </iframe>
+              <div className="comments-wrapper">
+                <Comments examId={selectedExam.id} userId={cookies.user_id} />
+              </div>
+              {/* Add more exam details here, or import a separate ExamDetails component */}
             </div>
+
         )
       ):(
       <p>Lämna tre tentor för att komma åt sidan.</p>
