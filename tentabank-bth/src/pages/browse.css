@@ -182,58 +182,50 @@ body {
         text-decoration: underline;
       }
 
-/* browse.css */
-
-.comment-section {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
-
-.comment-input {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.comment-input textarea {
-  width: 70%;
-  resize: none;
-}
-
-.comment-input button {
-  padding: 6px 12px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.comment-input button:hover {
-  background-color: #43a047;
-}
-
-.comment-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.comment-item {
-  padding: 10px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.comment-item .comment-author {
-  font-weight: bold;
-}
-
-.comment-item .comment-text {
-  margin-left: 15px;
-}
+      .exam-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f8f8f8;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      
+      .exam-details h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+      }
+      
+      .exam-details p {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      
+      .exam-details button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition-duration: 0.3s;
+      }
+      
+      .exam-details button:hover {
+        background-color: #45a049;
+      }
+      
+      .exam-details iframe {
+        width: 100%;
+        height: 500px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      
