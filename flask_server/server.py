@@ -465,9 +465,13 @@ def get_exam_comments(exam_id):
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""
                 SELECT
-                    *
+                    username, file_id, comment, created_on
                 FROM
                     comments
+                JOIN 
+                    usertable
+                ON
+                    usertable.user_id = comments.user_id
                 WHERE
                     file_id = %s
                 """, (exam_id,)

@@ -33,6 +33,7 @@ const Comments = ({ examId, userId }) => {
       });
   };
 
+  
   return (
     <div className="comment-section">
       <div className="comment-input">
@@ -47,8 +48,9 @@ const Comments = ({ examId, userId }) => {
       <ul className="comment-list">
         {comments.map((comment) => (
           <li key={comment.comment_id} className="comment-item">
-            <span className="comment-author">{comment.username}</span>
-            <span className="comment-text">{comment.comment}</span>
+            <li className="comment-author">{comment.username}</li>
+            <li className='comment-author'>{comment.created_on}</li>
+            <li className="comment-text">{comment.comment}</li>
           </li>
         ))}
       </ul>
