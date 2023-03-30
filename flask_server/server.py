@@ -468,6 +468,10 @@ def get_exam_comments(exam_id):
                     *
                 FROM
                     comments
+                JOIN 
+                    usertable
+                ON
+                    usertable.user_id = comments.user_id
                 WHERE
                     file_id = %s
                 """, (exam_id,)
