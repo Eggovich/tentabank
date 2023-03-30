@@ -242,9 +242,10 @@ const Browse = () => {
       <p>Exam Date: {selectedExam.exam_date}</p>
       <p>Grade: {selectedExam.grade}</p>
       <p>Anonymity Code: {selectedExam.exam_id}</p>
-      <iframe>
+      <iframe classname="" src={selectedExam.file_data}>
         Tentan
       </iframe>
+      <Comments examId={selectedExam.id} userId={cookies.user_id} />
       {/* Add more exam details here, or import a separate ExamDetails component */}
       
     </div>
