@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
 import Carditemsexam from '../components/Carditemsexam';
+import Comments from '../components/comments';
 import './browse3.css';
 
 
@@ -18,6 +19,8 @@ const Browse = () => {
   const [cookies, setCookie] = useCookies(["User"])
   const [sort, setSort] = useState("rating")
   const [isVisible, setIsVisible] = useState(false)
+  const [showComments, setShowComments] = useState({});
+  const [selectedExam, setSelectedExam] = useState(null);
 
   useEffect( () => {
     if (cookies.loggedIn){
@@ -136,32 +139,55 @@ const Browse = () => {
 
 
   return (
-    cookies.loggedIn ? (cookies.uploads > 0 ? (
-    <div className="browse-page3">
-        <div className="sidebar3"><h1>Ämnen</h1></div>
-        <div className="filter3"><h1>Filter</h1></div>
-        <div className='exam_square'>
+    cookies.loggedIn ? 
+      (cookies.uploads > 0 ? 
+        (!selectedExam ? (
+        <div className="browse-page3">
+          <div className="sidebar3"><h1>Ämnen</h1></div>
+          <div className="filter3"><h1>Filter</h1></div>
+          <div className='exam_square'>
         
-        {filteredData.map((file) => (
-                <Carditemsexam courseCode={file.subject}
+          {filteredData.map((file) => (
+              <div onClick={() => setSelectedExam(file)} className="clickable-card">
+                <Carditemsexam 
+                    courseCode={file.subject}
                     date={file.date}
                     grade={file.grade}
                     /*rating={file.rating.toString()}*/
                     rating="5"
-                    label="matte"/>
-            ))}
+                    label="matte"
+                    
+                  />
+              </div>
+          ))}
+          </div>
         </div>
-        
-    </div>
-    ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
-    (
+        ):(
+          <div>
+          <button classname="" onClick={() => setSelectedExam(null)}>Go back to exam list</button>
+          <h1>{selectedExam.name}</h1>
+          <p>Course Code: {selectedExam.cource_code}</p>
+          <p>Exam Date: {selectedExam.exam_date}</p>
+          <p>Grade: {selectedExam.grade}</p>
+          <p>Anonymity Code: {selectedExam.exam_id}</p>
+          <iframe classname="" src={selectedExam.file_data}>
+            Tentan
+          </iframe>
+          <Comments examId={selectedExam.id} userId={cookies.user_id} />
+          {/* Add more exam details here, or import a separate ExamDetails component */}
+          
+        </div>
+        )
+      ):(
+      <p>Lämna tre tentor för att komma åt sidan.</p>
+      )
+    ):(
       <div className='error-message'>
         <h3>Du behöver logga in</h3>
-        <NavLink to="/login">Logga in</NavLink>
+        <NavLink to="/login">Logga in</NavLink>        
       </div>
     )
   );
-  
 };
 
 export default Browse;

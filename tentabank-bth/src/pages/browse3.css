@@ -48,3 +48,6 @@
     flex-direction: row;
     align-content: flex-start;
 }
+.clickable-card{
+    cursor: pointer;
+}
