@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
 import './browse.css';
-import Sidebar from "..//components/sidebar"
+import Sidebar from "..//components/sidebar";
+import Comments from "..//components/comments";
 import img from "..//components/bilder/img-8.png";
 
 
@@ -17,6 +18,8 @@ const Browse = () => {
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
+  const [showComments, setShowComments] = useState({});
+
 
   useEffect( () => {
     if (cookies.loggedIn){
@@ -163,21 +166,22 @@ const Browse = () => {
           </select>
         </div>
         <div className="table-wrapper">
-          <table className="file-table">
-            <thead>
-              <tr className='browse-display'>
-                
-                <th>Kurskod</th>
-                <th>Datum</th>
-                <th>Betyg</th>
-                <th>Akronym</th>
-                <th>Länk</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((file) => (
+        <table className="file-table">
+          <thead>
+            <tr className='browse-display'>
+
+              <th>Kurskod</th>
+              <th>Datum</th>
+              <th>Betyg</th>
+              <th>Akronym</th>
+              <th>Länk</th>
+              <th>Kommentarer</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredData.map((file) => (
+              <>
                 <tr key={file.id}>
-                  
                   <td>{file.subject}</td>
                   <td>{file.date}</td>
                   <td>{file.grade}</td>
@@ -187,13 +191,26 @@ const Browse = () => {
                       Ladda ner
                     </a>
                   </td>
+                  <td>
+                    <button type="button" onClick={() => setShowComments((prevState) => ({...prevState, [file.id]: !prevState[file.id]}))}>
+                      Visa kommentarer
+                    </button>
+                  </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                {showComments[file.id] && (
+                  <tr>
+                    <td colSpan="6">
+                      <Comments examId={file.id} userId={cookies.user_id} />
+                    </td>
+                  </tr>
+                )}
+              </>
+            ))}
+          </tbody>
+        </table>
       </div>
-    ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
+    </div>
+  ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
     (
       <div className='error-message'>
         <h3>Du behöver logga in</h3>

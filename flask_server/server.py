@@ -454,6 +454,53 @@ def get_categories():
     return jsonify({"categories": result})
 
 
+@app.route("/exams/<int:exam_id>/comments", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def get_exam_comments(exam_id):
+    connection = mysql.connect(user=MYSQL_USER,
+                               passwd=MYSQL_PASS,
+                               database=MYSQL_DATABASE,
+                               host='127.0.0.1')
+
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute("""
+                SELECT
+                    *
+                FROM
+                    comments
+                WHERE
+                    file_id = %s
+                """, (exam_id,)
+                )
+    result = cnx.fetchall()
+    cnx.close()
+    return jsonify({"comments": result})
+
+
+@app.route("/comments", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def create_comment():
+    connection = mysql.connect(user=MYSQL_USER,
+                               passwd=MYSQL_PASS,
+                               database=MYSQL_DATABASE,
+                               host='127.0.0.1')
+
+    exam_id = request.form.get("file_id")
+    user_id = request.form.get("user_id")
+    content = request.form.get("content")
+    timestamp = datetime.now()
+
+    cnx = connection.cursor()
+    cnx.execute("""
+                INSERT INTO comments (file_id, user_id, comment, created_on)
+                VALUES (%s, %s, %s, %s)
+                """, (exam_id, user_id, content, timestamp)
+                )
+    connection.commit()
+    cnx.close()
+    return jsonify({"message": "Comment created"})
+ 
+
 if __name__ == "__main__":
     app.run(debug=True)
 

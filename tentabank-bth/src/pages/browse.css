@@ -181,5 +181,59 @@ body {
       .file-actions a:hover {
         text-decoration: underline;
       }
-      
-      
+
+/* browse.css */
+
+.comment-section {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.comment-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-input textarea {
+  width: 70%;
+  resize: none;
+}
+
+.comment-input button {
+  padding: 6px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.comment-input button:hover {
+  background-color: #43a047;
+}
+
+.comment-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment-item {
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.comment-item .comment-author {
+  font-weight: bold;
+}
+
+.comment-item .comment-text {
+  margin-left: 15px;
+}
