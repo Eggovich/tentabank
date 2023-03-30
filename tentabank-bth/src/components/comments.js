@@ -4,12 +4,13 @@ import './comments.css';
 const Comments = ({ examId, userId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [posted, setPosted] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:5000/exams/${examId}/comments`)
       .then((res) => res.json())
       .then((data) => setComments(data.comments));
-  }, [examId]);
+  }, [examId, posted]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,13 +26,11 @@ const Comments = ({ examId, userId }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setComments([
-          ...comments,
-          { comment_id: Date.now(), comment: newComment, created_on: new Date() },
-        ]);
         setNewComment('');
+        setPosted(!posted)
       });
   };
+
 
   
   return (
