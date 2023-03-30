@@ -154,8 +154,9 @@ const Browse = () => {
                     date={file.date}
                     grade={file.grade}
                     /*rating={file.rating.toString()}*/
-                    rating="5"
+                    rating={3}
                     label="matte"
+                    exam_id={file.id}
                     
                   />
               </div>
