@@ -16,7 +16,9 @@ const Setstarrating = (props) => {
             body: Formdata,
           })
           .then((res) => res.json())
-          .then((data) => {})
+          .then((data) => {
+            setRating(data.rating)
+          })
     }
     return (
         <div id="star-rating">

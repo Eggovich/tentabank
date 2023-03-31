@@ -42,6 +42,7 @@ const Browse = () => {
     fetchCategories();
   }, []);
 
+
   useEffect( () => {
     if (cookies.loggedIn){
     const formData = new FormData();
@@ -139,21 +140,6 @@ const Browse = () => {
   function handleSearch(evt){
     setSearchTerm(evt.target.value); 
   }
-  
-
-  function handleSort(){
-    if (sort === "betyg"){
-        setSort("rating")
-        filteredData.sort((a, b) => {
-            return a.grade - b.grade
-        })
-    }else{
-        setSort("betyg")
-        filteredData.sort((a, b) => {
-            return a.rating - b.rating
-        })
-    }
-  }
 
 
   function handleSelectedCategorie(category){
@@ -189,36 +175,33 @@ const Browse = () => {
               ))}
             </ul>
           </div>
-          <div className="filter3">
-            <h1>Filter</h1>
-            <input
-            type="text"
-            placeholder="Kurskod..."
-            value={searchTerm}
-            onChange={(e)=>handleSearch(e)}
-          />
-            <label htmlFor="datum">Filtrera datum:</label>
-            <select
-            value={sortByDate}
-            onChange={(e) => setSortByDate(e.target.value)}>
-            <option value="">Datum</option>
-            {dates.map((date) => (
-              <option key={date} value={date}>
-                {date}
-              </option>
-            ))}
-          </select>
-          <select
-            value={sortByGrade}
-            onChange={(e) => setSortByGrade(e.target.value)}
-          >
-            <option value="">Sort by Grade</option>
-            {grades.map((grade) => (
-              <option key={grade} value={grade}>
-                {grade}
-              </option>
-            ))}
-          </select>
+          <div className="filter-square">
+            <div className="course-search-bar">
+              <input className='csb' type="text" placeholder="Kurskod..." value={searchTerm} onChange={(e)=>handleSearch(e)}/>
+            </div>
+            <div className="filter3">
+              <h1>Filter</h1>
+              <label htmlFor="datum">Filtrera datum:</label>
+              <select
+              value={sortByDate}
+              onChange={(e) => setSortByDate(e.target.value)}>
+              <option value="">Datum</option>
+              {dates.map((date) => (
+                <option key={date} value={date}>
+                  {date}
+                </option>
+              ))}
+              </select>
+              <select value={sortByGrade} onChange={(e) => setSortByGrade(e.target.value)}>
+                <label htmlFor="betyg">Filtrera betyg:</label>
+                <option value="">Betyg</option>
+                {grades.map((grade) => (
+                <option key={grade} value={grade}>
+                  {grade}
+                </option>
+              ))}
+              </select>
+            </div>
           </div>
           <div className='exam_square'>
         
@@ -229,7 +212,7 @@ const Browse = () => {
                     date={file.date}
                     grade={file.grade}
                     /*rating={file.rating}*/
-                    rating={3}
+                    rating={file.rating}
                     label="matte"
                     exam_id={file.id}
                   />
@@ -251,7 +234,7 @@ const Browse = () => {
               </iframe>
               <div className='rating'>
               <Setstarrating
-                rating={2} 
+                rating={selectedExam.rating} 
                 exam_id={selectedExam.id}
                 />
               </div>

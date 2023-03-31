@@ -199,7 +199,7 @@ def get_accepted_files():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute(f"""SELECT * FROM accepted""")
+    cnx.execute(f"""SELECT * FROM accepted ORDER BY rating DESC""")
     result = cnx.fetchall()
     cnx.close()
     for exam in result:
@@ -589,7 +589,7 @@ def update_rating():
     connection.commit()
     cnx.close()
 
-    return jsonify({rating})
+    return jsonify({"rating":rating})
  
 
 if __name__ == "__main__":
