@@ -62,12 +62,16 @@ accepted Varchar(255) default "denied",
 exam_id varchar(255) Not Null
 );
 
-create table comments(
-comment_id int not null auto_increment primary key,
-file_id int,
-user_id int,
-comment varchar(255),
-created_on dateTIME);
+drop table comments;
+CREATE TABLE comments (
+    comment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    file_id INT,
+    user_id INT,
+    comment VARCHAR(255),
+    created_on DATETIME,
+    parent_comment_id INT,
+    FOREIGN KEY (parent_comment_id) REFERENCES comments(comment_id) ON DELETE CASCADE
+);
 
 create table rating(
 user_id int,

@@ -480,7 +480,7 @@ def get_exam_comments(exam_id):
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""
                 SELECT
-                    username, file_id, comment, created_on
+                    comment_id, parent_comment_id, username, usertable.user_id, file_id, comment, created_on
                 FROM
                     comments
                 JOIN 
@@ -489,11 +489,30 @@ def get_exam_comments(exam_id):
                     usertable.user_id = comments.user_id
                 WHERE
                     file_id = %s
+                ORDER BY 
+                    created_on DESC
                 """, (exam_id,)
                 )
     result = cnx.fetchall()
     cnx.close()
-    return jsonify({"comments": result})
+
+    # Organize comments into threads
+    comments = []
+    replies = []
+    for row in result:
+        if row['parent_comment_id'] is None:
+            row['replies'] = []
+            comments.append(row)
+        else:
+            replies.append(row)
+
+    for reply in replies:
+        for comment in comments:
+            if reply['parent_comment_id'] == comment['comment_id']:
+                comment['replies'].append(reply)
+                break
+
+    return jsonify({"comments": comments})
 
 
 @app.route("/comments", methods=["POST"])
@@ -504,20 +523,51 @@ def create_comment():
                                database=MYSQL_DATABASE,
                                host='127.0.0.1')
 
-    exam_id = request.form.get("file_id")
-    user_id = request.form.get("user_id")
-    content = request.form.get("content")
+    exam_id = request.form["file_id"]
+    user_id = request.form["user_id"]
+    content = request.form["content"]
+    parent_comment_id = request.form["parent_comment_id"]
     timestamp = datetime.now()
+
+    # Check if parent_comment_id is 'null' or an empty value
+    if parent_comment_id == 'null' or parent_comment_id == '':
+        parent_comment_id = None
+    else:
+        # Check if the parent comment exists
+        cnx = connection.cursor()
+        cnx.execute("SELECT COUNT(*) FROM comments WHERE comment_id = %s", (parent_comment_id,))
+        parent_comment_count = cnx.fetchone()[0]
+        
+        if parent_comment_count == 0:
+            return jsonify({"message": "Parent comment not found"}), 400
 
     cnx = connection.cursor()
     cnx.execute("""
-                INSERT INTO comments (file_id, user_id, comment, created_on)
-                VALUES (%s, %s, %s, %s)
-                """, (exam_id, user_id, content, timestamp)
+                INSERT INTO comments (file_id, user_id, comment, created_on, parent_comment_id)
+                VALUES (%s, %s, %s, %s, %s)
+                """, (exam_id, user_id, content, timestamp, parent_comment_id)
                 )
     connection.commit()
     cnx.close()
     return jsonify({"message": "Comment created"})
+
+
+@app.route("/comments/<int:comment_id>", methods=["DELETE"])
+@cross_origin(supports_credentials=True)
+def delete_comment(comment_id):
+    connection = mysql.connect(user=MYSQL_USER,
+                               passwd=MYSQL_PASS,
+                               database=MYSQL_DATABASE,
+                               host='127.0.0.1')
+
+    cnx = connection.cursor()
+    cnx.execute("DELETE FROM comments WHERE comment_id = %s", (comment_id,))
+    connection.commit()
+    cnx.close()
+
+    return jsonify({"message": "Comment deleted"})
+
+
 
 @app.route("/update_rating", methods=["POST"])
 @cross_origin(supports_credentials=True)

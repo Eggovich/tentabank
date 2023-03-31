@@ -1,55 +1,68 @@
-
 .comment-section {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  }
-  
-  .comment-input {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .comment-input textarea {
-    width: 70%;
-    resize: none;
-  }
-  
-  .comment-input button {
-    padding: 6px 12px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .comment-input button:hover {
-    background-color: #43a047;
-  }
-  
-  .comment-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .comment-item {
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .comment-item .comment-author {
-    font-weight: bold;
-  }
-  
-  .comment-item .comment-text {
-    margin-left: 15px;
-  }
-  
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.comment-input,
+.comment-reply {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-input textarea,
+.comment-reply textarea {
+  width: 100%;
+  resize: none;
+  margin-right: 10px;
+}
+
+.comment-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-date {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.delete-comment-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.delete-comment-button:hover {
+  background-color: #e22e15;
+}
+
+.comment-replies {
+  list-style-type: none;
+  padding-left: 30px;
+}
