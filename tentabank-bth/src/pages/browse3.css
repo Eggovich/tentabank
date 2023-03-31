@@ -23,6 +23,7 @@
     text-align: center;
 }
 .filter3{
+    display: flex;
     overflow: hidden;
     border-radius: 10px;
     grid-row: 1;

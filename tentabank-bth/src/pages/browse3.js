@@ -20,7 +20,6 @@ const Browse = () => {
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
   const [sort, setSort] = useState("rating")
-  const [isVisible, setIsVisible] = useState(false)
   const [showComments, setShowComments] = useState({});
   const [selectedExam, setSelectedExam] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -98,6 +97,7 @@ const Browse = () => {
       });
   }, []);
 
+
   const filterFiles = useCallback(() => {
     var temp = []
     if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade && !sortByCategory) {
@@ -108,7 +108,7 @@ const Browse = () => {
     } 
     
     setFilteredData(data.filter(file => {
-      if (searchTerm && !file.file_name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (searchTerm && !file.cource_code.toLowerCase().startsWith(searchTerm.toLowerCase())) {
         return false;
       }
       if (sortBySubject && file.cource_code !== sortBySubject) {
@@ -191,14 +191,31 @@ const Browse = () => {
           </div>
           <div className="filter3">
             <h1>Filter</h1>
+            <input
+            type="text"
+            placeholder="Kurskod..."
+            value={searchTerm}
+            onChange={(e)=>handleSearch(e)}
+          />
+            <label htmlFor="datum">Filtrera datum:</label>
             <select
             value={sortByDate}
-            onChange={(e) => setSortByDate(e.target.value)}
-          >
-            <option value="">Sort by Date</option>
+            onChange={(e) => setSortByDate(e.target.value)}>
+            <option value="">Datum</option>
             {dates.map((date) => (
               <option key={date} value={date}>
                 {date}
+              </option>
+            ))}
+          </select>
+          <select
+            value={sortByGrade}
+            onChange={(e) => setSortByGrade(e.target.value)}
+          >
+            <option value="">Sort by Grade</option>
+            {grades.map((grade) => (
+              <option key={grade} value={grade}>
+                {grade}
               </option>
             ))}
           </select>
@@ -228,21 +245,16 @@ const Browse = () => {
                 <p>Course Code: {selectedExam.cource_code}</p>
                 <p>Exam Date: {selectedExam.exam_date}</p>
                 <p>Grade: {selectedExam.grade}</p>
-                
               </div>
               <iframe className="exam-iframe" src={selectedExam.file_data}>
                 Tentan
               </iframe>
-          
-          
               <div className='rating'>
               <Setstarrating
                 rating={2} 
                 exam_id={selectedExam.id}
                 />
               </div>
-
-              
               <div className="comments-wrapper">
                 <Comments examId={selectedExam.id} userId={cookies.user_id} />
               </div>
