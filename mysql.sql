@@ -80,6 +80,20 @@ rating int,
 PRIMARY KEY (user_id, exam_id)
 );
 
+drop procedure if exists update_rating;    
+DELIMITER //
+CREATE PROCEDURE update_rating (user_id1 int, exam_id1 int, rating1 int)
+DETERMINISTIC
+BEGIN
+	IF EXISTS (SELECT user_id, exam_id1 FROM rating where user_id = user_id1 AND exam_id = exam_id1)
+    THEN
+    UPDATE rating SET rating = rating1 WHERE user_id = user_id1 AND exam_id = exam_id1;
+    ELSE
+    INSERT INTO rating VALUES (user_id1, exam_id1, rating1);
+    END IF;
+END//
+DELIMITER ;
+
 drop trigger if exists accepted_review;
 DELIMITER //
 CREATE TRIGGER accepted_review 
@@ -124,6 +138,30 @@ WHERE usertable.user_id = OLD.user_id;
 END//
 DELIMITER ;
 
+drop trigger IF EXISTS insert_update_rating;
+DELIMITER //
+CREATE TRIGGER insert_update_rating
+AFTER INSERT ON rating
+FOR EACH ROW
+BEGIN
+UPDATE accepted
+SET rating = (SELECT AVG(rating) FROM rating WHERE exam_id = NEW.exam_id)
+WHERE id = NEW.exam_id;
+END //
+DELIMITER ;
+
+drop trigger IF EXISTS update_rating;
+DELIMITER //
+CREATE TRIGGER update_rating
+AFTER UPDATE ON rating
+FOR EACH ROW
+BEGIN
+UPDATE accepted
+SET rating = (SELECT AVG(rating) FROM rating WHERE exam_id = NEW.exam_id)
+WHERE id = NEW.exam_id;
+END //
+DELIMITER ;
+
 drop view if exists course_code_view;    
 CREATE VIEW course_code_view AS
 SELECT DISTINCT
@@ -142,8 +180,8 @@ SELECT * FROM accepted;
 SELECT * FROM denied;
 SELECT * FROM usertable;
 select * from comments;
+select * from rating;
+
 select denied.created_on from denied join comments on denied.id=comments.file_id where denied.user_id = 2;
 INSERT INTO usertable (username, email, password, role) values ("Eggovich","e", "f", "Reviewer");
-INSERT INTO usertable (username, email, password) values ("Hanna", "h", "i");
-UPDATE pending SET accepted = "accepted" WHERE id = 2;
-INSERT INTO pending values (7, "hej.pdf", "MA1432", "A", "2022-01-06 00:00:00", "fff", 2, "2023-02-28 00:00:00", 0, "accepted")
+INSERT INTO usertable (username, email, password, uploads) values ("Hanna", "h", "i", 3);

@@ -583,8 +583,7 @@ def update_rating():
 
     cnx = connection.cursor()
     cnx.execute("""
-                INSERT INTO rating
-                VALUES (%s, %s, %s)
+                CALL update_rating (%s, %s, %s)
                 """, (user_id, exam_id, rating)
                 )
     connection.commit()
