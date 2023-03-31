@@ -3,6 +3,7 @@ import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
 import Carditemsexam from '../components/Carditemsexam';
 import Comments from '../components/comments';
+import Setstarrating from '../components/setstarrating';
 import './browse3.css';
 
 
@@ -206,6 +207,15 @@ const Browse = () => {
               <iframe className="exam-iframe" src={selectedExam.file_data}>
                 Tentan
               </iframe>
+          
+          
+            
+              <Setstarrating
+                rating={2} 
+                exam_id={selectedExam.id}
+                />
+
+              
               <div className="comments-wrapper">
                 <Comments examId={selectedExam.id} userId={cookies.user_id} />
               </div>
