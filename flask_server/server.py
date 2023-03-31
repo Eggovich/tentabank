@@ -568,7 +568,6 @@ def delete_comment(comment_id):
     return jsonify({"message": "Comment deleted"})
 
 
-
 @app.route("/update_rating", methods=["POST"])
 @cross_origin(supports_credentials=True)
 def update_rating():

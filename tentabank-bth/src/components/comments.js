@@ -11,7 +11,6 @@ const Comments = ({ examId, userId }) => {
     fetch(`http://localhost:5000/exams/${examId}/comments`)
       .then((res) => res.json())
       .then((data) => {
-
         setComments(data.comments);
       });
   }, [examId, posted]);

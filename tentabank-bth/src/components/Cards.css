@@ -1,6 +1,7 @@
 .cards {
     padding: 4rem;
-    background-image: linear-gradient(rgba(255, 128, 0, 0),rgba(255, 128, 0),#F2F2F2);
+    background: rgb(72,78,81);
+    background: linear-gradient(180deg, rgba(72,78,81,0.8870141806722689) 0%, rgba(113,161,204,1) 18%, rgba(251,250,245,1) 100%);
   }
   
   h1 {
