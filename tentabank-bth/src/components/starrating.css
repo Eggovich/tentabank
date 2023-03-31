@@ -1,5 +1,5 @@
-button {
-    background-color: transparent;
+.button {
+    background-color: red;
     border: none;
     outline: none;
     cursor: pointer;
@@ -7,7 +7,10 @@ button {
 
 .on {
   color: #000;
+  z-index: 2;
 }
 .off {
   color: #ccc;
+  background-color: transparent;
+  z-index: 2;
 }

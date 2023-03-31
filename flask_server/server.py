@@ -569,12 +569,28 @@ def delete_comment(comment_id):
 
 
 
-@app.route("/updaterating", methods=["POST"])
+@app.route("/update_rating", methods=["POST"])
 @cross_origin(supports_credentials=True)
-def updaterating():
+def update_rating():
+    connection = mysql.connect(user=MYSQL_USER,
+                               passwd=MYSQL_PASS,
+                               database=MYSQL_DATABASE,
+                               host='127.0.0.1')
+
     rating = request.form.get("rating")
     user_id = request.form.get("user_id")
     exam_id = request.form.get("exam_id")
+
+    cnx = connection.cursor()
+    cnx.execute("""
+                INSERT INTO rating
+                VALUES (%s, %s, %s)
+                """, (user_id, exam_id, rating)
+                )
+    connection.commit()
+    cnx.close()
+
+    return jsonify({rating})
  
 
 if __name__ == "__main__":

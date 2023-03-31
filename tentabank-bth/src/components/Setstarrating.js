@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import './starrating.css'
 
-const SetstarRating = (props) => {
+const Setstarrating = (props) => {
     const [cookies, setCookies] = useCookies(['User'])
     const [rating, setRating] = useState(props.rating);
     const [hover, setHover] = useState(0);
@@ -11,7 +11,7 @@ const SetstarRating = (props) => {
         Formdata.append('rating', rating)
         Formdata.append('exam_id', props.exam_id)
         Formdata.append('user_id', cookies.user_id)
-        fetch("http://localhost:5000/updaterating", {
+        fetch("http://localhost:5000/update_rating", {
             method: "POST",
             body: Formdata,
           })
@@ -39,4 +39,4 @@ const SetstarRating = (props) => {
     );
 };
 
-export default SetstarRating;
+export default Setstarrating;

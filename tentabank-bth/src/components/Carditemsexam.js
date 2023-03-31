@@ -2,7 +2,7 @@ import React from 'react';
 import {FaStar} from 'react-icons/fa';
 import './Carditemsexam.css'
 import StarRating from './Starrating';
-import SetstarRating from './Setstarrating';
+
 
 
 function CardItemsexam(props) {

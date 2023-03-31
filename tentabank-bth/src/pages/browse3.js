@@ -3,6 +3,7 @@ import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
 import Carditemsexam from '../components/Carditemsexam';
 import Comments from '../components/comments';
+import Setstarrating from '../components/setstarrating';
 import './browse3.css';
 
 
@@ -13,6 +14,7 @@ const Browse = () => {
   const [sortBySubject, setSortBySubject] = useState('');
   const [sortByDate, setSortByDate] = useState('');
   const [sortByGrade, setSortByGrade] = useState('');
+  const [sortByCategory, setSortByCategory] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
@@ -23,6 +25,7 @@ const Browse = () => {
   const [selectedExam, setSelectedExam] = useState(null);
   const [categories, setCategories] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
+  const [selectedCategorie, setSelectedCategorie] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -96,7 +99,10 @@ const Browse = () => {
   }, []);
 
   const filterFiles = useCallback(() => {
-    if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade) {
+    var temp = []
+    if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade && !sortByCategory) {
+      let dats = [...new Set(data.map(file => file.exam_date))];
+      setDates(dats);
       setFilteredData(data);
       return;
     } 
@@ -108,35 +114,29 @@ const Browse = () => {
       if (sortBySubject && file.cource_code !== sortBySubject) {
         return false;
       }
-      if (sortByDate && file.exam_date !== sortByDate) {
+      
+      if (sortByGrade && file.grade !== sortByGrade) {
         return false;
       }
-      if (sortByGrade && file.grade !== sortByGrade) {
+      if (sortByCategory && file.cource_code.slice(0,2) !== sortByCategory) {
+        return false;
+      }
+      if (!temp.includes(file.exam_date)){
+        temp.push(file.exam_date)
+      }
+      if (sortByDate && file.exam_date !== sortByDate) {
         return false;
       }
       return true;
     }));
-  }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade]);
-  
-
-  useEffect(() => {filterFiles();}, [filterFiles]);
-  useEffect(() => {filterFiles();}, [filterFiles]);
-
-  
-  function updateDates(data){
-    let temp = [];
-    console.log(data.length)
-    for (let i = 0; i < data.length; i++){
-      if (!temp.includes(data[i].exam_date)){
-        temp.push(data[i].exam_date)
-      }
-    }
     setDates(temp)
-  }
+  }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade, sortByCategory]);
+  
+
+  useEffect(() => {filterFiles();}, [filterFiles]);
 
 
   function handleSearch(evt){
-    updateDates(filteredData);
     setSearchTerm(evt.target.value); 
   }
   
@@ -156,6 +156,19 @@ const Browse = () => {
   }
 
 
+  function handleSelectedCategorie(category){
+    if (selectedCategorie === category){
+      setSelectedCategorie("")
+      setSortByCategory("")
+      setSortBySubject("")
+    }else{
+      setSelectedCategorie(category)
+      setSortByCategory(category.courses[0].slice(0,2))
+      setSortBySubject("")
+    }
+  }
+
+
   return (
     cookies.loggedIn ? 
       (cookies.uploads > 0 ? 
@@ -165,17 +178,31 @@ const Browse = () => {
             <h1>Ämnen</h1>
             <ul className="category-list">
               {filteredCategories.map((category) => (
-                <li key={category.cat}>
-                  {category.cat}
-                  {category.courses.map((course) => (
-                  <li key={course}>{course}</li>
+                <ul key={category.cat}>
+                  <button onClick={() => handleSelectedCategorie(category)}>{category.cat}</button>
+                  {selectedCategorie == category && category.courses.map((course) => (
+                  <li key={course}>
+                    <button onClick={() => setSortBySubject(course)}>{course}</button>
+                  </li>
                   ))}
-                </li>
-                
+                </ul>
               ))}
             </ul>
           </div>
-          <div className="filter3"><h1>Filter</h1></div>
+          <div className="filter3">
+            <h1>Filter</h1>
+            <select
+            value={sortByDate}
+            onChange={(e) => setSortByDate(e.target.value)}
+          >
+            <option value="">Sort by Date</option>
+            {dates.map((date) => (
+              <option key={date} value={date}>
+                {date}
+              </option>
+            ))}
+          </select>
+          </div>
           <div className='exam_square'>
         
           {filteredData.map((file) => (
@@ -206,6 +233,15 @@ const Browse = () => {
               <iframe className="exam-iframe" src={selectedExam.file_data}>
                 Tentan
               </iframe>
+          
+          
+            
+              <Setstarrating
+                rating={2} 
+                exam_id={selectedExam.id}
+                />
+
+              
               <div className="comments-wrapper">
                 <Comments examId={selectedExam.id} userId={cookies.user_id} />
               </div>
