@@ -85,7 +85,7 @@
     border-radius: 5px;
   }
   
-  .exam-details button {
+  .back-button {
     background-color: #4caf50;
     border: none;
     color: white;
@@ -100,7 +100,7 @@
     transition-duration: 0.3s;
   }
   
-  .exam-details button:hover {
+  .back-button:hover {
     background-color: #45a049;
   }
   

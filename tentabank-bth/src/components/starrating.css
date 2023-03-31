@@ -1,16 +1,10 @@
-.button {
-    background-color: red;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
 .on {
-  color: #000;
-  z-index: 2;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #eaea12;
 }
 .off {
-  color: #ccc;
-  background-color: transparent;
-  z-index: 2;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #ccc;
 }

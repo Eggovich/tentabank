@@ -19,7 +19,7 @@ const Setstarrating = (props) => {
           .then((data) => {})
     }
     return (
-        <div className="star-rating">
+        <div id="star-rating">
             {[...Array(5)].map((star, index) => {
                 index += 1;
                 return (

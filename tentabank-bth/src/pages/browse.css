@@ -203,7 +203,7 @@ body {
         margin-bottom: 10px;
       }
       
-      .exam-details button {
+      .back-button {
         background-color: #4caf50;
         border: none;
         color: white;
@@ -218,7 +218,7 @@ body {
         transition-duration: 0.3s;
       }
       
-      .exam-details button:hover {
+      .back-button:hover {
         background-color: #45a049;
       }
       
