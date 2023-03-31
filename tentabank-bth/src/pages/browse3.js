@@ -227,7 +227,7 @@ const Browse = () => {
                 <p>Course Code: {selectedExam.cource_code}</p>
                 <p>Exam Date: {selectedExam.exam_date}</p>
                 <p>Grade: {selectedExam.grade}</p>
-                <p>Anonymity Code: {selectedExam.exam_id}</p>
+                
               </div>
               <iframe className="exam-iframe" src={selectedExam.file_data}>
                 Tentan
