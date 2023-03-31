@@ -3,7 +3,7 @@ import {useCookies} from 'react-cookie'
 import { NavLink } from 'react-router-dom';
 import Carditemsexam from '../components/Carditemsexam';
 import Comments from '../components/comments';
-import Setstarrating from '../components/setstarrating';
+import Setstarrating from '../components/Setstarrating';
 import './browse3.css';
 
 
