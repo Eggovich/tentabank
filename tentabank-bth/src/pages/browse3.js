@@ -20,7 +20,6 @@ const Browse = () => {
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
   const [sort, setSort] = useState("rating")
-  const [isVisible, setIsVisible] = useState(false)
   const [showComments, setShowComments] = useState({});
   const [selectedExam, setSelectedExam] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -42,6 +41,7 @@ const Browse = () => {
   
     fetchCategories();
   }, []);
+
 
   useEffect( () => {
     if (cookies.loggedIn){
@@ -98,6 +98,7 @@ const Browse = () => {
       });
   }, []);
 
+
   const filterFiles = useCallback(() => {
     var temp = []
     if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade && !sortByCategory) {
@@ -108,7 +109,7 @@ const Browse = () => {
     } 
     
     setFilteredData(data.filter(file => {
-      if (searchTerm && !file.file_name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (searchTerm && !file.cource_code.toLowerCase().startsWith(searchTerm.toLowerCase())) {
         return false;
       }
       if (sortBySubject && file.cource_code !== sortBySubject) {
@@ -138,21 +139,6 @@ const Browse = () => {
 
   function handleSearch(evt){
     setSearchTerm(evt.target.value); 
-  }
-  
-
-  function handleSort(){
-    if (sort === "betyg"){
-        setSort("rating")
-        filteredData.sort((a, b) => {
-            return a.grade - b.grade
-        })
-    }else{
-        setSort("betyg")
-        filteredData.sort((a, b) => {
-            return a.rating - b.rating
-        })
-    }
   }
 
 
@@ -189,19 +175,33 @@ const Browse = () => {
               ))}
             </ul>
           </div>
-          <div className="filter3">
-            <h1>Filter</h1>
-            <select
-            value={sortByDate}
-            onChange={(e) => setSortByDate(e.target.value)}
-          >
-            <option value="">Sort by Date</option>
-            {dates.map((date) => (
-              <option key={date} value={date}>
-                {date}
-              </option>
-            ))}
-          </select>
+          <div className="filter-square">
+            <div className="course-search-bar">
+              <input className='csb' type="text" placeholder="Kurskod..." value={searchTerm} onChange={(e)=>handleSearch(e)}/>
+            </div>
+            <div className="filter3">
+              <h1>Filter</h1>
+              <label htmlFor="datum">Filtrera datum:</label>
+              <select
+              value={sortByDate}
+              onChange={(e) => setSortByDate(e.target.value)}>
+              <option value="">Datum</option>
+              {dates.map((date) => (
+                <option key={date} value={date}>
+                  {date}
+                </option>
+              ))}
+              </select>
+              <select value={sortByGrade} onChange={(e) => setSortByGrade(e.target.value)}>
+                <label htmlFor="betyg">Filtrera betyg:</label>
+                <option value="">Betyg</option>
+                {grades.map((grade) => (
+                <option key={grade} value={grade}>
+                  {grade}
+                </option>
+              ))}
+              </select>
+            </div>
           </div>
           <div className='exam_square'>
         
@@ -212,7 +212,7 @@ const Browse = () => {
                     date={file.date}
                     grade={file.grade}
                     /*rating={file.rating}*/
-                    rating={3}
+                    rating={file.rating}
                     label="matte"
                     exam_id={file.id}
                   />
@@ -228,21 +228,16 @@ const Browse = () => {
                 <p>Course Code: {selectedExam.cource_code}</p>
                 <p>Exam Date: {selectedExam.exam_date}</p>
                 <p>Grade: {selectedExam.grade}</p>
-                
               </div>
               <iframe className="exam-iframe" src={selectedExam.file_data}>
                 Tentan
               </iframe>
-          
-          
               <div className='rating'>
               <Setstarrating
-                rating={2} 
+                rating={selectedExam.rating} 
                 exam_id={selectedExam.id}
                 />
               </div>
-
-              
               <div className="comments-wrapper">
                 <Comments examId={selectedExam.id} userId={cookies.user_id} />
               </div>
