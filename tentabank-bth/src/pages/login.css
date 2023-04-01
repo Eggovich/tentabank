@@ -1,0 +1,15 @@
+.login-page{
+    position: relative;
+    display:flex;
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 95%);
+    justify-content: center;
+    align-content: center;
+    height: 100vh;
+    align-items: flex-start;
+}
+
+.form{
+    align-self: center;
+    padding: 10%;
+}

@@ -9,7 +9,6 @@ import Profile from './pages/profile';
 import Upload from './pages/upload';
 import Footer from './components/footer';
 import Login from './pages/login';
-import Signup from './pages/signup';
 import Review from './pages/review';
 import Browse2 from './pages/browse2';
 import Browse3 from './pages/browse3';
@@ -27,7 +26,6 @@ return (
 			<Route path='/browse' element={<Browse/>} />
 			<Route path='/profile' element={<Profile/>} />
 			<Route path='/login' element={<Login/>} />
-			<Route path='/signup' element={<Signup/>} />
 			<Route path='/review' element={<Review/>} />
 			<Route path='/browse2' element={<Browse2/>} />
 			<Route path='/browse3' element={<Browse3/>} />

@@ -2,9 +2,12 @@ import React from 'react';
 import '../App.css';
 import { Button } from './Button';
 import './HeroSection.css';
+import LoginForm from './loginForm.js';
+import { useCookies } from 'react-cookie';
 
 
 function HeroSection() {
+  const [cookies, setCookie] = useCookies(["User"])
   return (
     <div className='hero-container'>
       <div className='content-container'>
@@ -20,24 +23,7 @@ function HeroSection() {
           </Button>
         </div>
       </div>
-      <div className='login-container'>
-        <h2 className='login-title'>Logga in</h2>
-        <form className='login-form'>
-          <input
-            type='email'
-            placeholder='Email'
-            className='login-input'
-          />
-          <input
-            type='password'
-            placeholder='Lösenord'
-            className='login-input'
-          />
-          <button type='submit' className='login-submit'>
-            Logga in
-          </button>
-        </form>
-      </div>
+      {!cookies.loggedIn && <LoginForm></LoginForm>}
     </div>
   );
 }

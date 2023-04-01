@@ -37,19 +37,13 @@ def signup():
     name = request.form.get("name")
     email = request.form.get("email")
     password = request.form.get("password")
-
-    # Validate the form data
-    if not all([name, email, password]):
-        connection.close()
-        return "Please provide all the required fields", 400
-   
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""SELECT email from usertable""")
     emaildict = cnx.fetchall()
     emails = [dic["email"] for dic in emaildict]
     if email in emails:
         connection.close()
-        return "Email already in use", 401
+        return jsonify({"response":"Email already in use"}), 401
     cnx.execute(f"""INSERT INTO usertable (username, email, password) VALUES ('{name}', '{email}', '{password}')""")
     cnx.execute("""COMMIT""")
     connection.close()
@@ -61,9 +55,6 @@ def signup():
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
-    # Validate the form data
-    if not all([email, password]):
-        return jsonify({"response":"Please provide all the required fields"}), 400
     # Create connection with database
     connection = mysql.connect(user=MYSQL_USER,
                            passwd=MYSQL_PASS,
@@ -87,7 +78,7 @@ def login():
     # Else it responds with the user info
     if user == []:
         return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400
-    return jsonify({"response":user[0]})        
+    return jsonify({"response":user[0]}), 200        
     
 
 @app.route("/servertest", methods=["GET"])
@@ -390,6 +381,17 @@ def erase():
 @cross_origin(supports_credentials=True)
 def deleteAccount():
     pass
+    #user_id = request.form.get("user_id", type=int)
+    #connection = mysql.connect(user=MYSQL_USER,
+    #                       passwd=MYSQL_PASS,
+    #                       database=MYSQL_DATABASE, 
+    #                       host='127.0.0.1')
+    #cnx = connection.cursor(dictionary=True)
+    #cnx.execute("DELETE FROM comments WHERE user_id = %s", (user_id))
+    #cnx.execute("DELETE FROM rating WHERE user_id = %s", (user_id))
+    #cnx.execute("DELETE FROM usertable WHERE user_id = %s", (user_id))
+    #cnx.execute("""COMMIT""")
+    #cnx.close()
 
 
 @app.route("/userUpdate", methods=["POST"])
