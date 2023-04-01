@@ -21,9 +21,10 @@ function HeroSection() {
           >
             Läs mer om vårt arbete
           </Button>
-        </div>
-      </div>
+        </div> 
       {!cookies.loggedIn && <LoginForm></LoginForm>}
+      </div>
+     
     </div>
   );
 }
