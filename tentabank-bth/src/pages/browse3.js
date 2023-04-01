@@ -33,7 +33,6 @@ const Browse = () => {
         const data = await response.json();
         setCategories(data.categories);
         setFilteredCategories(data.categories);
-        console.log(data.categories)
       } catch (error) {
         console.error('Failed to fetch categories:', error);
       }
@@ -165,11 +164,9 @@ const Browse = () => {
             <ul className="category-list">
               {filteredCategories.map((category) => (
                 <ul key={category.cat}>
-                  <button onClick={() => handleSelectedCategorie(category)}>{category.cat}</button>
+                  <button className="categoryButton"onClick={() => handleSelectedCategorie(category)}>{category.cat}</button><br />
                   {selectedCategorie == category && category.courses.map((course) => (
-                  <li key={course}>
-                    <button onClick={() => setSortBySubject(course)}>{course}</button>
-                  </li>
+                    <button className="courseButton"onClick={() => setSortBySubject(course)}>{course}</button>
                   ))}
                 </ul>
               ))}

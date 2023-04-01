@@ -6,15 +6,10 @@ import StarRating from './Starrating';
 
 
 function CardItemsexam(props) {
+  
   return (
       <div className='master'>        
-          <figure className='fig' data-category={props.label}>
-            <img
-              className='image'
-              alt='Travel Image'
-              src={props.src}
-            />
-          </figure>
+          <div className="cover">{props.courseCode.slice(0,1)}{props.courseCode.slice(1,2).toLowerCase()}</div>
           <div className='exam_info'>
             <div className='floor_1'>
               <div className='exam_text'>{props.courseCode}</div>
