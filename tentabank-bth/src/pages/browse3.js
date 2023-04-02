@@ -71,7 +71,7 @@ const Browse = () => {
           //date: file.name.split("/")[1],
           //grade: file.name.split("/")[2]
         //}))
-        const mappedData = data.files.map(file => ({
+        var mappedData = data.files.map(file => ({
           ...file,
           subject: file.cource_code,
           date: file.exam_date,
@@ -103,22 +103,11 @@ const Browse = () => {
     if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade && !sortByCategory) {
       let dats = [...new Set(data.map(file => file.exam_date))];
       setDates(dats);
-      setFilteredData(data);
-      if (sort === "rating"){
-        console.log("hi2")
-        setFilteredData(filteredData.sort((a, b) => (a.rating < b.rating) ? 1 : (a.rating === b.rating) ? ((a.date < b.date) ? 1 : -1) : -1 ))
-      }
-      if (sort === "grade"){
-        setFilteredData(filteredData.sort((a, b) => (a.grade > b.grade) ? 1 : (a.grade === b.grade) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
-      }
-      if (sort === "date"){
-        console.log("hi")
-        setFilteredData(filteredData.sort((a, b) => (a.date < b.date) ? 1 : (a.date === b.date) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
-      }
+      handleSort(data)
       return;
     } 
     
-    setFilteredData(data.filter(file => {
+    var mappedData = data.filter(file => {
       if (searchTerm && !file.cource_code.toLowerCase().startsWith(searchTerm.toLowerCase())) {
         return false;
       }
@@ -139,19 +128,9 @@ const Browse = () => {
         return false;
       }
       return true;
-    }));
+    });
     setDates(temp)
-    if (sort === "rating"){
-      console.log("hi2")
-      setFilteredData(filteredData.sort((a, b) => (a.rating < b.rating) ? 1 : (a.rating === b.rating) ? ((a.date < b.date) ? 1 : -1) : -1 ))
-    }
-    if (sort === "grade"){
-      setFilteredData(filteredData.sort((a, b) => (a.grade > b.grade) ? 1 : (a.grade === b.grade) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
-    }
-    if (sort === "date"){
-      console.log("hi")
-      setFilteredData(filteredData.sort((a, b) => (a.date < b.date) ? 1 : (a.date === b.date) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
-    }
+    handleSort(mappedData)
   }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade, sortByCategory, sort]);
   
 
@@ -170,6 +149,17 @@ const Browse = () => {
     }
   }
 
+  function handleSort(mappedData){
+    if (sort === "rating"){
+      setFilteredData(mappedData.sort((a, b) => (a.rating < b.rating) ? 1 : (a.rating === b.rating) ? ((a.date < b.date) ? 1 : -1) : -1 ))
+    }
+    if (sort === "grade"){
+      setFilteredData(mappedData.sort((a, b) => (a.grade > b.grade) ? 1 : (a.grade === b.grade) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
+    }
+    if (sort === "date"){
+      setFilteredData(mappedData.sort((a, b) => (a.date < b.date) ? 1 : (a.date === b.date) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
+    }
+  }
 
   return (
     cookies.loggedIn ? 
@@ -227,7 +217,6 @@ const Browse = () => {
             </div>
           </div>
           <div className='exam_square'>
-          {console.log(filteredData)}
           {filteredData.map((file) => (
               <div onClick={() => setSelectedExam(file)} className="clickable-card">
                 <Carditemsexam 
