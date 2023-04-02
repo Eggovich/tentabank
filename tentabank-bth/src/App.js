@@ -23,12 +23,10 @@ return (
 			<Route exact path='/*' element={<Home />} />
 			<Route path='/about' element={<About/>} />
 			<Route path='/upload' element={<Upload/>} />
-			<Route path='/browse' element={<Browse/>} />
+			<Route path='/browse' element={<Browse3/>} />
 			<Route path='/profile' element={<Profile/>} />
 			<Route path='/login' element={<Login/>} />
 			<Route path='/review' element={<Review/>} />
-			<Route path='/browse2' element={<Browse2/>} />
-			<Route path='/browse3' element={<Browse3/>} />
 			<Route path='/testhanna' element={<Testhanna/>} />
 		</Routes>
 	<Footer/>
