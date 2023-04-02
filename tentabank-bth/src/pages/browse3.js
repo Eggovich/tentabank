@@ -181,7 +181,7 @@ const Browse = () => {
           </div>
           <div className="filter-square">
             <div className="course-search-bar">
-              <input className='csb' type="text" placeholder="Kurskod..." value={searchTerm} onChange={(e)=>setSearchTerm(e)}/>
+              <input className='csb' type="text" placeholder="Kurskod..." value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}/>
             </div>
             <div className="filter3">
               <h1>Filter</h1>
@@ -208,10 +208,10 @@ const Browse = () => {
               <h1>Sortera</h1>
               <div className="browse-option">
                 <select value={sort} onChange={(e) => setSort(e.target.value)}>
-                  <option value="">Sortera efter:</option>
+                  <label>Sortera efter:</label>
+                  <option value="rating">Omdömme</option>
                   <option value="grade">Betyg</option>
                   <option value="date">Datum</option>
-                  <option value="rating">Omdömme</option>
                 </select>
               </div>
             </div>
