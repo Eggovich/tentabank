@@ -104,6 +104,17 @@ const Browse = () => {
       let dats = [...new Set(data.map(file => file.exam_date))];
       setDates(dats);
       setFilteredData(data);
+      if (sort === "rating"){
+        console.log("hi2")
+        setFilteredData(filteredData.sort((a, b) => (a.rating < b.rating) ? 1 : (a.rating === b.rating) ? ((a.date < b.date) ? 1 : -1) : -1 ))
+      }
+      if (sort === "grade"){
+        setFilteredData(filteredData.sort((a, b) => (a.grade > b.grade) ? 1 : (a.grade === b.grade) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
+      }
+      if (sort === "date"){
+        console.log("hi")
+        setFilteredData(filteredData.sort((a, b) => (a.date < b.date) ? 1 : (a.date === b.date) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
+      }
       return;
     } 
     
@@ -130,15 +141,21 @@ const Browse = () => {
       return true;
     }));
     setDates(temp)
-  }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade, sortByCategory]);
+    if (sort === "rating"){
+      console.log("hi2")
+      setFilteredData(filteredData.sort((a, b) => (a.rating < b.rating) ? 1 : (a.rating === b.rating) ? ((a.date < b.date) ? 1 : -1) : -1 ))
+    }
+    if (sort === "grade"){
+      setFilteredData(filteredData.sort((a, b) => (a.grade > b.grade) ? 1 : (a.grade === b.grade) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
+    }
+    if (sort === "date"){
+      console.log("hi")
+      setFilteredData(filteredData.sort((a, b) => (a.date < b.date) ? 1 : (a.date === b.date) ? ((a.rating > b.rating) ? 1 : -1) : -1 ))
+    }
+  }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade, sortByCategory, sort]);
   
 
   useEffect(() => {filterFiles();}, [filterFiles]);
-
-
-  function handleSearch(evt){
-    setSearchTerm(evt.target.value); 
-  }
 
 
   function handleSelectedCategorie(category){
@@ -174,34 +191,43 @@ const Browse = () => {
           </div>
           <div className="filter-square">
             <div className="course-search-bar">
-              <input className='csb' type="text" placeholder="Kurskod..." value={searchTerm} onChange={(e)=>handleSearch(e)}/>
+              <input className='csb' type="text" placeholder="Kurskod..." value={searchTerm} onChange={(e)=>setSearchTerm(e)}/>
             </div>
             <div className="filter3">
               <h1>Filter</h1>
-              <label htmlFor="datum">Filtrera datum:</label>
-              <select
-              value={sortByDate}
-              onChange={(e) => setSortByDate(e.target.value)}>
-              <option value="">Datum</option>
-              {dates.map((date) => (
-                <option key={date} value={date}>
-                  {date}
-                </option>
-              ))}
+              <div className='browse-option'>
+                <select value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>
+                  <option value="">Datum</option>
+                  {dates.map((date) => (
+                  <option key={date} value={date}>
+                    {date}
+                  </option>
+                ))}
               </select>
-              <select value={sortByGrade} onChange={(e) => setSortByGrade(e.target.value)}>
-                <label htmlFor="betyg">Filtrera betyg:</label>
-                <option value="">Betyg</option>
-                {grades.map((grade) => (
-                <option key={grade} value={grade}>
-                  {grade}
-                </option>
-              ))}
-              </select>
+              </div>
+              <div className="browse-option">
+                <select value={sortByGrade} onChange={(e) => setSortByGrade(e.target.value)}>
+                  <option value="">Betyg</option>
+                  {grades.map((grade) => (
+                  <option key={grade} value={grade}>
+                    {grade}
+                  </option>
+                ))}
+                </select>
+              </div>
+              <h1>Sortera</h1>
+              <div className="browse-option">
+                <select value={sort} onChange={(e) => setSort(e.target.value)}>
+                  <option value="">Sortera efter:</option>
+                  <option value="grade">Betyg</option>
+                  <option value="date">Datum</option>
+                  <option value="rating">Omdömme</option>
+                </select>
+              </div>
             </div>
           </div>
           <div className='exam_square'>
-        
+          {console.log(filteredData)}
           {filteredData.map((file) => (
               <div onClick={() => setSelectedExam(file)} className="clickable-card">
                 <Carditemsexam 
@@ -213,7 +239,7 @@ const Browse = () => {
                     label="matte"
                     exam_id={file.id}
                   />
-              </div>
+              </div> 
           ))}
           </div>
         </div>
