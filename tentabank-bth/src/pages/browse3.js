@@ -168,23 +168,28 @@ const Browse = () => {
         <div className="browse-page3">
           <div className="sidebar3">
             <h1>Ämnen</h1>
-            <ul className="category-list">
               {filteredCategories.map((category) => (
-                <ul key={category.cat}>
-                  <button className="categoryButton"onClick={() => handleSelectedCategorie(category)}>{category.cat}</button><br />
-                  {selectedCategorie == category && category.courses.map((course) => (
-                    <button className="courseButton"onClick={() => setSortBySubject(course)}>{course}</button>
-                  ))}
-                </ul>
+                  <>
+                    <button className="categoryButton"onClick={() => handleSelectedCategorie(category)}>{category.cat}</button><br />
+                    <div className="courses">
+                    {selectedCategorie == category && category.courses.map((course) => (
+                    
+                      <button className="courseButton"onClick={() => setSortBySubject(course)}>{course}</button>
+                    ))}
+                    </div>
+                  </>
               ))}
-            </ul>
           </div>
           <div className="filter-square">
             <div className="course-search-bar">
               <input className='csb' type="text" placeholder="Kurskod..." value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}/>
             </div>
+            <div className='titles3'>
+              <h3>Filter</h3>
+              <h3>Sortera</h3>
+            </div>
             <div className="filter3">
-              <h1>Filter</h1>
+              <div className='filters'>
               <div className='browse-option'>
                 <select value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>
                   <option value="">Datum</option>
@@ -205,7 +210,7 @@ const Browse = () => {
                 ))}
                 </select>
               </div>
-              <h1>Sortera</h1>
+              </div>
               <div className="browse-option">
                 <select value={sort} onChange={(e) => setSort(e.target.value)}>
                   <label>Sortera efter:</label>

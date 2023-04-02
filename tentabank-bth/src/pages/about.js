@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import team1Img from '..//components/bilder/simon.jpeg';
-import team2Img from '..//components/bilder/egon2.png';
+import team2Img from '..//components/bilder/Profilbild-Egon-Grans.jpeg';
 import team3Img from '..//components/bilder/hanna.jpeg';
 import './about.css';
 

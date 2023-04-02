@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {confirmAlert} from "react-confirm-alert"
 import './comments.css';
 
 const Comments = ({ examId, userId }) => {
@@ -53,6 +54,22 @@ const Comments = ({ examId, userId }) => {
       });
   };
 
+  const handleErase = (comment_id) => {
+    var options = {
+      title: 'Bekräftelse av radering',
+      message: 'Är du säker på att du vill radera din kommentar?',
+      buttons: [
+        {
+          label: 'Ja',
+          onClick: () => handleDeleteComment(comment_id)
+        },
+        {
+          label: 'Nej'
+        }
+      ]
+    }
+    confirmAlert(options)
+  }
   const renderReplies = (replies) => {
     return (
       <ul className="comment-replies">
@@ -65,7 +82,7 @@ const Comments = ({ examId, userId }) => {
               {reply.user_id.toString() === userId.toString() && (
                 <button
                   className="delete-comment-button"
-                  onClick={() => handleDeleteComment(reply.comment_id)}
+                  onClick={() => handleErase(reply.comment_id)}
                 >
                   Delete
                 </button>
@@ -96,12 +113,10 @@ const Comments = ({ examId, userId }) => {
             <div className="comment-header">
               <span className="comment-author">{comment.username}</span>
               <span className='comment-date'>{comment.created_on}</span>
-                {console.log(comment.user_id)}
-                {console.log(userId)}
               {comment.user_id.toString() === userId.toString() && (
                 <button
                   className="delete-comment-button"
-                  onClick={() => handleDeleteComment(comment.comment_id)}
+                  onClick={() => handleErase(comment.comment_id)}
                 >
                   Delete
                 </button>
