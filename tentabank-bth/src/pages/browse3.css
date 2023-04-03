@@ -36,7 +36,11 @@
   justify-content: space-around;
   align-items: center;
 }
+.filter3 > h3{
+  padding-top: 50px ;
+}
 .filters{
+  padding-top: 50px;
   display: flex;
   position: relative;
   min-width: 25%;

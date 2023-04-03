@@ -24,6 +24,7 @@ const SignupForm = () => {
         if (!name || !email || !password){
             setFailedUpload(true);
             setResponse("Fyll i alla fälten");
+            return
         }
         const formData = new FormData();
         formData.append("name", name);

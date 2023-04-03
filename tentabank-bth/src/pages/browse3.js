@@ -213,15 +213,17 @@ const Browse = () => {
                 </div>
               </div>
               <h3>Sortera</h3>
-              <div className="browse-option">
+              <div className="filters">
+                <div className="browse-option">
                 
-                <select value={sort} onChange={(e) => setSort(e.target.value)}>
-                  <label>Sortera efter:</label>
-                  <option value="rating">Omdömme</option>
-                  <option value="grade">Betyg</option>
-                  <option value="date">Datum</option>
-                </select>
-            </div>
+                  <select value={sort} onChange={(e) => setSort(e.target.value)}>
+                    <label>Sortera efter:</label>
+                    <option value="rating">Omdömme</option>
+                    <option value="grade">Betyg</option>
+                    <option value="date">Datum</option>
+                  </select>
+                </div>
+              </div>
           </div>
           <div className='exam_square'>
           {filteredData.map((file) => (

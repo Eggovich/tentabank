@@ -159,7 +159,8 @@ nav a {
   border: none;
 }
 .errormessage{
-  color: red
+  color: red;
+  margin:0;
 }
 
 /* Landingssida */

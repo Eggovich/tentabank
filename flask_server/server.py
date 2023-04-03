@@ -591,7 +591,6 @@ def update_rating():
     cnx.close()
 
     return jsonify({"rating":rating})
- 
 
 if __name__ == "__main__":
     app.run(debug=True)
