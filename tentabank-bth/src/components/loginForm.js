@@ -70,7 +70,7 @@ const LoginForm = () => {
         <div className='login-container'>
             <h2 className='login-title'>Logga in</h2>
             <form className='login-form' onSubmit={handleSubmit}>
-                <input type='email' placeholder='Email' className='login-input' onChange={(e) => setEmail(e.target.value)}/>
+                <input type='string' placeholder='Email' className='login-input' onChange={(e) => setEmail(e.target.value)}/>
                 <input type='password' placeholder='Lösenord' className='login-input' onChange={(e) => setPassword(e.target.value)}/>
                 <button type='submit' className='login-submit'>
                     Logga in
