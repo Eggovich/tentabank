@@ -9,22 +9,20 @@ import './browse3.css';
 
 const Browse = () => {
   const [data, setData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [courseSearch, setCourseSearch] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [sortBySubject, setSortBySubject] = useState('');
   const [sortByDate, setSortByDate] = useState('');
   const [sortByGrade, setSortByGrade] = useState('');
-  const [sortByCategory, setSortByCategory] = useState("");
-  const [subjects, setSubjects] = useState([]);
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
   const [sort, setSort] = useState("rating")
-  const [showComments, setShowComments] = useState({});
   const [selectedExam, setSelectedExam] = useState(null);
   const [categories, setCategories] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [selectedCategorie, setSelectedCategorie] = useState("");
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -61,7 +59,12 @@ const Browse = () => {
 
 
   useEffect(() => {
-    fetch('http://localhost:5000/accepted_files')
+    const formData = new FormData()
+    formData.append("name", sortBySubject)
+    fetch('http://localhost:5000/accepted_files', {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         //GCS SOLUTION
@@ -88,19 +91,17 @@ const Browse = () => {
         //setDates(dats);
         //let grds = [...new Set(mappedData.map(file => file.grade))];
         //setGrades(grds);
-        let subjs = [...new Set(mappedData.map(file => file.cource_code))];
-        setSubjects(subjs);
         let dats = [...new Set(mappedData.map(file => file.exam_date))];
         setDates(dats);
         let grds = [...new Set(mappedData.map(file => file.grade))];
         setGrades(grds);
       });
-  }, []);
+  }, [sortBySubject]);
 
 
   const filterFiles = useCallback(() => {
     var temp = []
-    if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade && !sortByCategory) {
+    if (/*!searchTerm&&*/ !sortBySubject && !sortByDate && !sortByGrade /*&& !sortByCategory*/) {
       let dats = [...new Set(data.map(file => file.exam_date))];
       setDates(dats);
       handleSort(data)
@@ -108,19 +109,19 @@ const Browse = () => {
     } 
     
     var mappedData = data.filter(file => {
+      /*
       if (searchTerm && !file.cource_code.toLowerCase().startsWith(searchTerm.toLowerCase())) {
         return false;
       }
-      if (sortBySubject && file.cource_code !== sortBySubject) {
-        return false;
-      }
-      
+      */
       if (sortByGrade && file.grade !== sortByGrade) {
         return false;
       }
+      /*
       if (sortByCategory && file.cource_code.slice(0,2) !== sortByCategory) {
         return false;
       }
+      */
       if (!temp.includes(file.exam_date)){
         temp.push(file.exam_date)
       }
@@ -131,23 +132,39 @@ const Browse = () => {
     });
     setDates(temp)
     handleSort(mappedData)
-  }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade, sortByCategory, sort]);
+  }, [data/*, searchTerm, sortBySubject*/, sortByDate, sortByGrade/*, sortByCategory*/, sort]);
   
 
   useEffect(() => {filterFiles();}, [filterFiles]);
 
 
+  const filterCategories = useCallback(() => {
+    if (!courseSearch) {
+      setFilteredCategories(categories)
+      return;
+    } 
+    
+    setFilteredCategories(categories.filter(category => {
+      for (let i = 0; i < category.courses.length; i++){
+        return category.courses[i].toLowerCase().startsWith(courseSearch.toLowerCase());
+      }
+    }))
+  }, [courseSearch]);
+  
+
+  useEffect(() => {filterCategories();}, [filterCategories]);
+
   function handleSelectedCategorie(category){
     if (selectedCategorie === category){
       setSelectedCategorie("")
-      setSortByCategory("")
-      setSortBySubject("")
+      /*setSortByCategory("")*/
     }else{
       setSelectedCategorie(category)
-      setSortByCategory(category.courses[0].slice(0,2))
-      setSortBySubject("")
+      /*setSortByCategory(category.courses[0].slice(0,2))*/
     }
+    setSortBySubject("")
   }
+
 
   function handleSort(mappedData){
     if (sort === "rating"){
@@ -161,20 +178,35 @@ const Browse = () => {
     }
   }
 
+
+  function handleSortBySubject(course){
+    setSortBySubject(course)
+    setShow(false)
+  }
+
   return (
     cookies.loggedIn ? 
       (cookies.uploads > 2 ? 
         (!selectedExam ? (
         <div className="browse-page3">
           <div className="course-search-bar">
-              <input className='csb' type="text" placeholder="Vilken kurs letar du efter?" value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}/>
+            <input onClick={() => setShow(!show)} type="text" className="csb" placeholder="Vilken kurs letar du efter?" value={courseSearch} onChange={(e)=>setCourseSearch(e.target.value)}/>
+            <div className={show ? "on-li" : "off-li"}>
+              
+              {filteredCategories.map((category) => (
+                <>
+                {category.courses.map((course)=>(
+                  <li key={course} onClick={() => handleSortBySubject(course)}>{course}</li>
+                ))}
+                </>
+              ))}
+            </div>
+            <div className="icon"><i className="fas fa-search"></i></div>
           </div>
           <div className="sidebar3">
-            <br/>
-            <br/>
-            <br/>
-            <h1>Ämnen</h1>
-              {filteredCategories.map((category) => (
+            <div className="sidebar_container">
+              <h1>Ämnen</h1>
+                {categories.map((category) => (
                   <>
                     <button className="categoryButton"onClick={() => handleSelectedCategorie(category)}>{category.cat}</button><br />
                     <div className="courses">
@@ -185,6 +217,7 @@ const Browse = () => {
                     </div>
                   </>
               ))}
+            </div>
           </div>
             <div className="filter3">
               

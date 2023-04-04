@@ -8,6 +8,7 @@ const SignupForm = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [uploaded, setUploaded] = useState(false);
     const [failedUpload, setFailedUpload] = useState(false);
     const [response, setResponse] = useState("");
@@ -21,9 +22,14 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         reset()
-        if (!name || !email || !password){
+        if (!name || !email || !password || !confirmPassword){
             setFailedUpload(true);
             setResponse("Fyll i alla fälten");
+            return
+        }
+        if (password != confirmPassword){
+            setFailedUpload(true);
+            setResponse("Lösenorden stämmer ej överens");
             return
         }
         const formData = new FormData();
@@ -60,6 +66,7 @@ const SignupForm = () => {
                 <input type="text" className="login-input" onChange={(e) => setName(e.target.value)} placeholder="Smeknamn" />
                 <input type="text" className="login-input" onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
                 <input type="password" className="login-input" onChange={(e) => setPassword(e.target.value)} placeholder="Lösenord"/>
+                <input type="password" className="login-input" onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Konfirmera lösenordet"/>
                 <button type='submit' className='login-submit'>
                     Skapa konto
                 </button>

@@ -176,7 +176,7 @@ FROM
     accepted;
 
 SELECT * FROM pending;
-SELECT * FROM accepted;
+SELECT * FROM accepted where cource_code like;
 SELECT * FROM denied;
 SELECT * FROM usertable;
 select * from comments;

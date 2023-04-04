@@ -176,9 +176,10 @@ def myfiles():
     return jsonify({"accepted": accepted, "pending": pending, "denied": denied})
     
 
-@app.route("/accepted_files")
+@app.route("/accepted_files",  methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
 def get_accepted_files():
+    course_code = request.form.get("name").upper()
     #GCS SOLUTION
     #os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'ServiceKey_GoogleCloud.json'
     #client = storage.Client()
@@ -190,7 +191,10 @@ def get_accepted_files():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute(f"""SELECT * FROM accepted ORDER BY rating DESC""")
+    if course_code == "":
+        cnx.execute("SELECT * FROM accepted ORDER BY rating desc LIMIT 5")
+    else:
+        cnx.execute("SELECT * FROM accepted WHERE cource_code=%s", (course_code,))
     result = cnx.fetchall()
     cnx.close()
     for exam in result:
