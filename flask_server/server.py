@@ -196,11 +196,13 @@ def get_accepted_files():
     else:
         cnx.execute("SELECT * FROM accepted WHERE cource_code=%s", (course_code,))
     result = cnx.fetchall()
+    cnx.execute("SELECT distinct cource_code FROM accepted")
+    courses = cnx.fetchall()
     cnx.close()
     for exam in result:
         exam["exam_date"] = str(exam["exam_date"])
         exam["created_on"] = str(exam["created_on"])
-    return jsonify({"files": result})
+    return jsonify({"files": result, "courses":courses})
 
 
 @app.route("/pending_files")

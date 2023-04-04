@@ -9,17 +9,19 @@ import './browse3.css';
 
 const Browse = () => {
   const [data, setData] = useState([]);
-  const [courseSearch, setCourseSearch] = useState('');
+  const [subjectSearch, setSubjectSearch] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [sortBySubject, setSortBySubject] = useState('');
   const [sortByDate, setSortByDate] = useState('');
   const [sortByGrade, setSortByGrade] = useState('');
+  const [subjects, setSubjects] = useState([])
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
   const [sort, setSort] = useState("rating")
   const [selectedExam, setSelectedExam] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [filteredSubjects, setFilteredSubjects] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [selectedCategorie, setSelectedCategorie] = useState("");
   const [show, setShow] = useState(false);
@@ -91,6 +93,12 @@ const Browse = () => {
         //setDates(dats);
         //let grds = [...new Set(mappedData.map(file => file.grade))];
         //setGrades(grds);
+        let subjs = []
+        for (let i=0; i<data.courses.length; i++){
+          subjs.push(data.courses[i].cource_code)
+        }
+        setSubjects(subjs);
+        setFilteredSubjects(subjs)
         let dats = [...new Set(mappedData.map(file => file.exam_date))];
         setDates(dats);
         let grds = [...new Set(mappedData.map(file => file.grade))];
@@ -138,21 +146,18 @@ const Browse = () => {
   useEffect(() => {filterFiles();}, [filterFiles]);
 
 
-  const filterCategories = useCallback(() => {
-    if (!courseSearch) {
-      setFilteredCategories(categories)
+  const filterSubjects = useCallback(() => {
+    if (!subjectSearch) {
+      setSubjects(subjects)
       return;
     } 
-    
-    setFilteredCategories(categories.filter(category => {
-      for (let i = 0; i < category.courses.length; i++){
-        return category.courses[i].toLowerCase().startsWith(courseSearch.toLowerCase());
-      }
+    setFilteredSubjects(subjects.filter(subject => {
+      return subject.toLowerCase().startsWith(subjectSearch.toLowerCase());
     }))
-  }, [courseSearch]);
+  }, [subjectSearch]);
   
 
-  useEffect(() => {filterCategories();}, [filterCategories]);
+  useEffect(() => {filterSubjects();}, [filterSubjects]);
 
   function handleSelectedCategorie(category){
     if (selectedCategorie === category){
@@ -179,8 +184,9 @@ const Browse = () => {
   }
 
 
-  function handleSortBySubject(course){
-    setSortBySubject(course)
+  function handleSortBySubject(subject){
+    setSortBySubject(subject)
+    setSubjectSearch(subject)
     setShow(false)
   }
 
@@ -190,15 +196,11 @@ const Browse = () => {
         (!selectedExam ? (
         <div className="browse-page3">
           <div className="course-search-bar">
-            <input onClick={() => setShow(!show)} type="text" className="csb" placeholder="Vilken kurs letar du efter?" value={courseSearch} onChange={(e)=>setCourseSearch(e.target.value)}/>
+            <input onClick={() => setShow(!show)} type="text" className="csb" placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
             <div className={show ? "on-li" : "off-li"}>
               
-              {filteredCategories.map((category) => (
-                <>
-                {category.courses.map((course)=>(
-                  <li key={course} onClick={() => handleSortBySubject(course)}>{course}</li>
-                ))}
-                </>
+              {filteredSubjects.map((subject) => (
+                <li key={subject} onClick={() => handleSortBySubject(subject)}>{subject}</li>
               ))}
             </div>
             <div className="icon"><i className="fas fa-search"></i></div>
