@@ -2,13 +2,32 @@
     padding: 4rem;
     background: rgb(72,78,81);
     background: linear-gradient(180deg, #001B3B 0%, rgb(112, 140, 164) 18%, rgba(251,250,245,1) 100%);
+    z-index: -1;
   }
+.svg-bottom{
+  background-image: url("../components/bilder/waves.svg");
+  transform: rotate(180deg);
+  aspect-ratio: 900/600;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
   
   h1 {
+    position: relative;
     text-align: center;
+    z-index: 1;
   }
   .subtitle{
+    position: relative;
+    top:-10px;
     color: #fff;
+    z-index: 1;
   }
   .cards__container {
     display: flex;

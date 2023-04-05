@@ -52,3 +52,15 @@
     background-size:cover ;
     background-position:center;
 }
+
+.not_logged_in{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    top:10%;
+    text-align: center;
+}

@@ -11,6 +11,7 @@ import img5 from "./bilder/omoss.png";
 function Cards() {
   return (
     <div className='cards'>
+      <div className="svg-bottom"></div>
       <h1 className='subtitle'>Kolla vårt utbud av tentor!</h1>
       <div className='cards__container'>
         <div className='cards__wrapper'>

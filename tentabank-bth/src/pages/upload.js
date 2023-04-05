@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import styles from "./uploads.module.css"
+import LoginForm from "../components/loginForm.js"
 
 
 const Upload = () => {
@@ -80,14 +81,15 @@ const Upload = () => {
   <div className={styles.page_container}>
     <div className={styles.title}>Ladda upp</div>
     <div className={styles.info}>Hej</div>
-    {cookies.loggedIn?(
     <div className={styles.form_half}>
     <div className={styles.form_container}>
-      <h1>Ladda up här!</h1>
+    {cookies.loggedIn?(
+      <>
+      <h1>Ladda upp här!</h1>
       { uploaded ? (
         <div className="upload-success">
           <h3>Din tenta är nu inlämnad och väntar på att granskas</h3>
-          <button onClick={handleUpload} className="submit-button">Ladda up igen</button>
+          <button onClick={handleUpload} className="submit-button">Ladda upp igen</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className={styles.upload_form}>
@@ -125,13 +127,17 @@ const Upload = () => {
       {failedFile === true && (<p className="errormessage">Ogiltigt filformat</p>)}
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
       {alreadyUploaded === true && (<p className="errormessage">Denna tenta är redan uppladdad</p>)}
-    </div>
-    </div>
+      </>
     ):(
-      <div className="error-message">
-        <h3>Du måste logga in för att kunna lämna in tentor</h3>
+      <div className={styles.not_logged_in}>
+        <h4>Du måste logga in för att kunna lämna in tentor</h4>
+        <LoginForm></LoginForm>
       </div>
-    )}
+      
+    )
+    }
+    </div>
+    </div>
   </div>
   );
 };
