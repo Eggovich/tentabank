@@ -192,7 +192,7 @@ def get_accepted_files():
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
     if course_code == "":
-        cnx.execute("SELECT * FROM accepted ORDER BY rating desc LIMIT 5")
+        cnx.execute("SELECT * FROM accepted ORDER BY rating desc LIMIT 20")
     else:
         cnx.execute("SELECT * FROM accepted WHERE cource_code=%s", (course_code,))
     result = cnx.fetchall()

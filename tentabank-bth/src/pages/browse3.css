@@ -90,7 +90,7 @@
 
 .on-li{
   color: black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
   position: relative;
   top:5rem;
   width:40%;
@@ -99,14 +99,13 @@
   margin-left: 1.7rem;
   overflow-y: visible;
   z-index: 1;
-  border-style: none solid solid solid;
-  border-color: #333;
 }
 .off-li{
   color: black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
   position: relative;
-  top:20%;
+  left:20%;
+  height: 0px;
   width:40%;
   opacity: 0;
   border-radius: 0 0 1rem 1rem;

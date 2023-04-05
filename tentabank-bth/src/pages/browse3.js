@@ -98,7 +98,6 @@ const Browse = () => {
           subjs.push(data.courses[i].cource_code)
         }
         setSubjects(subjs);
-        setFilteredSubjects(subjs)
         let dats = [...new Set(mappedData.map(file => file.exam_date))];
         setDates(dats);
         let grds = [...new Set(mappedData.map(file => file.grade))];
@@ -148,12 +147,18 @@ const Browse = () => {
 
   const filterSubjects = useCallback(() => {
     if (!subjectSearch) {
-      setSubjects(subjects)
+      setFilteredSubjects([])
       return;
-    } 
-    setFilteredSubjects(subjects.filter(subject => {
+    }
+    var filtSubj = subjects.filter(subject => {
       return subject.toLowerCase().startsWith(subjectSearch.toLowerCase());
-    }))
+    })
+    if (filtSubj.length <= 5){
+      setFilteredSubjects(filtSubj)
+    }else{
+      setFilteredSubjects.slice(0,5)
+    }
+    
   }, [subjectSearch]);
   
 
@@ -196,8 +201,8 @@ const Browse = () => {
         (!selectedExam ? (
         <div className="browse-page3">
           <div className="course-search-bar">
-            <input onClick={() => setShow(!show)} type="text" className="csb" placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
-            <div className={show ? "on-li" : "off-li"}>
+            <input type="text" className="csb" placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
+            <div className={subjectSearch ? "on-li" : "off-li"}>
               
               {filteredSubjects.map((subject) => (
                 <li key={subject} onClick={() => handleSortBySubject(subject)}>{subject}</li>
