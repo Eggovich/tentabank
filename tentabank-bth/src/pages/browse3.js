@@ -202,7 +202,7 @@ const Browse = () => {
         <div className="browse-page3">
           <div className="course-search-bar">
             <input type="text" className="csb" placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
-            <div className={subjectSearch ? "on-li" : "off-li"}>
+            <div className={(subjectSearch && subjectSearch != sortBySubject) ? "on-li" : "off-li"}>
               
               {filteredSubjects.map((subject) => (
                 <li key={subject} onClick={() => handleSortBySubject(subject)}>{subject}</li>

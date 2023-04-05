@@ -1,7 +1,7 @@
 .cards {
     padding: 4rem;
     background: rgb(72,78,81);
-    background: linear-gradient(180deg, rgba(72,78,81,0.8870141806722689) 0%, rgba(113,161,204,1) 18%, rgba(251,250,245,1) 100%);
+    background: linear-gradient(180deg, #001B3B 0%, rgb(112, 140, 164) 18%, rgba(251,250,245,1) 100%);
   }
   
   h1 {

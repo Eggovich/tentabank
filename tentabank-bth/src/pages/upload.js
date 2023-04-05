@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
+import styles from "./uploads.module.css"
 
 
 const Upload = () => {
@@ -75,28 +76,47 @@ const Upload = () => {
   };
 
   return (
-    cookies.loggedIn?(
-    <div className="upload-form">
+    
+  <div className={styles.page_container}>
+    <div className={styles.title}>Ladda upp</div>
+    <div className={styles.info}>Hej</div>
+    {cookies.loggedIn?(
+    <div className={styles.form_half}>
+    <div className={styles.form_container}>
+      <h1>Ladda up här!</h1>
       { uploaded ? (
         <div className="upload-success">
           <h3>Din tenta är nu inlämnad och väntar på att granskas</h3>
           <button onClick={handleUpload} className="submit-button">Ladda up igen</button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <input type="file" accept=".pdf" className="input-field" onChange={(e) => setFile(e.target.files[0])} />
-          <input type="text" className="input-field" onChange={(e) => setName(e.target.value)} placeholder="Ma1435" />
-          <input type="text" className="input-field" onChange={(e) => setDate(e.target.value)} placeholder="2023-02-02"/>
-          <input type="text" className="input-field" onChange={(e) => setExamId(e.target.value)} placeholder="Anonymitetskod"/>
-          <select className="dropdown" onChange={(e) => setGrade(e.target.value)}>
-            <option value="">Betyg</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-          </select>
-          <button type="submit" className="submit-button">Ladda upp</button>
+        <form onSubmit={handleSubmit} className={styles.upload_form}>
+          <input type="file" accept=".pdf" className={styles.file_field} onChange={(e) => setFile(e.target.files[0])} />
+          <div className={styles.form_element}>
+            <label className={styles.labels}>Kurskod: </label>
+            <input type="text" className='input_field' onChange={(e) => setName(e.target.value)} placeholder="IY1234" />
+          </div>
+          <div className={styles.form_element}>
+            <label className={styles.labels}>Datum: </label>
+            <input type="text" className='input_field' onChange={(e) => setDate(e.target.value)} placeholder="YYYY-MM-DD"/>
+          </div>
+          <div className={styles.form_element}>
+            <label className={styles.labels}>Anonymitetskod: </label>
+            <input type="text" className='input_field' onChange={(e) => setExamId(e.target.value)} placeholder="ABCD-012"/>
+          </div>
+          <div className={styles.form_element}>
+            <select className="dropdown" onChange={(e) => setGrade(e.target.value)}>
+              <option value="">Betyg</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+            </select>
+          </div>
+          <div className={styles.form_element}>
+            <button type="submit" className="submit-button">Ladda upp</button>
+          </div>
         </form>
       )}
       {failedUpload === true && (<p className="errormessage">Fyll i alla fälten</p>)}
@@ -106,11 +126,13 @@ const Upload = () => {
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
       {alreadyUploaded === true && (<p className="errormessage">Denna tenta är redan uppladdad</p>)}
     </div>
+    </div>
     ):(
       <div className="error-message">
         <h3>Du måste logga in för att kunna lämna in tentor</h3>
       </div>
-    )
+    )}
+  </div>
   );
 };
 export default Upload;

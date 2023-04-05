@@ -24,7 +24,7 @@ function HeroSection() {
         </div> 
       {!cookies.loggedIn && <LoginForm></LoginForm>}
       </div>
-     
+      <div className="svg"></div>
     </div>
   );
 }
