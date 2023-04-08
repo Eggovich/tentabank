@@ -29,17 +29,17 @@ const Navbar = () => {
         </button>
         <div className={`nav-menu ${menuOpen ? "open" : ""}`}>
 
-          {cookies.role != "Reviewer" && (
+          {cookies.role !== "Reviewer" && (
             <NavLink to="/browse" activeClassName="active">
               Tentabank
             </NavLink>
           )}
-          {cookies.role != "Reviewer" && (
+          {cookies.role !== "Reviewer" && (
             <NavLink to="/upload" activeClassName="active">
               Ladda upp
             </NavLink>
           )}
-          {cookies.role == "Reviewer" && (
+          {cookies.role === "Reviewer" && (
             <NavLink to="/review" activeClassName="active">
               Granska
             </NavLink>
@@ -47,7 +47,7 @@ const Navbar = () => {
           <NavLink to="/about" activeClassName="active">
             Om oss
           </NavLink>
-          <div className="profile-icon" onClick={handleProfileClick}>
+          {cookies.loggedIn ? (<div className="profile-icon" onClick={handleProfileClick}>
             <i className="fas fa-user-circle"></i>
             {profileDropdownOpen && (
               <div className="profile-dropdown">
@@ -60,11 +60,12 @@ const Navbar = () => {
                 <NavLink to="/settings" activeClassName="active">
                   Settings
                 </NavLink>
-                {!cookies.loggedIn && <LoginButton />}
                 {cookies.loggedIn && <LogoutButton />}
               </div>
             )}
           </div>
+          ):(<LoginButton/>
+          )}
         </div>
       </nav>
     </>
