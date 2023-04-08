@@ -1,59 +1,50 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+import img from "./bilder/logga-tentabank.png";
+import LoginButtom from "./login-button";
+import LogoutButtom from "./logout-button";
+import { useCookies } from "react-cookie";
+import "./navbar.css";
 
-import { FaBars } from "react-icons/fa";
-import { NavLink as Link } from "react-router-dom";
-import styled from "styled-components";
+const Navbar = () => {
+  const [cookies] = useCookies(["user"]);
+  return (
+    <>
+      <nav className="nav">
+        <NavLink className="logo" to="/">
+          <img src={img} alt="logo" />
+        </NavLink>
+        <div className="nav-menu">
+          <NavLink className="nav-link" to="/" activeClassName="active">
+            Hem
+          </NavLink>
+          {cookies.role !== "Reviewer" && (
+            <NavLink className="nav-link" to="/browse" activeClassName="active">
+              Tentabank
+            </NavLink>
+          )}
+          {cookies.role !== "Reviewer" && (
+            <NavLink className="nav-link" to="/upload" activeClassName="active">
+              Ladda upp
+            </NavLink>
+          )}
+          {cookies.role === "Reviewer" && (
+            <NavLink className="nav-link" to="/review" activeClassName="active">
+              Granska
+            </NavLink>
+          )}
+          <NavLink className="nav-link" to="/about" activeClassName="active">
+            Om oss
+          </NavLink>
+          <NavLink className="nav-link" to="/profile" activeClassName="active">
+            Min sida
+          </NavLink>
+          {!cookies.loggedIn && <LoginButtom />}
+          {cookies.loggedIn && <LogoutButtom />}
+        </div>
+      </nav>
+    </>
+  );
+};
 
-export const Nav = styled.nav`
-  background-color: rgb(255, 228, 196);
-  height: 85px;
-  display: flex;
-  position: sticky;
-  top: 0;
-  justify-content: flex-end;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
-  z-index: 12;
-`;
-
-export const NavLink = styled(Link)`
-  color: #aaaaaa;
-  background-color: rgb(255, 228, 196);
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  padding: 0 1rem;
-  height: 100%;
-  cursor: pointer;
-  &.active {
-    color: rgb(0,27,59);
-  }
-  &:hover{
-    color: rgb(0,27,59);
-    text-decoration:none;
-  }
-`;
-
-export const Bars = styled(FaBars)`
-  display: none;
-  color: transparent;
-  background-color: rgb(255, 228, 196);
-  background-color: transparent;
-  @media screen and (max-width: 768px) {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 75%);
-    font-size: 1.8rem;
-    cursor: pointer;
-  }
-`;
-
-export const NavMenu = styled.div`
-  background-color: rgb(255, 228, 196);
-  display: flex;
-  align-items: center;
-  margin-right: 24px;
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
+export default Navbar;
