@@ -29,35 +29,35 @@ const Navbar = () => {
         </button>
         <div className={`nav-menu ${menuOpen ? "open" : ""}`}>
 
-          {cookies.role != "Reviewer" && (
-            <NavLink to="/browse" activeClassName="active">
+          {cookies.role !== "Reviewer" && (
+            <NavLink className="nav-link" to="/browse" activeClassName="active">
               Tentabank
             </NavLink>
           )}
-          {cookies.role != "Reviewer" && (
-            <NavLink to="/upload" activeClassName="active">
+          {cookies.role !== "Reviewer" && (
+            <NavLink className="nav-link" to="/upload" activeClassName="active">
               Ladda upp
             </NavLink>
           )}
-          {cookies.role == "Reviewer" && (
-            <NavLink to="/review" activeClassName="active">
+          {cookies.role === "Reviewer" && (
+            <NavLink className="nav-link" to="/review" activeClassName="active">
               Granska
             </NavLink>
           )}
-          <NavLink to="/about" activeClassName="active">
+          <NavLink className="nav-link" to="/about" activeClassName="active">
             Om oss
           </NavLink>
           <div className="profile-icon" onClick={handleProfileClick}>
             <i className="fas fa-user-circle"></i>
             {profileDropdownOpen && (
               <div className="profile-dropdown">
-                <NavLink to="/profile" activeClassName="active">
+                <NavLink className="nav-link" to="/profile" activeClassName="active">
                   Min sida
                 </NavLink>
-                <NavLink to="/notifications" activeClassName="active">
+                <NavLink className="nav-link" to="/notifications" activeClassName="active">
                   Notifications
                 </NavLink>
-                <NavLink to="/settings" activeClassName="active">
+                <NavLink className="nav-link" to="/settings" activeClassName="active">
                   Settings
                 </NavLink>
                 {!cookies.loggedIn && <LoginButton />}

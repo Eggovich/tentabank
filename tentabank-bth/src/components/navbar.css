@@ -166,4 +166,27 @@ nav a {
   color: rgba(255, 228, 196);
 }
 
+nav a {
+  display: block;
+  padding: 1em;
+  background-color: transparent;
+  text-decoration: none;
+  color: gray;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
 
+.nav-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: rgb(0, 27, 59);
+  text-decoration: none;
+}
