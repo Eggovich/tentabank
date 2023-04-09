@@ -29,17 +29,17 @@ const Navbar = () => {
         </button>
         <div className={`nav-menu ${menuOpen ? "open" : ""}`}>
 
-          {cookies.role !=== "Reviewer" && (
+          {cookies.role !== "Reviewer" && (
             <NavLink className="nav-link" to="/browse" activeClassName="active">
               Tentabank
             </NavLink>
           )}
-          {cookies.role !=== "Reviewer" && (
+          {cookies.role !== "Reviewer" && (
             <NavLink className="nav-link" to="/upload" activeClassName="active">
               Ladda upp
             </NavLink>
           )}
-          {cookies.role ==== "Reviewer" && (
+          {cookies.role === "Reviewer" && (
             <NavLink className="nav-link" to="/review" activeClassName="active">
               Granska
             </NavLink>
