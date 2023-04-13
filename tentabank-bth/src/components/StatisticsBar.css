@@ -1,0 +1,23 @@
+.statistics-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 2rem;
+  }
+  
+  .statistics-item {
+    text-align: center;
+  }
+  
+  .statistics-item h4 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .statistics-item p {
+    font-size: 1rem;
+    color: #777;
+  }
+  

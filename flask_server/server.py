@@ -598,6 +598,44 @@ def update_rating():
 
     return jsonify({"rating":rating})
 
+
+@app.route("/statistics", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def statistics():
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    
+    cnx = connection.cursor(dictionary=True)
+    
+    # Get number of accepted exams
+    cnx.execute("SELECT COUNT(*) as accepted_exams FROM accepted")
+    accepted_exams = cnx.fetchone()["accepted_exams"]
+
+    # Get number of pending exams
+    cnx.execute("SELECT COUNT(*) as pending_exams FROM pending")
+    pending_exams = cnx.fetchone()["pending_exams"]
+
+    # Get number of denied exams
+    cnx.execute("SELECT COUNT(*) as denied_exams FROM denied")
+    denied_exams = cnx.fetchone()["denied_exams"]
+
+    # Get number of users
+    cnx.execute("SELECT COUNT(*) as users FROM usertable")
+    users = cnx.fetchone()["users"]
+    
+    connection.close()
+    
+    return jsonify({
+        "accepted_exams": accepted_exams,
+        "pending_exams": pending_exams,
+        "denied_exams": denied_exams,
+        "users": users
+    })
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
