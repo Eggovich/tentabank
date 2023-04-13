@@ -5,6 +5,7 @@ import team1Img from '..//components/bilder/simon.jpeg';
 import team2Img from '..//components/bilder/Profilbild-Egon-Grans.jpeg';
 import StatisticsBar from '../components/StatisticsBar';
 import Roadmap from '../components/Roadmap';
+import ActiveUserSection from '../components/ActiveUserSection';
 
 const statsData = [
   { key: 'accepted_exams', text: 'Accepted Exams' },
@@ -33,9 +34,10 @@ const Home = () => {
         imagePosition="right"
         imageSrc={team1Img}
         title="Simons ide"
-        description="alla kan inte matte"
+        description="Alla kan inte matte"
         altText="Image description for the second section"
-      />      
+      />
+      <ActiveUserSection/>
     </div>
   );
 };
