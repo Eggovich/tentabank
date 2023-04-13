@@ -15,6 +15,8 @@ const StatisticsBar = ({ stats }) => {
     fetchStatisticsData();
   }, []);
 
+
+  
   return (
     <div className="statistics-bar">
       {stats.map((stat, index) => (

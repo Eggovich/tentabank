@@ -634,6 +634,25 @@ def statistics():
         "users": users
     })
 
+@app.route("/activeuser", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def activeuser():
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute("""
+        SELECT 
+            COUNT(*) as active_users
+        FROM 
+            usertable
+        
+        """)
+    result = cnx.fetchone()
+    connection.close()
+    return jsonify({"active_users": result["active_users"]})
 
 
 if __name__ == "__main__":
