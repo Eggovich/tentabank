@@ -13,11 +13,28 @@ import Review from './pages/review';
 import Browse2 from './pages/browse2';
 import Browse3 from './pages/browse3';
 import Testhanna from './pages/testhanna';
+import { Cookies, useCookies } from 'react-cookie';
+import ActivityDetector from 'react-activity-detector'
 
 function App() {
-
-return (
+	const [cookies, setCookies, removeCookie] = useCookies(["user"])
+	
+	const onIdle = () => {
+	if (cookies.loggedIn){
+		removeCookie("user")
+        removeCookie("username")
+        removeCookie("email")
+        removeCookie("password")
+        removeCookie("role")
+        removeCookie("user_id")
+        removeCookie("loggedIn")
+        removeCookie("uploads")
+        window.location.reload(false);
+	}}
+	
+	return (
 	<Router>
+	<ActivityDetector enabled={true} timeout={60*60*60*1000} onIdle={onIdle} name="default"/>
 	<Navbar/>
 		<Routes>
 			<Route exact path='/*' element={<Home />} />
