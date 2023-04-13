@@ -3,6 +3,8 @@
     background: rgb(72,78,81);
     background: linear-gradient(180deg, #001B3B 0%, rgb(112, 140, 164) 18%, rgba(251,250,245,1) 100%);
     z-index: -1;
+    position: relative;
+    top: -6rem;
   }
 .svg-bottom{
   background-image: url("../components/bilder/waves.svg");

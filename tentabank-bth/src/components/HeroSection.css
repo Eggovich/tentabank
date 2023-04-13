@@ -1,11 +1,12 @@
 .hero-container {
-  background: url('./images/img1.jpeg') center center/cover no-repeat;
+  background: url('./images/Lanidnfssida.png') center center/cover no-repeat;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   position: relative;
+  top: -6rem;
   z-index: 1;
   overflow: hidden;
 }
