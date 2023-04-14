@@ -1,0 +1,49 @@
+.exams-with-solutions {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+  }
+  
+  .exams-with-solutions h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .exams-with-solutions ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .exams-with-solutions li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .exams-with-solutions li:hover {
+    background-color: #e5e5e5;
+  }
+  
+  .exam-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .exam-info .subject,
+  .exam-info .date,
+  .exam-info .grade {
+    margin-right: 15px;
+    font-size: 16px;
+  }
+  
+  .solution-info {
+    font-size: 16px;
+  }
+  
