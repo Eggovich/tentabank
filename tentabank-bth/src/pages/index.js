@@ -7,6 +7,7 @@ import StatisticsBar from '../components/StatisticsBar';
 import Roadmap from '../components/Roadmap';
 import ActiveUserSection from '../components/ActiveUserSection';
 
+
 const statsData = [
   { key: 'accepted_exams', text: 'Accepted Exams' },
   { key: 'pending_exams', text: 'Pending Exams' },

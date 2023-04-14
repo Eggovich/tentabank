@@ -41,6 +41,7 @@ function App() {
 			<Route path='/about' element={<About/>} />
 			<Route path='/upload' element={<Upload/>} />
 			<Route path='/browse' element={<Browse3/>} />
+			<Route path='/browse-simon' element={<Browse2/>} />
 			<Route path='/profile' element={<Profile/>} />
 			<Route path='/login' element={<Login/>} />
 			<Route path='/review' element={<Review/>} />

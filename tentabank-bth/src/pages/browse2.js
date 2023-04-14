@@ -1,24 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {useCookies} from 'react-cookie'
+import { useCookies } from 'react-cookie';
 import { NavLink } from 'react-router-dom';
-import './browse2.css';
-import Sidebar from "..//components/sidebar"
-import img from "..//components/bilder/img-8.png";
-
+import './browse.css';
+import SearchBar from '../components/SearchBar';
+import ExamDetails from '../components/ExamDetails';
+import ExamsWithoutSolutions from '../components/ExamsWithoutSolutions';
+import ExamsWithSolutions from '../components/ExamsWithSolutions';
 
 const Browse = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
-  const [sortBySubject, setSortBySubject] = useState('');
-  const [sortByDate, setSortByDate] = useState('');
-  const [sortByGrade, setSortByGrade] = useState('');
   const [subjects, setSubjects] = useState([]);
   const [dates, setDates] = useState([]);
   const [grades, setGrades] = useState([]);
   const [cookies, setCookie] = useCookies(["User"])
-  const [sort, setSort] = useState("rating")
   const [isVisible, setIsVisible] = useState(false)
+  const [selectedExam, setSelectedExam] = useState(null);
 
   useEffect( () => {
     if (cookies.loggedIn){
@@ -37,18 +35,10 @@ const Browse = () => {
   }, []
 );
 
-
   useEffect(() => {
     fetch('http://localhost:5000/accepted_files')
       .then((res) => res.json())
       .then((data) => {
-        //GCS SOLUTION
-        //const mappedData = data.files.map(file => ({
-          //...file,
-          //subject: file.name.split("/")[0],
-          //date: file.name.split("/")[1],
-          //grade: file.name.split("/")[2]
-        //}))
         const mappedData = data.files.map(file => ({
           ...file,
           subject: file.cource_code,
@@ -60,12 +50,6 @@ const Browse = () => {
         }))
         setData(mappedData);
         setFilteredData(mappedData);
-        //let subjs = [...new Set(mappedData.map(file => file.subject))];
-        //setSubjects(subjs);
-        //let dats = [...new Set(mappedData.map(file => file.date))];
-        //setDates(dats);
-        //let grds = [...new Set(mappedData.map(file => file.grade))];
-        //setGrades(grds);
         let subjs = [...new Set(mappedData.map(file => file.cource_code))];
         setSubjects(subjs);
         let dats = [...new Set(mappedData.map(file => file.exam_date))];
@@ -75,122 +59,103 @@ const Browse = () => {
       });
   }, []);
 
-  const filterFiles = useCallback(() => {
-    if (!searchTerm && !sortBySubject && !sortByDate && !sortByGrade) {
-      setFilteredData(data);
-      return;
-    } 
-    
-    setFilteredData(data.filter(file => {
-      if (searchTerm && !file.file_name.toLowerCase().includes(searchTerm.toLowerCase())) {
-        return false;
+  useEffect(() => {
+    const newData = data.filter(file => {
+      const termMatch = !searchTerm || file.file_name.toLowerCase().includes(searchTerm.toLowerCase());
+      return termMatch;
+    });
+    setFilteredData(newData);
+  }, [searchTerm, data]);
+
+  const handleSearch = (evt) => {
+    setSearchTerm(evt.target.value);
+  };
+
+  const handleSort = (sortKey) => {
+    const sortedData = [...filteredData].sort((a, b) => {
+      if (a[sortKey] < b[sortKey]) {
+        return -1;
       }
-      if (sortBySubject && file.cource_code !== sortBySubject) {
-        return false;
+      if (a[sortKey] > b[sortKey]) {
+        return 1;
       }
-      if (sortByDate && file.exam_date !== sortByDate) {
-        return false;
-      }
-      if (sortByGrade && file.grade !== sortByGrade) {
-        return false;
-      }
-      return true;
-    }));
-  }, [data, searchTerm, sortBySubject, sortByDate, sortByGrade]);
-  
+      return 0;
+    });
+    setFilteredData(sortedData);
+  };
 
-  useEffect(() => {filterFiles();}, [filterFiles]);
-  useEffect(() => {filterFiles();}, [filterFiles]);
-
-  
-  function updateDates(data){
-    let temp = [];
-    console.log(data.length)
-    for (let i = 0; i < data.length; i++){
-      if (!temp.includes(data[i].exam_date)){
-        temp.push(data[i].exam_date)
-      }
-    }
-    setDates(temp)
-  }
-
-
-  function handleSearch(evt){
-    updateDates(filteredData);
-    setSearchTerm(evt.target.value); 
-  }
-  
-
-  function handleSort(){
-    if (sort === "betyg"){
-        setSort("rating")
-        filteredData.sort((a, b) => {
-            return a.grade - b.grade
-        })
-    }else{
-        setSort("betyg")
-        filteredData.sort((a, b) => {
-            return a.rating - b.rating
-        })
-    }
-  }
-
+  const handleFilter = (filterKey, value) => {
+    const filtered = value === 'All' ? data : data.filter((file) => file[filterKey] === value);
+    setFilteredData(filtered);
+  };
 
   return (
-    cookies.loggedIn ? (cookies.uploads > 2 ? (
-      <div className="browse-page">
-        <div className="cource_bar">
-          <input
-            type="text"
-            placeholder="Kurskod..."
-            value={searchTerm}
-            onChange={(e)=>handleSearch(e)}
-          />
-        </div>  
-        
-        <div className={`exam_content ${isVisible ? 'change' : 'static'}`}>
-          <Sidebar isVisible={isVisible}></Sidebar>
-          <div className="sort">
-            <div className= "menu_icon" onClick={() => setIsVisible(!isVisible)}>
-              <div className="bar1"></div>
-              <div className="bar2"></div>
-              <div className="bar3"></div>
+    cookies.loggedIn ? (
+      cookies.uploads > 2 ? (
+        !selectedExam ? (
+                    <>
+            <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
+            <div className="filter-sort-section">
+              <div className="filter">
+                <label htmlFor="dateFilter">Filter by date:</label>
+                <select
+                  id="dateFilter"
+                  onChange={(e) => handleFilter('exam_date', e.target.value)}
+                >
+                  <option>All</option>
+                  {dates.map((date, index) => (
+                    <option key={index}>{date}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="filter">
+                <label htmlFor="gradeFilter">Filter by grade:</label>
+                <select
+                  id="gradeFilter"
+                  onChange={(e) => handleFilter('grade', e.target.value)}
+                >
+                  <option>All</option>
+                  {grades.map((grade, index) => (
+                    <option key={index}>{grade}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="sort">
+                <label htmlFor="sort">Sort by:</label>
+                <select
+                  id="sort"
+                  onChange={(e) => handleSort(e.target.value)}
+                >
+                  <option value="exam_date">Date</option>
+                  <option value="grade">Grade</option>
+                </select>
+              </div>
             </div>
-            <select
-              className='date_filter'
-              value={sortByDate}
-              onChange={(e) => setSortByDate(e.target.value)}
-            >
-              <option value="">Filtrera datum</option>
-                {dates.map((date) => (
-                  <option key={date} value={date}>
-                    {date}
-                  </option>
-                ))}
-            </select>
-            <button className="toggle_sort" onClick={() => handleSort()}>Sortera efter {sort}</button>
-          </div>
-          <div className="exams">
-            {filteredData.map((file) => (
-                <examCard>
-                    cource_code={file.subject}
-                    date={file.date}
-                    grade={file.grade}
-                    rating={file.rating}
-                </examCard>
-            ))}
-          </div>
-        </div>
-      </div>
-    ):(<p>Lämna tre tentor för att komma åt sidan.</p>)) :
-    (
+            <ExamsWithoutSolutions
+              exams={filteredData.filter(exam => !exam.solution)}
+              setSelectedExam={setSelectedExam}
+            />
+            <ExamsWithSolutions
+              exams={filteredData.filter(exam => exam.solution)}
+              setSelectedExam={setSelectedExam}
+            />
+          </>
+        ) : (
+          <ExamDetails
+            selectedExam={selectedExam}
+            setSelectedExam={setSelectedExam}
+          />
+        )
+      ) : (
+        <p>Lämna tre tentor för att komma åt sidan.</p>
+      )
+    ) : (
       <div className='error-message'>
         <h3>Du behöver logga in</h3>
         <NavLink to="/login">Logga in</NavLink>
       </div>
     )
   );
-  
 };
 
 export default Browse;

@@ -5,7 +5,6 @@ import CountUp from 'react-countup';
 const ActiveUserSection = () => {
   const [activeUsers, setActiveUsers] = useState(0);
 
-  // Replace this with a call to your API to get the active user count
   const fetchActiveUsers = async () => {
     try {
       const response = await fetch("http://localhost:5000/activeuser", {
@@ -40,7 +39,7 @@ const ActiveUserSection = () => {
 
   return (
     <div className={styles.active_user_section}>
-      <h2 className={styles.active_user_title}>Active Users</h2>
+      <h2 className={styles.active_user_title}>Va med och se oss växa!</h2>
       <CountUp className={styles.active_user_counter} start={0} end={activeUsers || 0} duration={10} />
     </div>
   );

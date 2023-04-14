@@ -655,6 +655,24 @@ def activeuser():
     return jsonify({"active_users": result["active_users"]})
 
 
+@app.route("/browseExamsWithSolutions", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def browse_exams_with_solutions():
+    connection = mysql.connect(user=MYSQL_USER,
+                               passwd=MYSQL_PASS,
+                               database=MYSQL_DATABASE,
+                               host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute("SELECT * FROM accepted ORDER BY rating DESC LIMIT 20")
+    result = cnx.fetchall()
+    cnx.close()
+    for exam in result:
+        exam["exam_date"] = str(exam["exam_date"])
+        exam["created_on"] = str(exam["created_on"])
+
+    return jsonify({"files": result})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
