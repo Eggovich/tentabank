@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
 import img from "./bilder/logga-tentabank.png";
@@ -10,14 +10,28 @@ const Navbar = () => {
   const [cookies] = useCookies(["user"]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-
+  const [navbar, setNavbar] = useState(false)
   const handleProfileClick = () => {
     setProfileDropdownOpen(!profileDropdownOpen);
   };
 
+  const changeBackground = () => {
+    console.log(window.scrollY)
+    if (window.scrollY >= 66) {
+      setNavbar(true)
+    } else {
+      setNavbar(false)
+    }
+  }
+
+  useEffect(() => {
+    changeBackground()
+    // adding the event when scroll change background
+    window.addEventListener("scroll", changeBackground)
+  })
   return (
     <>
-      <nav className="nav">
+      <nav className={navbar?"nav_scroll":"nav"}>
         <NavLink className="logo" to="/">
           <img src={img} alt="logo" />
         </NavLink>

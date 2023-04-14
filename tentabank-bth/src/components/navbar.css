@@ -1,4 +1,4 @@
-.nav {
+.nav, .nav_scroll {
   background-color: transparent;
   height: 85px;
   display: flex;
@@ -16,8 +16,12 @@ nav {
   justify-content: space-between;
   padding: 0.2rem calc((100vw - 1000px) / 2);
   z-index: 12;
+  transition: background-color 2s, height 2s;
 }
-
+.nav_scroll{
+  background-color: #D2D3D3;
+  height: 75px;
+}
 nav .logo {
   width: auto;
   height: 100%;
