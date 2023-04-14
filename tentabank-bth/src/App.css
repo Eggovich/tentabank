@@ -1,4 +1,11 @@
-
+:root{
+  --light: #d2d3d3;
+  --mlight: #7D7F80;
+  --mdark:#555759;
+  --dark:#2d3032;
+  --purple:#6f63ad;
+  --contrast:#9615db;
+}
 .menu {
   background-color: transparent;
   display: flex;

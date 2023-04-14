@@ -63,20 +63,18 @@ const Navbar = () => {
           </NavLink>
           {cookies.loggedIn ? (<div className={styles.profile_icon} onClick={handleProfileClick}>
             <i className="fas fa-user-circle"></i>
-            {profileDropdownOpen && (
-              <div className={styles.profile_dropdown}>
-                <NavLink className={styles.nav_link} to="/profile" activeClassName="active">
-                  Min sida
-                </NavLink>
-                <NavLink className={styles.nav_link} to="/notifications" activeClassName="active">
-                  Notifications
-                </NavLink>
-                <NavLink className={styles.nav_link} to="/settings" activeClassName="active">
-                  Settings
-                </NavLink>
-                {cookies.loggedIn && <LogoutButton />}
-              </div>
-            )}
+            <div className={profileDropdownOpen ? styles.profile_dropdown : styles.dropdown_hide}>
+              <NavLink className={styles.nav_link} to="/profile" activeClassName="active">
+                Min sida
+              </NavLink>
+              <NavLink className={styles.nav_link} to="/notifications" activeClassName="active">
+                Notifications
+              </NavLink>
+              <NavLink className={styles.nav_link} to="/settings" activeClassName="active">
+                Settings
+              </NavLink>
+              {cookies.loggedIn && <LogoutButton />}
+            </div>
           </div>
           ):(<LoginButton/>
           )}

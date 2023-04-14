@@ -9,6 +9,9 @@
   z-index: 12;
   align-items: center;
 }
+div {
+  transition: opacity 0.5s;
+}
 nav {
   background-color: transparent;
   height: 85px;
@@ -19,7 +22,7 @@ nav {
   transition: background-color 2s, height 2s;
 }
 .nav_scroll{
-  background-color: #D2D3D3;
+  background-color: var(--light);
   height: 75px;
 }
 nav .logo {
@@ -55,7 +58,7 @@ nav a {
   padding: 1em;
   background-color: transparent;
   text-decoration: none;
-  color: gray;
+  color: var(--mlight);
   font-size: 1.2rem;
   font-weight: bold;
 }
@@ -71,7 +74,7 @@ nav a {
 }
 
 .nav_link {
-  color: #aaaaaa;
+  color: var(--mlight);
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -82,7 +85,7 @@ nav a {
 
 .nav_link.active,
 .nav_link:hover {
-  color: rgb(0, 27, 59);
+  color: var(--contrast);
   text-decoration: none;
 }
 
@@ -108,7 +111,7 @@ nav a {
     top: 85px;
     left: 0;
     flex-direction: column;
-    background-color: rgba(255, 228, 196, 0.9);
+    background-color: var(--light);
     width: 100%;
     transform: translateX(100%);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -136,28 +139,47 @@ nav a {
 
 .profile_icon i {
   font-size: 1.5rem;
-  color: gray;
+  color: var(--mlight);
 }
 
 .profile_icon:hover i {
-  color: rgb(0, 27, 59);
+  color: var(--contrast);
 }
 
-.profile_dropdown {
+.profile_dropdown,.dropdown_hide {
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: rgba(255, 228, 196, 0.9);
+  background-color: var(--light);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   overflow: hidden;
   z-index: 100;
 }
 
+.profile_dropdown{
+  opacity: 1;
+}
+
+.dropdown_hide{
+  opacity: 0;
+  left: 10000%;
+}
+
 .profile_dropdown a {
   display: block;
   padding: 0.5rem 1rem;
-  color: gray;
+  color: var(--mlight);
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dropdown_hide a{
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--mlight);
   font-size: 1.1rem;
   font-weight: bold;
   text-decoration: none;
@@ -165,8 +187,8 @@ nav a {
 }
 
 .profile_dropdown a:hover {
-  background-color: rgb(0, 27, 59);
-  color: rgba(255, 228, 196);
+  background-color: var(--mdark);
+  color: var(--contrast);
 }
 
 nav a {
@@ -174,7 +196,7 @@ nav a {
   padding: 1em;
   background-color: transparent;
   text-decoration: none;
-  color: gray;
+  color: var(--mlight);
   font-size: 1.2rem;
   font-weight: bold;
 }
@@ -190,6 +212,6 @@ nav a {
 
 .nav_link.active,
 .nav_link:hover {
-  color: rgb(0, 27, 59);
+  color: var(--contrast);
   text-decoration: none;
 }

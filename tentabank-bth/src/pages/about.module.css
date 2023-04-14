@@ -1,16 +1,16 @@
 /* Styles for team member containers */
 .backdrop{
   position:relative;
-  background-color: #7d7f80;
-  background-image: repeating-linear-gradient(45deg, #6f63ad, #6f63ad 5px, transparent 5px, transparent 50px);
+  background-color: var(--mlight);
+  background-image: repeating-linear-gradient(45deg, var(--purple), var(--purple) 5px, transparent 5px, transparent 50px);
 }
 .container{
   padding: 2rem;
-  background-color: #D2D3D3;
+  background-color: var(--light);
   border-radius: 1rem;
   border-width: 5px;
   border-style: none solid solid solid;
-  border-color: #6f63ad;
+  border-color: var(--purple);
 }
 .team_member_container {
     display: flex;
