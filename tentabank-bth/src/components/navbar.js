@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import "./navbar.css";
+import styles from "./navbar.module.css";
 import img from "./bilder/logga-tentabank.png";
 import LoginButton from "./login-button";
 import LogoutButton from "./logout-button";
@@ -31,47 +31,47 @@ const Navbar = () => {
   })
   return (
     <>
-      <nav className={navbar?"nav_scroll":"nav"}>
-        <NavLink className="logo" to="/">
+      <nav className={navbar?styles.nav_scroll:styles.nav}>
+        <NavLink className={styles.logo} to="/">
           <img src={img} alt="logo" />
         </NavLink>
         <button
-          className="menu-toggle"
+          className={styles.menu_toggle}
           onClick={() => setMenuOpen(!menuOpen)}
         >
           ☰
         </button>
-        <div className={`nav-menu ${menuOpen ? "open" : ""}`}>
+        <div className={menuOpen ? styles.nav_menu.open : styles.nav_menu}>
 
           {cookies.role !== "Reviewer" && (
-            <NavLink className="nav-link" to="/browse" activeClassName="active">
+            <NavLink className={styles.nav_link} to="/browse" activeClassName="active">
               Tentabank
             </NavLink>
           )}
           {cookies.role !== "Reviewer" && (
-            <NavLink className="nav-link" to="/upload" activeClassName="active">
+            <NavLink className={styles.nav_link} to="/upload" activeClassName="active">
               Ladda upp
             </NavLink>
           )}
           {cookies.role === "Reviewer" && (
-            <NavLink className="nav-link" to="/review" activeClassName="active">
+            <NavLink className={styles.nav_link} to="/review" activeClassName="active">
               Granska
             </NavLink>
           )}
-          <NavLink className="nav-link" to="/about" activeClassName="active">
+          <NavLink className={styles.nav_link} to="/about" activeClassName="active">
             Om oss
           </NavLink>
-          {cookies.loggedIn ? (<div className="profile-icon" onClick={handleProfileClick}>
+          {cookies.loggedIn ? (<div className={styles.profile_icon} onClick={handleProfileClick}>
             <i className="fas fa-user-circle"></i>
             {profileDropdownOpen && (
-              <div className="profile-dropdown">
-                <NavLink className="nav-link" to="/profile" activeClassName="active">
+              <div className={styles.profile_dropdown}>
+                <NavLink className={styles.nav_link} to="/profile" activeClassName="active">
                   Min sida
                 </NavLink>
-                <NavLink className="nav-link" to="/notifications" activeClassName="active">
+                <NavLink className={styles.nav_link} to="/notifications" activeClassName="active">
                   Notifications
                 </NavLink>
-                <NavLink className="nav-link" to="/settings" activeClassName="active">
+                <NavLink className={styles.nav_link} to="/settings" activeClassName="active">
                   Settings
                 </NavLink>
                 {cookies.loggedIn && <LogoutButton />}

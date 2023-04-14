@@ -1,0 +1,149 @@
+.profile_page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 3rem;
+}
+  
+.container {
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
+}
+  
+.profile_name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+  
+.accepted, .pending, .denied {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 80%;
+}
+  
+.accepted, .pending, .denied h2 {
+  margin-bottom: 1rem;
+}
+  
+.file-names {
+  width: 100%;
+}
+  
+.accepted {
+  background-color: #A9DF9C;
+}
+  
+.pending {
+  background-color: #F7DC6F;
+}
+  
+.denied {
+  background-color: #F5B7B1;
+}
+  
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+  
+th {
+  background-color: #F0F0F0;
+  text-align: left;
+  padding: 0.5rem;
+}
+  
+td {
+  padding: 0.5rem;
+}
+  
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+  
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+  
+/* Profile card */
+
+.profile_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("..//components/bilder/img-9.png");
+  background-size:cover;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  color: white;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.profile_card > .container {
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
+}
+
+.profile_card > .container > .profile_name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.profile_card > .container > p {
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+.blank{
+  padding-top: 10rem;
+}
+.delete_account {
+  background: #ff4242;
+  border: 1px solid #ff4242;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: 10px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  
+}
+
+.edit{
+  margin-top: 10px;
+  border-radius: 5px;
+}

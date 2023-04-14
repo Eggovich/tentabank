@@ -87,27 +87,27 @@ const Upload = () => {
       <>
       <h1>Ladda upp här!</h1>
       { uploaded ? (
-        <div className="upload-success">
+        <div className={styles.upload_success}>
           <h3>Din tenta är nu inlämnad och väntar på att granskas</h3>
-          <button onClick={handleUpload} className="submit-button">Ladda upp igen</button>
+          <button onClick={handleUpload} className={styles.submit_button}>Ladda upp igen</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className={styles.upload_form}>
           <input type="file" accept=".pdf" className={styles.file_field} onChange={(e) => setFile(e.target.files[0])} />
           <div className={styles.form_element}>
             <label className={styles.labels}>Kurskod: </label>
-            <input type="text" className='input_field' onChange={(e) => setName(e.target.value)} placeholder="IY1234" />
+            <input type="text" className={styles.input_field} onChange={(e) => setName(e.target.value)} placeholder="IY1234" />
           </div>
           <div className={styles.form_element}>
             <label className={styles.labels}>Datum: </label>
-            <input type="text" className='input_field' onChange={(e) => setDate(e.target.value)} placeholder="YYYY-MM-DD"/>
+            <input type="text" className={styles.input_field} onChange={(e) => setDate(e.target.value)} placeholder="YYYY-MM-DD"/>
           </div>
           <div className={styles.form_element}>
             <label className={styles.labels}>Anonymitetskod: </label>
-            <input type="text" className='input_field' onChange={(e) => setExamId(e.target.value)} placeholder="ABCD-012"/>
+            <input type="text" className={styles.input_field} onChange={(e) => setExamId(e.target.value)} placeholder="ABCD-012"/>
           </div>
           <div className={styles.form_element}>
-            <select className="dropdown" onChange={(e) => setGrade(e.target.value)}>
+            <select className={styles.dropdown} onChange={(e) => setGrade(e.target.value)}>
               <option value="">Betyg</option>
               <option value="A">A</option>
               <option value="B">B</option>
@@ -117,7 +117,7 @@ const Upload = () => {
             </select>
           </div>
           <div className={styles.form_element}>
-            <button type="submit" className="submit-button">Ladda upp</button>
+            <button type="submit" className={styles.submit_button}>Ladda upp</button>
           </div>
         </form>
       )}

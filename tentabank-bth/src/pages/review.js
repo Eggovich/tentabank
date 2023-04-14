@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {useCookies} from 'react-cookie'
-import './review.css'
+import {useCookies} from 'react-cookie';
+import styles from './review.module.css';
 
 const Review = () => {
   const [review, setReview] = useState(false);
@@ -102,25 +102,25 @@ const Review = () => {
       </table>
     </div>
     ) : (
-        <div className="container_review">
-          <div className="third-left">
-            <form className="reviewform" onSubmit={handleSubmit}>
+        <div className={styles.container_review}>
+          <div className={styles.third_left}>
+            <form className={styles.reviewform} onSubmit={handleSubmit}>
               <p>Granskning av {file.file_name}</p>
               <label htmlFor="comment">Om tentan inte godkänns, ge en beskrivning om varför den inte blev det.</label>
-              <input className="review" type="text" id='comment' onChange={(e) => setComment(e.target.value)} placeholder="Kommentar"/><br/>
+              <input className={styles.review} type="text" id='comment' onChange={(e) => setComment(e.target.value)} placeholder="Kommentar"/><br/>
               <label htmlFor="anon">Stämmer den inlämnade filen med medföljande uppgifter?</label>
-              <input className="checkbox" type="checkbox" id='anon' checked={checked} onChange={() => setChecked(!checked)}/><br/>
-              <div className="buttons">
-                <button disabled={!comment} type="submit" className="denied-button" onClick={() => setStatus("denied")}>Neka tentan</button>
-                <button disabled={!checked} type="submit" className="accepted-button" onClick={() => setStatus("accepted")}>Godkänn tentan</button>
+              <input className={styles.checkbox} type="checkbox" id='anon' checked={checked} onChange={() => setChecked(!checked)}/><br/>
+              <div className={styles.buttons}>
+                <button disabled={!comment} type="submit" className={styles.denied_button} onClick={() => setStatus("denied")}>Neka tentan</button>
+                <button disabled={!checked} type="submit" className={styles.accepted_button} onClick={() => setStatus("accepted")}>Godkänn tentan</button>
               </div>
             </form>
           </div>
-          <div className="third-mid">
-            <iframe className="pdf_review" src={file.file_data}/>
+          <div className={styles.third_mid}>
+            <iframe className={styles.pdf_review} src={file.file_data}/>
           </div>
-          <div className="third-right">
-            <div className="reviewform">
+          <div className={styles.third_right}>
+            <div className={styles.reviewform}>
               <h1>Den givna infon om uppladdningen</h1>
               <h3>Kurskod: {file.subject}</h3>
               <h3>Datum: {file.exam_date}</h3>
@@ -132,7 +132,7 @@ const Review = () => {
     )
   ):(
     <div>
-      <p className='error-message'>Du måste vara inloggad som granskare för att ha åtkomst till sidan</p>
+      <p className="errormessage">Du måste vara inloggad som granskare för att ha åtkomst till sidan</p>
     </div>
   )
   );

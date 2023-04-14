@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate, NavLink } from "react-router-dom";
 import LoginForm from "../components/loginForm";
 import SignupForm from "../components/signupForm"
-import "./login.css"
+import styles from "./login.module.css"
 
 
 const Login = () => {
@@ -16,11 +16,11 @@ const Login = () => {
   }, [cookies.loggedIn, navigate]);    
 
   return (
-    <div className="login-page">
-      <div className="form">
+    <div className={styles.login_page}>
+      <div className={styles.form}>
         <LoginForm></LoginForm>
       </div>
-      <div className="form">
+      <div className={styles.form}>
       <SignupForm/>
       </div>
     </div>

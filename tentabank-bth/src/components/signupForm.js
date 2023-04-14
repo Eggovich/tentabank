@@ -1,7 +1,7 @@
 import { useNavigate, NavLink } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import { useState, useEffect } from "react"
-import "./signupForm.css"
+import styles from "./signupForm.module.css"
 
 
 const SignupForm = () => {
@@ -59,15 +59,15 @@ const SignupForm = () => {
 
     return (
         
-        <div className='login-container'>
-            <h2 className='login-title'>Skapa konto</h2>
+        <div className={styles.login_container}>
+            <h2 className={styles.login_title}>Skapa konto</h2>
             {!uploaded ? (
-            <form className='login-form' onSubmit={handleSubmit}>
-                <input type="text" className="login-input" onChange={(e) => setName(e.target.value)} placeholder="Smeknamn" />
-                <input type="text" className="login-input" onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
-                <input type="password" className="login-input" onChange={(e) => setPassword(e.target.value)} placeholder="Lösenord"/>
-                <input type="password" className="login-input" onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Konfirmera lösenordet"/>
-                <button type='submit' className='login-submit'>
+            <form className={styles.login_form} onSubmit={handleSubmit}>
+                <input type="text" className={styles.login_input} onChange={(e) => setName(e.target.value)} placeholder="Smeknamn" />
+                <input type="text" className={styles.login_input} onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
+                <input type="password" className={styles.login_input} onChange={(e) => setPassword(e.target.value)} placeholder="Lösenord"/>
+                <input type="password" className={styles.login_input} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Konfirmera lösenordet"/>
+                <button type='submit' className={styles.login_submit}>
                     Skapa konto
                 </button>
             </form>

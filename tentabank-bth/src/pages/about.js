@@ -3,47 +3,48 @@ import { Container, Row, Col, Image } from 'react-bootstrap';
 import team1Img from '..//components/bilder/simon.jpeg';
 import team2Img from '..//components/bilder/Profilbild-Egon-Grans.jpeg';
 import team3Img from '..//components/bilder/hanna.jpeg';
-import './about.css';
+import styles from './about.module.css';
 
 const About = () => {
   return (
-    <Container>
-      <Row className="my-5">
+    <div className={styles.backdrop}>
+    <Container className={styles.container}>
+      <Row className={styles.my_5}>
         <Col>
           <h1>About Us</h1>
           <p>We are a team of three passionate individuals dedicated to improving the college experience for students.</p>
         </Col>
       </Row>
-      <Row className="my-5">
+      <Row className={styles.my_5}>
         <Col md={4}>
-          <div className="team-member-container">
-            <div className="team-member">
-              <Image src={team1Img} roundedCircle className="team-member-image mb-3" />
+          <div className={styles.team_member_container}>
+            <div className={styles.team_member}>
+              <Image src={team1Img} roundedCircle className={styles.team_member_image} />
               <h3>Simon Gottschalk</h3>
               <p>Co-founder and CEO</p>
             </div>
           </div>
         </Col>
         <Col md={4}>
-          <div className="team-member-container">
-            <div className="team-member">
-              <Image src={team2Img} roundedCircle className="team-member-image mb-3" />
+          <div className={styles.team_member_container}>
+            <div className={styles.team_member}>
+              <Image src={team2Img} roundedCircle className={styles.team_member_image} />
               <h3>Egon Grans</h3>
               <p>Co-founder and CTO</p>
             </div>
           </div>
         </Col>
         <Col md={4}>
-          <div className="team-member-container">
-            <div className="team-member">
-              <Image src={team3Img} roundedCircle className="team-member-image mb-3" />
+          <div className={styles.team_member_container}>
+            <div className={styles.team_member}>
+              <Image src={team3Img} roundedCircle className={styles.team_member_image} />
               <h3>Hanna Isrealsson</h3>
               <p>Co-founder and CFO</p>
             </div>
           </div>
         </Col>
       </Row>
-      <Row className="my-5">
+      <Row className={styles.my_5}>
         <Col>
           <h2>Our Purpose</h2>
           <p>
@@ -57,7 +58,7 @@ const About = () => {
              rating, upload and share exam solutions, and store exams on Google Cloud Storage..</p>
         </Col>
       </Row>
-      <Row className="my-5">
+      <Row className={styles.my_5}>
         <Col>
           <h2>Our Services</h2>
           <ul>
@@ -69,6 +70,7 @@ const About = () => {
         </Col>
       </Row>
     </Container>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
-import './starrating.css'
+import styles from './starrating.module.css'
 
 const Setstarrating = (props) => {
     const [cookies, setCookies] = useCookies(['User'])
@@ -21,14 +21,14 @@ const Setstarrating = (props) => {
           })
     }
     return (
-        <div id="star-rating">
+        <div>
             {[...Array(5)].map((star, index) => {
                 index += 1;
                 return (
                     <button
                         type="button"
                         key={index}
-                        className={index <= (hover || rating) ? "on" : "off"}
+                        className={index <= (hover || rating) ? styles.on : styles.off}
                         onClick={() => handleRating(index)}
                         onMouseEnter={() => setHover(index)}
                         onMouseLeave={() => setHover(rating)}

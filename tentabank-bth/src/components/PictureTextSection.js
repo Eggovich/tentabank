@@ -1,13 +1,13 @@
 import React from 'react';
-import './PictureTextSection.css';
+import styles from './PictureTextSection.module.css';
 
 const PictureTextSection = ({ imagePosition, imageSrc, title, description, altText }) => {
   return (
-    <div className={`picture-text-section ${imagePosition}`}>
-      <div className="image-container">
+    <div className={`${styles.picture_text_section} ${imagePosition}`}>
+      <div className={styles.image_container}>
         <img src={imageSrc} alt={altText} />
       </div>
-      <div className="text-container">
+      <div className={styles.text_container}>
         <h3>{title}</h3>
         <p>{description}</p>
       </div>

@@ -70,7 +70,7 @@ nav a {
   cursor: pointer;
 }
 
-.nav-link {
+.nav_link {
   color: #aaaaaa;
   display: flex;
   align-items: center;
@@ -80,19 +80,19 @@ nav a {
   cursor: pointer;
 }
 
-.nav-link.active,
-.nav-link:hover {
+.nav_link.active,
+.nav_link:hover {
   color: rgb(0, 27, 59);
   text-decoration: none;
 }
 
-.nav-menu {
+.nav_menu {
   display: flex;
   align-items: center;
   margin-right: 24px;
 }
 
-.menu-toggle {
+.menu_toggle {
   display: none;
   background-color: transparent;
   border: none;
@@ -102,7 +102,7 @@ nav a {
 }
 
 @media screen and (max-width: 768px) {
-  .nav-menu {
+  .nav_menu {
     display: block;
     position: absolute;
     top: 85px;
@@ -115,18 +115,18 @@ nav a {
     transition: transform 0.3s ease-in-out;
   }
 
-  .nav-menu.open {
+  .nav_menu.open {
     transform: translateX(0);
   }
 
-  .menu-toggle {
+  .menu_toggle {
     display: block;
   }
 }
 
 /* ... other styles ... */
 
-.profile-icon {
+.profile_icon {
   position: relative;
   cursor: pointer;
   display: flex;
@@ -134,16 +134,16 @@ nav a {
   padding: 0 1rem;
 }
 
-.profile-icon i {
+.profile_icon i {
   font-size: 1.5rem;
   color: gray;
 }
 
-.profile-icon:hover i {
+.profile_icon:hover i {
   color: rgb(0, 27, 59);
 }
 
-.profile-dropdown {
+.profile_dropdown {
   position: absolute;
   top: 100%;
   right: 0;
@@ -154,7 +154,7 @@ nav a {
   z-index: 100;
 }
 
-.profile-dropdown a {
+.profile_dropdown a {
   display: block;
   padding: 0.5rem 1rem;
   color: gray;
@@ -164,7 +164,7 @@ nav a {
   white-space: nowrap;
 }
 
-.profile-dropdown a:hover {
+.profile_dropdown a:hover {
   background-color: rgb(0, 27, 59);
   color: rgba(255, 228, 196);
 }
@@ -179,7 +179,7 @@ nav a {
   font-weight: bold;
 }
 
-.nav-link {
+.nav_link {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -188,8 +188,8 @@ nav a {
   cursor: pointer;
 }
 
-.nav-link.active,
-.nav-link:hover {
+.nav_link.active,
+.nav_link:hover {
   color: rgb(0, 27, 59);
   text-decoration: none;
 }

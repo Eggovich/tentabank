@@ -1,69 +1,57 @@
 /* Styles for team member containers */
-
-.team-member-container {
+.backdrop{
+  position:relative;
+  background-color: #7d7f80;
+  background-image: repeating-linear-gradient(45deg, #6f63ad, #6f63ad 5px, transparent 5px, transparent 50px);
+}
+.container{
+  padding: 2rem;
+  background-color: #D2D3D3;
+  border-radius: 1rem;
+  border-width: 5px;
+  border-style: none solid solid solid;
+  border-color: #6f63ad;
+}
+.team_member_container {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  /* Add a max-width to the team member container so it doesn't take up too much space on larger screens */
-  
-  .team-member-container {
     max-width: 400px;
-  }
-  
-  /* Add some margin to the team member container so it's not right up against the edge of the column */
-  
-  .team-member-container {
     margin: 0 auto;
     margin-bottom: 50px;
-  }
-  .team-member-container {
     display: flex;
     justify-content: center;
   }
   
-  .team-member {
+  .team_member {
     text-align: center;
   }
   
-  .team-member-image {
+  .team_member_image {
     width: 100%;
     height: auto;
     max-width: 200px;
     max-height: 200px;
-  }
-  
-  /* Styles for team member images */
-  
-  .team-member-image {
-    width: 100%;
-    max-width: 200px;
-  }
-  
-  /* Add some margin to the bottom of the team member image so there's some space between it and the text */
-  
-  .team-member-image {
     margin-bottom: 15px;
   }
   
   /* Styles for team member names and titles */
   
-  .team-member h3, .team-member p {
+  .team_member h3, .team_member p {
     margin: 0;
     text-align: center;
   }
   
   /* Add some margin to the bottom of the team member title so there's some space between it and the text */
   
-  .team-member p {
+  .team_member p {
     margin-bottom: 15px;
   }
   
   /* Make team members responsive to smaller screens */
   
   @media (max-width: 768px) {
-    .team-member-container {
+    .team_member_container {
       max-width: 100%;
     }
   }
