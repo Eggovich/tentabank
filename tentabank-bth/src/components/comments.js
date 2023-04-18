@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {confirmAlert} from "react-confirm-alert"
-import './comments.css';
+import styles from './comments.module.css';
 
 const Comments = ({ examId, userId }) => {
   const [comments, setComments] = useState([]);
@@ -72,23 +72,23 @@ const Comments = ({ examId, userId }) => {
   }
   const renderReplies = (replies) => {
     return (
-      <ul className="comment-replies">
+      <ul className={styles.comment_replies}>
         {replies.map((reply, index) => (
-          <li key={`${reply.comment_id}-${index}`} className="comment-item">
+          <li key={`${reply.comment_id}-${index}`} className={styles.comment_item}>
             {/* Similar structure as the original comment */}
-            <div className="comment-header">
-              <span className="comment-author">{reply.username}</span>
-              <span className='comment-date'>{reply.created_on}</span>
+            <div className={styles.comment_header}>
+              <span className={styles.comment_author}>{reply.username}</span>
+              <span className={styles.comment_date}>{reply.created_on}</span>
               {reply.user_id.toString() === userId.toString() && (
                 <button
-                  className="delete-comment-button"
+                  className={styles.delete_comment_button}
                   onClick={() => handleErase(reply.comment_id)}
                 >
                   Delete
                 </button>
               )}
             </div>
-            <div className="comment-text">{reply.comment}</div>
+            <div className={styles.comment_text}>{reply.comment}</div>
           </li>
         ))}
       </ul>
@@ -97,8 +97,8 @@ const Comments = ({ examId, userId }) => {
   
 
   return (
-    <div className="comment-section">
-      <div className="comment-input">
+    <div className={styles.comment_section}>
+      <div className={styles.comment_input}>
           <textarea
             placeholder="Add a comment..."
             rows="2"
@@ -107,24 +107,24 @@ const Comments = ({ examId, userId }) => {
         ></textarea>
         <button onClick={handleSubmit}>Post</button>
       </div>
-      <ul className="comment-list">
+      <ul className={styles.comment_list}>
         {comments.map((comment) => (
-          <li key={comment.comment_id} className="comment-item">
-            <div className="comment-header">
-              <span className="comment-author">{comment.username}</span>
-              <span className='comment-date'>{comment.created_on}</span>
+          <li key={comment.comment_id} className={styles.comment_item}>
+            <div className={styles.comment_header}>
+              <span className={styles.comment_author}>{comment.username}</span>
+              <span className={styles.comment_date}>{comment.created_on}</span>
               {comment.user_id.toString() === userId.toString() && (
                 <button
-                  className="delete-comment-button"
+                  className={styles.delete_comment_button}
                   onClick={() => handleErase(comment.comment_id)}
                 >
                   Delete
                 </button>
               )}
             </div>
-            <div className="comment-text">{comment.comment}</div>
+            <div className={styles.comment_text}>{comment.comment}</div>
             {comment.replies && renderReplies(comment.replies)} {/* Render replies if available */}
-            <div className="comment-reply">
+            <div className={styles.comment_reply}>
               <textarea
                 placeholder="Reply to this comment..."
                 rows="1"

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Roadmap.css';
+import styles from './Roadmap.module.css';
 
 const roadmapSteps = [
   { id: 1, title: 'Create an account' },
@@ -18,21 +18,21 @@ const Roadmap = () => {
   };
 
   return (
-    <div className="roadmap-section">
-      <h2 className="roadmap-title">Roadmap</h2>
-      <div className="roadmap-container">
+    <div className={styles.roadmap_section}>
+      <h2 className={styles.roadmap_title}>Roadmap</h2>
+      <div className={styles.roadmap_container}>
         {roadmapSteps.map((step, index) => (
           <div
             key={index}
-            className={`roadmap-step ${index % 2 === 0 ? 'left' : 'right'} ${
+            className={`${styles.roadmap_step} ${index % 2 === 0 ? 'left' : 'right'} ${
               activeStep === step.id ? 'active' : ''
             }`}
             onClick={() => handleStepClick(step.id)}
           >
-            <div className="roadmap-step-circle">{step.id}</div>
-            <div className="roadmap-step-title">{step.title}</div>
+            <div className={styles.roadmap_step_circle}>{step.id}</div>
+            <div className={styles.roadmap_step_title}>{step.title}</div>
             {activeStep === step.id && (
-              <div className="roadmap-step-info">
+              <div className={styles.roadmap_step_info}>
                 {/* Add more information about the step here */}
                 More information about {step.title}
               </div>

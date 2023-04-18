@@ -1,54 +1,54 @@
-.comment-section {
+.comment_section {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
 }
 
-.comment-input,
-.comment-reply {
+.comment_input,
+.comment_reply {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.comment-input textarea,
-.comment-reply textarea {
+.comment_input textarea,
+.comment_reply textarea {
   width: 100%;
   resize: none;
   margin-right: 10px;
 }
 
-.comment-list {
+.comment_list {
   list-style-type: none;
   padding: 0;
 }
 
-.comment-item {
+.comment_item {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
 }
 
-.comment-header {
+.comment_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
 }
 
-.comment-author {
+.comment_author {
   font-weight: bold;
 }
 
-.comment-date {
+.comment_date {
   font-size: 0.8em;
   color: #888;
 }
 
-.delete-comment-button {
+.delete_comment_button {
   background-color: #f44336;
   color: white;
   border: none;
@@ -58,11 +58,11 @@
   border-radius: 3px;
 }
 
-.delete-comment-button:hover {
+.delete_comment_button:hover {
   background-color: #e22e15;
 }
 
-.comment-replies {
+.comment_replies {
   list-style-type: none;
   padding-left: 30px;
 }

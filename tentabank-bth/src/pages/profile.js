@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useCookies } from 'react-cookie';
-import './profile.css';
+import styles from './profile.module.css';
 import img from "..//components/images/img-1.jpg"
 import {confirmAlert} from "react-confirm-alert"
 import 'react-confirm-alert/src/react-confirm-alert.css'
@@ -152,12 +152,12 @@ const handleUserUpdate = () =>{
 }
   return (
     !cookies.loggedIn ? (
-      <div className="error-message">
+      <div className="errormessage">
         <h1>Logga in</h1>
       </div>
     ) : (
       editProfile ? (
-      <div className='profile-page'>
+      <div className={styles.profile_page}>
         <p>hej här ska man kunna redigera mer grejer i framtiden!</p>
         <form>
           <label htmlFor="username">Smeknamn </label>
@@ -169,19 +169,19 @@ const handleUserUpdate = () =>{
         </div>
       </div>
       ):(
-      <div className="profile-page">
-        <div className='profile-card'>
+      <div className={styles.profile_page}>
+        <div className={styles.profile_card}>
         
-          <div className="container">
-            <div className="profile-name"> Välkommen {cookies.username}!</div>
+          <div className={styles.container}>
+            <div className={styles.profile_name}> Välkommen {cookies.username}!</div>
             <p>role: {cookies.role}</p>
           </div>
         
         </div>
         <div>
-          <button className="edit" onClick={() => setEditProfile(true)}>Redigera profil</button>
+          <button className={styles.edit} onClick={() => setEditProfile(true)}>Redigera profil</button>
         </div>
-        <div className="file-container accepted">
+        <div className={styles.accepted}>
           <h2>Accepterade tentor</h2>
           <table>
             <thead>
@@ -196,7 +196,7 @@ const handleUserUpdate = () =>{
             <tbody>
               {filteredData[0].map((file) => {
                 return (
-                  <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
+                  <tr className={styles.file_names} key={file.id+file.file_name+file.date+file.grade}>
                     <td key={file.id + file.file_name}>{file.subject}</td>
                     <td key={file.id + file.date}>{file.date}</td>
                     <td key={file.id + file.grade}>{file.grade}</td>
@@ -215,7 +215,7 @@ const handleUserUpdate = () =>{
           </table>
         </div>
   
-        <div className="file-container pending">
+        <div className={styles.pending}>
           <h2>Väntar på gransking</h2>
           <table>
             <thead>
@@ -230,7 +230,7 @@ const handleUserUpdate = () =>{
             <tbody>
               {filteredData[1].map((file) => {
                   return (
-                    <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
+                    <tr className={styles.file_names} key={file.id+file.file_name+file.date+file.grade}>
                       <td key={file.id + file.file_name}>{file.subject}</td>
                       <td key={file.id + file.date}>{file.date}</td>
                       <td key={file.id + file.grade}>{file.grade}</td>
@@ -249,7 +249,7 @@ const handleUserUpdate = () =>{
           </table>
         </div>
   
-        <div className="file-container denied">
+        <div className={styles.denied}>
           <h2>Nekade tentor</h2>
           <table>
             <thead>
@@ -265,7 +265,7 @@ const handleUserUpdate = () =>{
             <tbody>
               {filteredData[2].map((file) => {
                   return (
-                    <tr className="file-names" key={file.id+file.file_name+file.date+file.grade}>
+                    <tr className={styles.file_names} key={file.id+file.file_name+file.date+file.grade}>
                   <td key={file.id + file.file_name}>{file.subject}</td>
                   <td key={file.id + file.date}>{file.date}</td>
                   <td key={file.id + file.grade}>{file.grade}</td>
@@ -285,10 +285,10 @@ const handleUserUpdate = () =>{
           </table>
 
         </div>
-        <div className='blank'>
+        <div className={styles.blank}>
           
         </div>
-        <button className='delete-account' onClick={() => submit([cookies.user_id])}>
+        <button className={styles.delete_account} onClick={() => submit([cookies.user_id])}>
             Radera konto
         </button>
       </div>

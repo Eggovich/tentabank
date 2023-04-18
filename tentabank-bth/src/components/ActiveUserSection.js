@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ActiveUserSection.css';
+import styles from './ActiveUserSection.module.css';
 import CountUp from 'react-countup';
 
 const ActiveUserSection = () => {
@@ -38,9 +38,9 @@ const ActiveUserSection = () => {
   }, []);
 
   return (
-    <div className="active-user-section">
-      <h2 className="active-user-title">Va med och se oss växa!</h2>
-      <CountUp className="active-user-counter" start={0} end={activeUsers || 0} duration={10} />
+    <div className={styles.active_user_section}>
+      <h2 className={styles.active_user_title}>Va med och se oss växa!</h2>
+      <CountUp className={styles.active_user_counter} start={0} end={activeUsers || 0} duration={10} />
     </div>
   );
 };

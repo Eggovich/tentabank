@@ -1,4 +1,4 @@
-.sign-in {
+.sign_in {
     background: #4278ff;
     border: 1px solid #4278ff;
     border-radius: 6px;
@@ -22,7 +22,7 @@
     touch-action: manipulation;
     vertical-align: middle;
   }
-  .sign-out1 {
+  .sign_out {
     background: #ff4242;
     border: 1px solid #ff4242;
     border-radius: 6px;

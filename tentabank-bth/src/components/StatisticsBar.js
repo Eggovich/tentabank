@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './StatisticsBar.css';
+import styles from './StatisticsBar.module.css';
 import CountUp from 'react-countup';
 
 const StatisticsBar = ({ stats }) => {
@@ -18,9 +18,9 @@ const StatisticsBar = ({ stats }) => {
 
   
   return (
-    <div className="statistics-bar">
+    <div className={styles.statistics_bar}>
       {stats.map((stat, index) => (
-        <div key={index} className="statistics-item">
+        <div key={index} className={styles.statistics_item}>
           <h4>
             <CountUp start={0} end={statisticsData[stat.key] || 0} duration={10} />
           </h4>

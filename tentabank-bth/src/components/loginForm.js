@@ -1,7 +1,7 @@
 import { useNavigate, NavLink } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import { useState, useEffect } from "react"
-import "./loginForm.css"
+import styles from "./loginForm.module.css"
 
 
 const LoginForm = () => {
@@ -67,12 +67,12 @@ const LoginForm = () => {
         }
     }, [cookies.loggedIn, navigate]);
     return (
-        <div className='login-container'>
-            <h2 className='login-title'>Logga in</h2>
-            <form className='login-form' onSubmit={handleSubmit}>
-                <input type='string' placeholder='Email' className='login-input' onChange={(e) => setEmail(e.target.value)}/>
-                <input type='password' placeholder='Lösenord' className='login-input' onChange={(e) => setPassword(e.target.value)}/>
-                <button type='submit' className='login-submit'>
+        <div className={styles.login_container}>
+            <h2 className={styles.login_title}>Logga in</h2>
+            <form className={styles.login_form} onSubmit={handleSubmit}>
+                <input type='string' placeholder='Email' className={styles.login_input} onChange={(e) => setEmail(e.target.value)}/>
+                <input type='password' placeholder='Lösenord' className={styles.login_input} onChange={(e) => setPassword(e.target.value)}/>
+                <button type='submit' className={styles.login_submit}>
                     Logga in
                 </button>
                 <NavLink to="/login">Har du inget konto? Skapa ett här!</NavLink>

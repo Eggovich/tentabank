@@ -1,11 +1,11 @@
 import React from 'react';
-import Cardsexam from '../components/Cardsexam';
+import Carditemexam from '../components/Carditemsexam';
 
 
 const Testhanna = () => {
   return (
     <div>
-      <Cardsexam/>
+      <Carditemexam/>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 
-.accepted-button {
+.accepted_button {
     min-width: 200px;
     min-height: 60px;
     font-family: 'Nunito', sans-serif;
@@ -20,7 +20,7 @@
     padding: 10px;
     }
   
-  .accepted-button::before {
+  .accepted_button::before {
     content: '';
     border-radius: 1000px;
     min-width: calc(200px + 12px);
@@ -35,16 +35,16 @@
     transition: all .3s ease-in-out 0s;
   }
   
-  .accepted-button:hover, .accepted-button:focus {
+  .accepted_button:hover, .accepted_button:focus {
     color: #313133;
     transform: translateY(-6px);
   }
   
-  .accepted-button:hover::before, .accepted-button:focus::before {
+  .accepted_button:hover::before, .accepted_button:focus::before {
     opacity: 1;
   }
   
-  .accepted-button::after {
+  .accepted_button::after {
     content: '';
     width: 30px; height: 30px;
     border-radius: 100%;
@@ -55,7 +55,7 @@
     transform: translate(-50%, -50%);
   }
   
-  .denied-button {
+  .denied_button {
     margin: 30px;
     min-width: 200px;
     min-height: 60px;
@@ -77,7 +77,7 @@
     padding: 10px;
     }
   
-  .denied-button::before {
+  .denied_button::before {
   content: '';
     border-radius: 1000px;
     min-width: calc(200px + 12px);
@@ -92,16 +92,16 @@
     transition: all .3s ease-in-out 0s;
   }
   
-  .denied-button:hover, .denied-button:focus {
+  .denied_button:hover, .denied_button:focus {
     color: #313133;
     transform: translateY(-6px);
   }
   
-  .denied-button:hover::before, .denied-button:focus::before {
+  .denied_button:hover::before, .denied_button:focus::before {
     opacity: 1;
   }
   
-  .denied-button::after {
+  .denied_button::after {
     content: '';
     width: 30px; height: 30px;
     border-radius: 100%;
@@ -112,7 +112,7 @@
     transform: translate(-50%, -50%);
   }
   
-  .denied-button:hover::after, .denied-button:focus::after {
+  .denied_button:hover::after, .denied_button:focus::after {
     animation: none;
     display: none;
   }
@@ -122,18 +122,18 @@
     height: 100vh;
     background-image: linear-gradient(rgb(254, 144, 41),#F2F2F2);
 }
-.third-left{
+.third_left{
     float:left;        
     width:33.33%;
     height:280px;
 }
-.third-mid{ 
+.third_mid{ 
     float:left;        
     width:33.33%;
     height:280px;
     text-align: center;
 }
-.third-right{
+.third_right{
     float:right;        
     width:33.33%;
     height:280px; 
