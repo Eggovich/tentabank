@@ -132,11 +132,11 @@ const Browse = () => {
               </div>
             </div>
             <ExamsWithoutSolutions
-              exams={filteredData.filter(exam => !exam.solution)}
+              exams={filteredData.filter((exam) => !exam.solution)}
               setSelectedExam={setSelectedExam}
             />
             <ExamsWithSolutions
-              exams={filteredData.filter(exam => exam.solution)}
+              exams={filteredData.filter((exam) => exam.solution)}
               setSelectedExam={setSelectedExam}
             />
           </>

@@ -1,30 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './ExamsWithSolutions.css';
 
-const ExamsWithSolutions = ({ setSelectedExam }) => {
-  const [exams, setExams] = useState([]);
-
-  useEffect(() => {
-    fetchExams();
-  }, []);
-
-  const fetchExams = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/browseExamsWithSolutions', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-      setExams(data.files);
-    } catch (error) {
-      console.error('Error fetching exams:', error);
-    }
-  };
-
+const ExamsWithSolutions = ({ exams, setSelectedExam }) => {
   const handleExamClick = (exam) => {
     setSelectedExam(exam);
   };
