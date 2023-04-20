@@ -7,6 +7,9 @@ from datetime import timedelta, datetime
 import mysql.connector as mysql
 from decouple import config
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 UPLOAD_FOLDER = config("UPLOAD_FOLDER")
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -14,7 +17,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+limiter = Limiter(key_func=get_remote_address, app=app)
 CORS(app, support_credentials=True)
 
 MYSQL_USER =  config("MYSQL_USER") #replace with your user name.
@@ -28,6 +31,7 @@ def allowed_file(filename):
 
 
 @app.route("/signup", methods=["GET", "POST"])
+@limiter.limit("5 per minute")
 @cross_origin(supports_credentials=True)
 def signup(): 
     connection = mysql.connect(user=MYSQL_USER,
@@ -44,6 +48,7 @@ def signup():
     if email in emails:
         connection.close()
         return jsonify({"response":"Email already in use"}), 401
+    password = generate_password_hash(password)
     cnx.execute(f"""INSERT INTO usertable (username, email, password) VALUES ('{name}', '{email}', '{password}')""")
     cnx.execute("""COMMIT""")
     connection.close()
@@ -51,6 +56,7 @@ def signup():
 
 
 @app.route("/login", methods=["GET", "POST"])
+@limiter.limit("5 per minute")
 @cross_origin(supports_credentials=True)
 def login():
     email = request.form.get("email")
@@ -62,23 +68,17 @@ def login():
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
     # Fetch user based on email and password
-    
-    cnx.execute(f"""SELECT 
-                        *
-                    FROM 
-                        usertable
-                    WHERE
-                        email = "{email}"
-                    AND
-                        password = "{password}"
-                """)
+    cnx.execute(""" SELECT * FROM usertable WHERE email = %s """, (email,))
     user = cnx.fetchall()
     connection.close()
     # If query comes back empty the user doens't exist
     # Else it responds with the user info
     if user == []:
-        return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400
-    return jsonify({"response":user[0]}), 200        
+        return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400 
+    if check_password_hash(user[0]["password"], password):
+        return jsonify({"response":user[0]}), 200 
+    else:
+        return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400  
     
 
 @app.route("/servertest", methods=["GET"])
