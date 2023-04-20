@@ -3,6 +3,7 @@
   height: 85px;
   display: flex;
   position: sticky;
+  width:100%;
   top: 0;
   justify-content: space-between;
   padding: 0.2rem calc((100vw - 1000px) / 2);
@@ -13,13 +14,7 @@ div {
   transition: opacity 0.5s;
 }
 nav {
-  background-color: transparent;
-  height: 85px;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
-  z-index: 12;
-  transition: background-color 2s, height 2s;
+  transition: background-color 2s, height 2s, 2s;
 }
 .nav_scroll{
   background-color: var(--light);
@@ -58,11 +53,21 @@ nav a {
   padding: 1em;
   background-color: transparent;
   text-decoration: none;
-  color: var(--mlight);
   font-size: 1.2rem;
   font-weight: bold;
 }
-
+a{
+  transition: color .35s;
+}
+i{
+  transition: color .35s;
+}
+.nav a{
+  color: var(--light);
+}
+.nav_scroll a{
+  color: var(--mlight);
+}
 
 .logo {
   display: flex;
@@ -74,7 +79,7 @@ nav a {
 }
 
 .nav_link {
-  color: var(--mlight);
+  color: var(--light);
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -139,9 +144,14 @@ nav a {
 
 .profile_icon i {
   font-size: 1.5rem;
-  color: var(--mlight);
 }
 
+.nav .profile_icon i{
+  color: var(--light)
+}
+.nav_scroll .profile_icon i{
+  color: var(--mlight)
+}
 .profile_icon:hover i {
   color: var(--contrast);
 }

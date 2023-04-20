@@ -36,6 +36,7 @@ function App() {
 	<Router>
 	<ActivityDetector enabled={true} timeout={60*60*60*1000} onIdle={onIdle} name="default"/>
 	<Navbar/>
+		<div className="content">
 		<Routes>
 			<Route exact path='/*' element={<Home />} />
 			<Route path='/about' element={<About/>} />
@@ -48,6 +49,7 @@ function App() {
 			<Route path='/testhanna' element={<Testhanna/>} />
 		</Routes>
 	<Footer/>
+	</div>
 	</Router>
 );
 }
