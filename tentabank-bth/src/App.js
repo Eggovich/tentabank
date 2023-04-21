@@ -13,6 +13,7 @@ import Review from './pages/review';
 import Browse2 from './pages/browse2';
 import Browse3 from './pages/browse3';
 import Testhanna from './pages/testhanna';
+import Promote from './pages/promote';
 import { Cookies, useCookies } from 'react-cookie';
 import ActivityDetector from 'react-activity-detector'
 
@@ -47,6 +48,7 @@ function App() {
 			<Route path='/login' element={<Login/>} />
 			<Route path='/review' element={<Review/>} />
 			<Route path='/testhanna' element={<Testhanna/>} />
+			<Route path='/promote' element={<Promote/>} />
 		</Routes>
 	<Footer/>
 	</div>

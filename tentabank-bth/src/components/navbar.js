@@ -43,34 +43,39 @@ const Navbar = () => {
         </button>
         <div className={menuOpen ? styles.nav_menu.open : styles.nav_menu}>
 
-          {cookies.role !== "Reviewer" && (
-            <NavLink className={styles.nav_link} to="/browse" activeClassName="active">
+          {(cookies.role === "Student" || cookies.role === undefined) && (
+            <NavLink className={styles.nav_link} to="/browse" activeclassname="active">
               Tentabank
             </NavLink>
           )}
-          {cookies.role !== "Reviewer" && (
-            <NavLink className={styles.nav_link} to="/upload" activeClassName="active">
+          {cookies.role === "Student" && (
+            <NavLink className={styles.nav_link} to="/upload" activeclassname="active">
               Ladda upp
             </NavLink>
           )}
           {cookies.role === "Reviewer" && (
-            <NavLink className={styles.nav_link} to="/review" activeClassName="active">
+            <NavLink className={styles.nav_link} to="/review" activeclassname="active">
               Granska
             </NavLink>
           )}
-          <NavLink className={styles.nav_link} to="/about" activeClassName="active">
+          {cookies.role === "Admin" && (
+            <NavLink className={styles.nav_link} to="/promote" activeclassname="active">
+              Befodra
+            </NavLink>
+          )}
+          <NavLink className={styles.nav_link} to="/about" activeclassname="active">
             Om oss
           </NavLink>
           {cookies.loggedIn ? (<div className={styles.profile_icon} onClick={handleProfileClick}>
             <i className="fas fa-user-circle"></i>
             <div className={profileDropdownOpen ? styles.profile_dropdown : styles.dropdown_hide}>
-              <NavLink className={styles.nav_link} to="/profile" activeClassName="active">
+              <NavLink className={styles.nav_link} to="/profile" activeclassname="active">
                 Min sida
               </NavLink>
-              <NavLink className={styles.nav_link} to="/notifications" activeClassName="active">
+              <NavLink className={styles.nav_link} to="/notifications" activeclassname="active">
                 Notifications
               </NavLink>
-              <NavLink className={styles.nav_link} to="/settings" activeClassName="active">
+              <NavLink className={styles.nav_link} to="/settings" activeclassname="active">
                 Settings
               </NavLink>
               {cookies.loggedIn && <LogoutButton />}

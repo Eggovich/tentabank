@@ -1,6 +1,6 @@
 .nav, .nav_scroll {
   background-color: transparent;
-  height: 85px;
+  height: 5.5rem;
   display: flex;
   position: sticky;
   width:100%;
@@ -18,7 +18,7 @@ nav {
 }
 .nav_scroll{
   background-color: var(--light);
-  height: 75px;
+  height: 4.5rem;
 }
 nav .logo {
   width: auto;
