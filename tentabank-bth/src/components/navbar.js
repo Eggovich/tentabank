@@ -41,7 +41,7 @@ const Navbar = () => {
         >
           ☰
         </button>
-        <div className={menuOpen ? styles.nav_menu.open : styles.nav_menu}>
+        <div className={menuOpen ? styles.nav_menu_open : styles.nav_menu}>
 
           {(cookies.role === "Student" || cookies.role === undefined) && (
             <NavLink className={styles.nav_link} to="/browse" activeclassname="active">
@@ -66,7 +66,8 @@ const Navbar = () => {
           <NavLink className={styles.nav_link} to="/about" activeclassname="active">
             Om oss
           </NavLink>
-          {cookies.loggedIn ? (<div className={styles.profile_icon} onClick={handleProfileClick}>
+          {cookies.loggedIn ? (
+          <div className={styles.profile_icon} onClick={handleProfileClick}>
             <i className="fas fa-user-circle"></i>
             <div className={profileDropdownOpen ? styles.profile_dropdown : styles.dropdown_hide}>
               <NavLink className={styles.nav_link} to="/profile" activeclassname="active">

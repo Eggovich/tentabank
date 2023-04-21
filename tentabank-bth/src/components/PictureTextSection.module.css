@@ -18,6 +18,7 @@
 .image_container {
   flex: 1;
   max-width: 50%;
+  filter: grayscale(100%);
 }
   
 .image_container img {

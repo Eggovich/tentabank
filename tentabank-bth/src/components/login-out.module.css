@@ -23,8 +23,8 @@
     vertical-align: middle;
   }
   .sign_out {
-    background: #ff4242;
-    border: 1px solid #ff4242;
+    background: var(--contrast);
+    border: 1px solid var(--contrast);
     border-radius: 6px;
     box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
     box-sizing: 10px;
