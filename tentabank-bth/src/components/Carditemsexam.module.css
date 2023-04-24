@@ -2,7 +2,7 @@
 .master{
  z-index: 1;
  overflow: hidden;
- background-color: rgb(210,255,193);
+ background-color: var(--mdark);
  height:fit-content;
  width: fit-content;
  border-radius: 10px;
@@ -15,7 +15,7 @@
 .cover{
     font-size: 2rem;
     font-family: 'Geomanist', sans-serif;
-    background-color: bisque;
+    background-color: var(--mlight);
     position: relative;
     display: flex;
     height: 100%;

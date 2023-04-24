@@ -14,7 +14,7 @@
     overflow: hidden;
     border-radius: 0 0 20px 20px;
     grid-area: 2 / 1 / 8 / 3;
-    background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, rgb(255, 228, 196) 15%);
+    background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--light) 15%);
     text-align: left;
 }
 .sidebar_container{
@@ -35,7 +35,7 @@
   border: #333;
   grid-area: 2 / 3 / 4 / 8;
   display:flex;
-  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, rgb(255, 228, 196) 45%);
+  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--light) 45%);
   justify-content: space-around;
   align-items: center;
 }
@@ -61,7 +61,6 @@
   flex-wrap: wrap;
   flex-direction: column;
   background-image: url("../components/images/img-home.jpg");
-
   /* Full height */
   min-height: 100%;
 
@@ -240,12 +239,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgb(255,172,86);
-    background: linear-gradient(180deg, rgba(255,172,86,1) 0%, rgba(254,197,108,1) 11%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(180deg, var(--mdark), rgba(255,255,255,1) 100%);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    padding-top: 6rem;
   }
   
   .exam-details h1 {

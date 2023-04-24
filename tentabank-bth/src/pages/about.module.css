@@ -3,6 +3,8 @@
   position:relative;
   background-color: var(--mlight);
   background-image: repeating-linear-gradient(45deg, var(--purple), var(--purple) 5px, transparent 5px, transparent 50px);
+  padding-top: 6rem;
+  padding-bottom: 6em;
 }
 .container{
   padding: 2rem;

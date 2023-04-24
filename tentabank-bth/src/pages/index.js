@@ -18,12 +18,12 @@ const statsData = [
 
 const Home = () => {
   return (
-    <div>
+    <>
       <HeroSection/>
       <PictureTextSection
         imagePosition="left"
         imageSrc={team2Img}
-        title="Vår fina Egon"
+        title="Vad är Tentabanken?"
         description="I sammarbete med Min Stora dag, har vi i Tenatabanken AB valt att ta in egon som designer.
         Egon är en kille på 23 år som alltid älskat kod och nu får han äntligen leva upp till sin dröm genom att 
         vara med och skapa en hemsida med några riktiga proffs. HEJA EGON"
@@ -39,7 +39,7 @@ const Home = () => {
         altText="Image description for the second section"
       />
       <ActiveUserSection/>
-    </div>
+    </>
   );
 };
 

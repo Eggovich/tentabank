@@ -79,8 +79,6 @@ const Upload = () => {
   return (
     
   <div className={styles.page_container}>
-    <div className={styles.title}>Ladda upp</div>
-    <div className={styles.info}>Hej</div>
     <div className={styles.form_half}>
     <div className={styles.form_container}>
     {cookies.loggedIn?(

@@ -1,23 +1,24 @@
-.picture_text_section {
+.picture_text_section_left, .picture_text_section_right {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-image: url('../components/bilder/waves.svg');
+  background-image: url('../components/bilder/Polygon Luminary.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: grayscale(100%);
   padding: 4rem 6rem;
 }
+
   
-.picture_text_section.right {
+.picture_text_section_right {
   flex-direction: row-reverse;
 }
 
 .image_container {
   flex: 1;
   max-width: 50%;
+  filter: grayscale(100%);
 }
   
 .image_container img {
@@ -34,10 +35,12 @@
 .text_container h3 {
   font-size: 2rem;
   margin-bottom: 1rem;
+  color: var(--light);
 }
   
 .text_container p {
   font-size: 1.2rem;
   line-height: 1.6;
+  color: var(--light);
 }
   

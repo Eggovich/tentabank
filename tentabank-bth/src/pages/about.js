@@ -5,6 +5,7 @@ import team2Img from '..//components/bilder/Profilbild-Egon-Grans.jpeg';
 import team3Img from '..//components/bilder/hanna.jpeg';
 import styles from './about.module.css';
 
+
 const About = () => {
   return (
     <div className={styles.backdrop}>

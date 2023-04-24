@@ -7,6 +7,9 @@ from datetime import timedelta, datetime
 import mysql.connector as mysql
 from decouple import config
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 UPLOAD_FOLDER = config("UPLOAD_FOLDER")
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -14,7 +17,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+limiter = Limiter(key_func=get_remote_address, app=app)
 CORS(app, support_credentials=True)
 
 MYSQL_USER =  config("MYSQL_USER") #replace with your user name.
@@ -28,6 +31,7 @@ def allowed_file(filename):
 
 
 @app.route("/signup", methods=["GET", "POST"])
+@limiter.limit("5 per minute")
 @cross_origin(supports_credentials=True)
 def signup(): 
     connection = mysql.connect(user=MYSQL_USER,
@@ -44,13 +48,15 @@ def signup():
     if email in emails:
         connection.close()
         return jsonify({"response":"Email already in use"}), 401
-    cnx.execute(f"""INSERT INTO usertable (username, email, password) VALUES ('{name}', '{email}', '{password}')""")
+    password = generate_password_hash(password)
+    cnx.execute("""INSERT INTO usertable (username, email, password) VALUES (%s, %s, %s)""", (name, email, password,))
     cnx.execute("""COMMIT""")
     connection.close()
     return "Account created successfully", 200
 
 
 @app.route("/login", methods=["GET", "POST"])
+@limiter.limit("5 per minute")
 @cross_origin(supports_credentials=True)
 def login():
     email = request.form.get("email")
@@ -62,23 +68,17 @@ def login():
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
     # Fetch user based on email and password
-    
-    cnx.execute(f"""SELECT 
-                        *
-                    FROM 
-                        usertable
-                    WHERE
-                        email = "{email}"
-                    AND
-                        password = "{password}"
-                """)
+    cnx.execute(""" SELECT * FROM usertable WHERE email = %s """, (email,))
     user = cnx.fetchall()
     connection.close()
     # If query comes back empty the user doens't exist
     # Else it responds with the user info
     if user == []:
-        return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400
-    return jsonify({"response":user[0]}), 200        
+        return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400 
+    if check_password_hash(user[0]["password"], password):
+        return jsonify({"response":user[0]}), 200 
+    else:
+        return jsonify({"response":"Fel lösenord eller email", "errorcode":400}), 400  
     
 
 @app.route("/servertest", methods=["GET"])
@@ -131,31 +131,31 @@ def myfiles():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute(f"""
+    cnx.execute("""
         SELECT 
             * 
         FROM 
             pending
         WHERE 
-            user_id = "{user_id}"
-        """)
+            user_id = %s
+        """, (user_id,))
     pending = cnx.fetchall()
     for exam in pending:
         exam["exam_date"] = str(exam["exam_date"])
         exam["created_on"] = str(exam["created_on"])
-    cnx.execute(f"""
+    cnx.execute("""
         SELECT 
             * 
         FROM 
             accepted
         WHERE 
-            user_id = "{user_id}"
-        """)
+            user_id = %s
+        """, (user_id,))
     accepted = cnx.fetchall()  
     for exam in accepted:
         exam["exam_date"] = str(exam["exam_date"])
         exam["created_on"] = str(exam["created_on"])  
-    cnx.execute(f"""
+    cnx.execute("""
         SELECT 
             id,file_name,cource_code,grade,exam_date,file_data,denied.user_id,rating,accepted,exam_id,denied.created_on,comment 
         FROM 
@@ -165,13 +165,12 @@ def myfiles():
         ON 
             denied.id=comments.file_id
         WHERE 
-            denied.user_id = "{user_id}"
-        """)
+            denied.user_id = %s
+        """, (user_id,))
     denied = cnx.fetchall()
     for exam in denied:
         exam["exam_date"] = str(exam["exam_date"])
         exam["created_on"] = str(exam["created_on"])
-    print(denied)
     connection.close()
     return jsonify({"accepted": accepted, "pending": pending, "denied": denied})
     
@@ -290,29 +289,29 @@ def upload():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute(f"""
+    cnx.execute("""
                 SELECT
                     *
                 FROM
                     pending
                 WHERE
-                cource_code = '{cource_code}'
+                cource_code = %s
                 AND
-                exam_date = '{date}'
+                exam_date = %s
                 AND
-                exam_id = '{examId}'""")
+                exam_id = %s""", (cource_code, date, examId,))
     pending = cnx.fetchall()
-    cnx.execute(f"""
+    cnx.execute("""
                 SELECT
                     *
                 FROM
                     accepted
                 WHERE
-                cource_code = '{cource_code}'
+                cource_code = %s
                 AND
-                exam_date = '{date}'
+                exam_date = %s
                 AND
-                exam_id = '{examId}'""")
+                exam_id = %s""", (cource_code, date, examId,))
     accepted = cnx.fetchall()
     if pending != [] or accepted != []:
         cnx.close()
@@ -320,8 +319,10 @@ def upload():
     cnx.execute(f"""INSERT INTO 
                         pending 
                         (file_name, cource_code, grade, exam_date, file_data, user_id, created_on, exam_id) 
-                    VALUES 
-                        ('{file.filename}', '{cource_code}', '{grade}', '{date}', '{f"http://localhost:5000/download{file_path}"}','{user_id}', CURDATE(), '{examId}') """)
+                    VALUES
+                        (%s,%s,%s,%s,%s,%s,CURDATE(),%s)""",
+                        (file.filename, cource_code, grade, date, f"http://localhost:5000/download{file_path}", user_id, examId) 
+                    )
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200
@@ -352,13 +353,13 @@ def reviewed():
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
     if comment != None:
-        cnx.execute(f""" INSERT INTO
+        cnx.execute(""" INSERT INTO
                             comments
                             (file_id, user_id, comment, created_on)
                         VALUES
-                            ("{file_id}", "{user_id}", "{comment}", curdate())""")
-    cnx.execute(f""" UPDATE pending SET accepted = "{status}" where id = "{file_id}" """)
-    cnx.execute(f""" DELETE FROM pending where id = "{file_id}" """)
+                            (%s, %s, %s, curdate())""", (file_id, user_id, comment,))
+    cnx.execute(""" UPDATE pending SET accepted = %s where id = %s """, (status, file_id,))
+    cnx.execute(""" DELETE FROM pending where id = %s""", (file_id,))
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200    
@@ -377,7 +378,7 @@ def erase():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute(f""" DELETE FROM {table} where id = "{file_id}" """)
+    cnx.execute("""DELETE FROM %s where id = %s """, (table, file_id,))
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200  
@@ -410,12 +411,12 @@ def userUpdate():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute(f""" UPDATE
+    cnx.execute(""" UPDATE
                         usertable 
                     SET 
-                        username = "{username}" 
+                        username = %s 
                     WHERE
-                        user_id = "{user_id}" """)
+                        user_id = %s""", (username, user_id,))
     cnx.execute("""COMMIT""")
     cnx.close()
     return "Success", 200
@@ -430,14 +431,14 @@ def getuploads():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute(f"""
+    cnx.execute("""
                 SELECT
                     uploads
                 FROM
                     usertable
                 WHERE
-                    user_id = "{user_id}"
-                """)
+                    user_id = %s
+                """, (user_id,))
     uploads = cnx.fetchall()
     return jsonify({"response": uploads[0]})
 
@@ -524,6 +525,7 @@ def get_exam_comments(exam_id):
 
 
 @app.route("/comments", methods=["POST"])
+@limiter.limit("10 per minute")
 @cross_origin(supports_credentials=True)
 def create_comment():
     connection = mysql.connect(user=MYSQL_USER,
@@ -634,6 +636,7 @@ def statistics():
         "users": users
     })
 
+
 @app.route("/activeuser", methods=["GET"])
 @cross_origin(supports_credentials=True)
 def activeuser():
@@ -673,6 +676,47 @@ def browse_exams_with_solutions():
     return jsonify({"files": result})
 
 
+@app.route("/allusers", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def allusers():
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute("""
+        SELECT 
+            user_id, username, email, role
+        FROM 
+            usertable
+        """)
+    result = cnx.fetchall()
+    connection.close()
+    return jsonify({"response": result})
+
+
+@app.route("/promote", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def promote():
+    user_id = request.form.get("user_id")
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    
+    cnx = connection.cursor(dictionary=True)
+    cnx.execute("""
+        UPDATE 
+            usertable
+        SET 
+            role = 'Reviewer'
+        WHERE
+            user_id = %s
+        """, (user_id,))
+    cnx.execute("""COMMIT""")
+    connection.close()
+    return "success", 200
 if __name__ == "__main__":
     app.run(debug=True)
 

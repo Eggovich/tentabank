@@ -6,78 +6,11 @@
   --purple:#6f63ad;
   --contrast:#9615db;
 }
-.menu {
-  background-color: transparent;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 46px 36px;
-  gap: 60px;
-
-  position: absolute;
-  width: 925px;
-  height: 154px;
-  left: 587px;
-  top: 0px;
-}
 
 h1, h2, h3, h4, h5, h6, p, a, b, th {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-}
-
-
-/* Landingssida */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-  padding: 2rem;
-  background: linear-gradient(to bottom, #ff8000, #573700);
-}
-
-.header {
-  font-size: 2rem;
-  color: white;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.subheader {
-  font-size: 1.5rem;
-  margin-top: 1rem;
-  color: white;
-  animation: fadeIn 1s ease-in-out 1s;
-}
-
-.content {
-  font-size: 1.25rem;
-  margin-top: 1rem;
-  color: white;
-  animation: fadeIn 1s ease-in-out 2s;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-
-.profile-info{
-  font-family: arial;
-  font-size: 24px;
-  margin: 25px;
-  width:auto;
-  height: auto;
-  text-align: center;
 }
 
 .error-message{
@@ -89,6 +22,6 @@ h1, h2, h3, h4, h5, h6, p, a, b, th {
   text-align: center;
 }
 
-.browse-display{
-  background-color: #4278ff;
+.content{
+  margin-top: -5.5rem;
 }
