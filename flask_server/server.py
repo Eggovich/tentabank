@@ -499,7 +499,7 @@ def get_exam_comments(exam_id):
                 WHERE
                     file_id = %s
                 ORDER BY 
-                    created_on DESC
+                    created_on ASC
                 """, (exam_id,)
                 )
     result = cnx.fetchall()
