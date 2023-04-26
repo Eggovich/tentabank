@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    
 }
   
 .roadmap_title {
@@ -18,6 +19,7 @@
   height: 500px;
   position: relative;
   padding-top: 5rem;
+  
 }
   
 .roadmap_container::before {
