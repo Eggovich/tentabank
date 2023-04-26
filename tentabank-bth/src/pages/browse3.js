@@ -283,7 +283,7 @@ const Browse = () => {
         </div>
         ):(
             <div className="exam-details">
-              <button className="back-button" onClick={() => setSelectedExam(null)}>Go back to exam list</button>
+              <button className="back-button" onClick={() => setSelectedExam(null)}>Tillbaka</button>
               <h1>{selectedExam.name}</h1>
               <div className="exam-info">
                 <p>Course Code: {selectedExam.cource_code}</p>
