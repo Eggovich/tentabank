@@ -176,12 +176,11 @@ FROM
     accepted;
 
 SELECT * FROM pending;
-SELECT * FROM accepted where cource_code like;
+SELECT * FROM accepted;
 SELECT * FROM denied;
 SELECT * FROM usertable;
 select * from comments;
 select * from rating;
 
-select denied.created_on from denied join comments on denied.id=comments.file_id where denied.user_id = 2;
-INSERT INTO usertable (username, email, password, role) values ("Eggovich","e", "f", "Reviewer");
-INSERT INTO usertable (username, email, password, uploads) values ("Hanna", "h", "i", 3);
+/*After you have created a user on the website run this to make it a Admin*/
+update usertable set role = "Admin" where user_id = 1

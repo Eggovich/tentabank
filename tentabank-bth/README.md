@@ -72,8 +72,7 @@ MYSQL_DATABASE =YOUR-DATABASE-NAME
 
 UPLOAD_FOLDER =YOUR-EXAMS-FOLDER-PATH
 """
-
---------------- SETTIING UP THE DATABES -------------
+--------------- SETTIING UP THE DATABASE -------------
 
 Set up your own database on your machine using MySQL, use the path and update the .env file with the cridentials.
 

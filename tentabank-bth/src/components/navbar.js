@@ -74,10 +74,10 @@ const Navbar = () => {
                 Min sida
               </NavLink>
               <NavLink className={styles.nav_link} to="/notifications" activeclassname="active">
-                Notifications
+                Notifikationer
               </NavLink>
               <NavLink className={styles.nav_link} to="/settings" activeclassname="active">
-                Settings
+                Inställningar
               </NavLink>
               {cookies.loggedIn && <LogoutButton />}
             </div>
