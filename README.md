@@ -16,7 +16,7 @@ You may also see any lint errors in the console.
 
 ------------------ FOR PEER-REVIEW --------------
 
-You will start be running this comad to download the node module for the `tentabank-bth`folder.
+You will start be running this comand to download the node module for the `tentabank-bth`folder.
 You can access the folder from the termial with the command.
 
 ### `cd tentabank-bth`
@@ -27,7 +27,7 @@ After you are in the direcory you need to run the `npm install`command to get th
 
 After downloaded the node module (that takes some time), you need check that all the dependencied inside the folder `tentabank-bth` is downloaded.
 
-### `npm install 
+### `npm install`
     "@auth0/auth0-react"
     "@react-pdf/renderer"
     "@testing-library/jest-dom"
@@ -62,9 +62,9 @@ Download the requirements with:
     requests>=2.27.1
 
 
-After the requirements are installed, you need to set up the .env file:
-
-The .env file looks like:
+After the requirements are installed, you need to set up the .env file in the flask_server folder:
+Inside flask_server create a file named .env
+Inside the file it should look like the following:
 """
 MYSQL_USER =YOUR-USERNAME
 MYSQL_PASS =YOUR-PASSWORD
