@@ -46,7 +46,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem;
+  
+  background-color: var(--light);
 }
 
 .review_info {
@@ -92,24 +93,6 @@
 .checkbox {
   margin: 10px 0;
 }
-.action_bar {
-  display: flex;
-  justify-content: space-between;
-  position: sticky;
-  bottom: 20px;
-  background-color: #f8f9fa;
-  padding: 1rem;
-  border-radius: 5px;
-  width: 100%;
-}
-.review_info_sticky {
-  position: sticky;
-  top: 20px;
-  width: 100%;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 5px;
-}
 
 .buttons {
   display: flex;
@@ -146,30 +129,92 @@
 
 .review_pdf_container {
   width: 100%;
-  padding-top: 20px;
+  
 }
 
 .pdf_review {
   width: 100%;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  height: 100%; /* Update this line to make the PDF bigger */
+  height: 100%; 
   border: none;
 }
 
 .review_content {
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
   align-items: flex-start;
+  padding-top: 5.5rem;
 }
 
 .review_pdf_container {
-  flex: 1,5;
+  flex: 1.5;
   margin-right: 1rem;
   height: 100vh;
 }
 
 .review_form_container {
   flex: 1;
+}
+
+
+.review_content {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-top: 1rem;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.review_pdf_container {
+  flex: 1.5;
+  height: 100vh;
+  overflow: auto;
+}
+
+.review_form_container {
+  flex: 1;
+  max-width: 40%;
+}
+
+@media screen and (max-width: 960px) {
+  .review_content {
+    flex-direction: column;
+  }
+
+  .review_pdf_container {
+    height: 50vh;
+    margin-bottom: 1rem;
+  }
+
+  .review_form_container {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.file_specific {
+  font-weight: bold;
+  color: #4b6584;
+}
+
+.review_info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.review_info h1, .review_info h2 {
+  margin: 0.5rem 0;
+  font-weight: normal;
+}
+
+.review_info h1 {
+  font-size: 1.5rem;
+}
+
+.review_info h2 {
+  font-size: 1.25rem;
+}
+
+.review_info .file_specific {
+  font-size: 1.35rem;
 }

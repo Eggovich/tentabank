@@ -119,13 +119,13 @@ return (
           <iframe className={styles.pdf_review} src={file.file_data} />
         </div>
         <div className={styles.review_form_container}>
-          <div className={styles.review_info}>
-            <h1>Reviewing: {file.file_name}</h1>
-            <h2>Course code: {file.subject}</h2>
-            <h2>Date: {file.exam_date}</h2>
-            <h2>Anonymous code: {file.exam_id}</h2>
-            <h2>Grade: {file.grade}</h2>
-          </div>
+        <div className={styles.review_info}>
+          <h1>Reviewing: <span className={styles.file_specific}>{file.file_name}</span></h1>
+          <h2>Course code: <span className={styles.file_specific}>{file.subject}</span></h2>
+          <h2>Date: <span className={styles.file_specific}>{file.exam_date}</span></h2>
+          <h2>Anonymous code: <span className={styles.file_specific}>{file.exam_id}</span></h2>
+          <h2>Grade: <span className={styles.file_specific}>{file.grade}</span></h2>
+        </div>
           <form className={styles.review_form} onSubmit={handleSubmit}>
             <label htmlFor="comment">If the exam is not approved, provide a description of why it was not approved.</label>
             <input className={styles.review_input} type="text" id='comment' onChange={(e) => setComment(e.target.value)} placeholder="Comment" /><br />
