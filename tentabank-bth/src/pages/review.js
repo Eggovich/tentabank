@@ -75,15 +75,15 @@ const Review = () => {
   }
 
 return (
-  cookies.role === "Reviewer" ? (
+  cookies.role === 'Reviewer' ? (
     !review ? (
       <div className={styles.landing_review}>
-          <InfoSection />
-          <div className={styles.center}>
-            <button className={styles.start_review_button} onClick={startSequentialReview}>Start Sequential Review</button>
-            <button className={styles.start_review_button} onClick={() => setStartReview(!startReview)}>Tryck här för att se hur många tentor som väntar granskning</button>
-          </div>
-          {startReview && (
+        <InfoSection />
+        <div className={styles.center}>
+          <button className={styles.start_review_button} onClick={startSequentialReview}>Start Sequential Review</button>
+          <button className={styles.start_review_button} onClick={() => setStartReview(!startReview)}>Tryck här för att se hur många tentor som väntar granskning</button>
+        </div>
+        {startReview && (
             <>
               <table className={styles.exam_table}>
                 <thead>
@@ -113,40 +113,38 @@ return (
           )}
       </div>
     ) : (
-    <div className={styles.container_review}>
-      <div className={styles.third_left}>
-        <form className={styles.reviewform} onSubmit={handleSubmit}>
-          <p>Granskning av {file.file_name}</p>
-          <label htmlFor="comment">Om tentan inte godkänns, ge en beskrivning om varför den inte blev det.</label>
-          <input className={styles.review} type="text" id='comment' onChange={(e) => setComment(e.target.value)} placeholder="Kommentar"/><br/>
-          <label htmlFor="anon">Stämmer den inlämnade filen med medföljande uppgifter?</label>
-          <input className={styles.checkbox} type="checkbox" id='anon' checked={checked}
-                      onChange={() => setChecked(!checked)}/><br/>
-                      <div className={styles.buttons}>
-                        <button disabled={!comment} type="submit" className={styles.denied_button} onClick={() => setStatus("denied")}>Neka tentan</button>
-                        <button disabled={!checked} type="submit" className={styles.accepted_button} onClick={() => setStatus("accepted")}>Godkänn tentan</button>
-                      </div>
-                    </form>
-                  </div>
-                  <div className={styles.third_mid}>
-                    <iframe className={styles.pdf_review} src={file.file_data}/>
-                  </div>
-                  <div className={styles.third_right}>
-                    <div className={styles.reviewform}>
-                      <h1>Den givna infon om uppladdningen</h1>
-                      <h3>Kurskod: {file.subject}</h3>
-                      <h3>Datum: {file.exam_date}</h3>
-                      <h3>Anonymitetskod: {file.exam_id}</h3>
-                      <h3>Betyg: {file.grade}</h3>
-                    </div>
-                  </div>
-                </div>
-        )
-    ):(
-        <NoAccess msg="Endast granskare har tillgång till denna sidan" module={false}/>
-      )
-    );         
-  };
+      <div className={styles.container_review}>
+      <div className={styles.review_content}>
+        <div className={styles.review_pdf_container}>
+          <iframe className={styles.pdf_review} src={file.file_data} />
+        </div>
+        <div className={styles.review_form_container}>
+          <div className={styles.review_info}>
+            <h1>Reviewing: {file.file_name}</h1>
+            <h2>Course code: {file.subject}</h2>
+            <h2>Date: {file.exam_date}</h2>
+            <h2>Anonymous code: {file.exam_id}</h2>
+            <h2>Grade: {file.grade}</h2>
+          </div>
+          <form className={styles.review_form} onSubmit={handleSubmit}>
+            <label htmlFor="comment">If the exam is not approved, provide a description of why it was not approved.</label>
+            <input className={styles.review_input} type="text" id='comment' onChange={(e) => setComment(e.target.value)} placeholder="Comment" /><br />
+            <label htmlFor="anon">Does the submitted file match the accompanying information?</label>
+            <input className={styles.checkbox} type="checkbox" id='anon' checked={checked}
+              onChange={() => setChecked(!checked)} /><br />
+            <div className={styles.action_bar}>
+              <button disabled={!comment} type="submit" className={styles.denied_button} onClick={() => setStatus("denied")}>Deny exam</button>
+              <button disabled={!checked} type="submit" className={styles.accepted_button} onClick={() => setStatus("accepted")}>Approve exam</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+  ) : (
+    <NoAccess msg="Only reviewers have access to this page" module={false} />
+  )
+);
+};
 
 export default Review;
-
