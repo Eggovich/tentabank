@@ -80,9 +80,11 @@ return (
       <div className={styles.landing_review}>
         <InfoSection />
         <div className={styles.center}>
-          <button className={styles.start_review_button} onClick={startSequentialReview}>Start Sequential Review</button>
-          <button className={styles.start_review_button} onClick={() => setStartReview(!startReview)}>Tryck här för att se hur många tentor som väntar granskning</button>
-        </div>
+          <button className={styles.start_review_button} onClick={startSequentialReview}>Börja granska tentor</button>
+          <button className={styles.start_review_button} onClick={() => setStartReview(!startReview)}>
+            Det är just nu ({filteredData.length}) tentor som väntar på granskning, tryck för att se mer.
+          </button>
+          </div>
         {startReview && (
             <>
               <table className={styles.exam_table}>
