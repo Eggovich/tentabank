@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import NoAccess from '../components/NoAccess';
 import styles from './promote.module.css';
 
 const Promote = () => {
@@ -56,9 +57,7 @@ const Promote = () => {
         </table>
     </div>
     ):(
-    <div className={styles.denied}>
-        Ingen tillgång
-    </div>
+    <NoAccess msg="Endast administratörer har tillgång hit" module={false}/>
     )
   );
 };

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useCookies } from 'react-cookie';
+import NoAccess from '../components/NoAccess';
 import styles from './profile.module.css';
 import img from "..//components/images/img-1.jpg"
 import {confirmAlert} from "react-confirm-alert"
@@ -152,9 +153,7 @@ const handleUserUpdate = () =>{
 }
   return (
     !cookies.loggedIn ? (
-      <div className="errormessage">
-        <h1>Logga in</h1>
-      </div>
+      <NoAccess msg="Du måste logga in" module={true}/>
     ) : (
       editProfile ? (
       <div className={styles.profile_page}>

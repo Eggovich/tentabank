@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Carditemsexam from '../components/Carditemsexam';
 import Comments from '../components/comments';
 import Setstarrating from '../components/Setstarrating';
+import NoAccess from '../components/NoAccess';
 import styles from'./browse3.module.css';
 
 
@@ -306,13 +307,10 @@ const Browse = () => {
 
         )
       ):(
-      <p>Lämna tre tentor för att komma åt sidan.</p>
+      <NoAccess msg="Du måste lämna in tre godkända tentor för tillgång" module={false}/>
       )
     ):(
-      <div className='error-message'>
-        <h3>Du behöver logga in</h3>
-        <NavLink to="/login">Logga in</NavLink>        
-      </div>
+      <NoAccess msg="Du måste logga in" module={true}/>
     )
   );
 };
