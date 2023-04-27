@@ -9,7 +9,7 @@ function CardItemsexam(props) {
   
   return (
       <div className={styles.master}>        
-          <div className={styles.cover}>{props.courseCode.slice(0,1)}{props.courseCode.slice(1,2).toLowerCase()}</div>
+          <div className={styles.cover}>{props.courseCode.slice(0,1)}{props.courseCode.slice(1,2).toUpperCase()}</div>
           <div className={styles.exam_info}>
             <div className={styles.floor_1}>
               <div className={styles.exam_text}>{props.courseCode}</div>
