@@ -14,6 +14,8 @@ const Review = () => {
   const [comment, setComment] = useState("")
   const [startReview, setStartReview] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [noExamsLeft, setNoExamsLeft] = useState(false);
+
 
   useEffect(() => {
     fetch('http://localhost:5000/pending_files')
@@ -29,7 +31,7 @@ const Review = () => {
         }))
         setFilteredData(mappedData);
       });
-  }, []);
+  }, [review]);
 
   const handleReview = (file) => {
     setReview(true)
@@ -70,9 +72,14 @@ const Review = () => {
   
 
   const startSequentialReview = () => {
-    setStartReview(!startReview);
-    handleReview(filteredData[currentIndex]);
-  }
+    if (filteredData.length === 0) {
+      setNoExamsLeft(true);
+    } else {
+      setStartReview(!startReview);
+      handleReview(filteredData[currentIndex]);
+    }
+  };
+  
 
 return (
   cookies.role === 'Reviewer' ? (
@@ -113,6 +120,11 @@ return (
               </table>
             </>
           )}
+          {noExamsLeft && (
+            <div className={styles.no_exams_left}>
+              <h1>Inga tentor behövs granskas</h1>
+            </div>
+          )}  
       </div>
     ) : (
       <div className={styles.container_review}>
