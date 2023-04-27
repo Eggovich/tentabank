@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useCookies} from 'react-cookie';
 import NoAccess from '../components/NoAccess';
 import styles from './review.module.css';
+import PictureTextSection from "..//components/PictureTextSection"
 
 const Review = () => {
   const [review, setReview] = useState(false);
@@ -75,6 +76,8 @@ const Review = () => {
     cookies.role === "Reviewer" ? (
     !review ? (
     <div className={styles.container_review}>
+      
+      <button> tryck hör för att börja granska</button>
       <div>
       </div>
       <table>
