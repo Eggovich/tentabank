@@ -1,7 +1,7 @@
 .on {
   border-radius: 10px;
   overflow: hidden;
-  color: var(--contrast);
+  color: var(--yellow);
   border: none;
   background-color: transparent;
 }
@@ -15,4 +15,16 @@
 
 .on,.off {
   transform: scale(1.5)
+}
+
+.on:focus,
+.off:focus {
+  border: none;
+  outline: none;
+}
+
+.on:active,
+.off:active {
+  border: none;
+  outline: none;
 }
