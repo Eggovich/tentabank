@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Carditemsexam from '../components/Carditemsexam';
 import Comments from '../components/comments';
 import Setstarrating from '../components/Setstarrating';
-import './browse3.css';
+import styles from'./browse3.module.css';
 
 
 const Browse = () => {
@@ -199,39 +199,39 @@ const Browse = () => {
     cookies.loggedIn ? 
       (cookies.uploads > 2 ? 
         (!selectedExam ? (
-        <div className="browse-page3">
-          <div className="course-search-bar">
-            <input type="text" className="csb" placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
-            <div className={(subjectSearch && subjectSearch != sortBySubject) ? "on-li" : "off-li"}>
+        <div className={styles.browse_page3}>
+          <div className={styles.course_search_bar}>
+            <input type="text" className={styles.csb} placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
+            <div className={(subjectSearch && subjectSearch !== sortBySubject) ? styles.on_li : styles.off_li}>
               
               {filteredSubjects.map((subject) => (
                 <li key={subject} onClick={() => handleSortBySubject(subject)}>{subject}</li>
               ))}
             </div>
-            <div className="icon"><i className="fas fa-search"></i></div>
+            <div className={styles.icon}><i className="fas fa-search"></i></div>
           </div>
-          <div className="sidebar3">
-            <div className="sidebar_container">
+          <div className={styles.sidebar3}>
+            <div className={styles.sidebar_container}>
               <h1>Ämnen</h1>
                 {categories.map((category) => (
                   <>
-                    <button className="categoryButton"onClick={() => handleSelectedCategorie(category)}>{category.cat}</button><br />
-                    <div className="courses">
-                    {selectedCategorie == category && category.courses.map((course) => (
+                    <button className={styles.categoryButton} onClick={() => handleSelectedCategorie(category)}>{category.cat}</button><br />
+                    <div className={styles.courses}>
+                    {selectedCategorie === category && category.courses.map((course) => (
                     
-                      <button className="courseButton"onClick={() => setSortBySubject(course)}>{course}</button>
+                      <button className={styles.courseButton} onClick={() => setSortBySubject(course)}>{course}</button>
                     ))}
                     </div>
                   </>
               ))}
             </div>
           </div>
-            <div className="filter3">
+            <div className={styles.filter3}>
               
               <h3>Filter</h3>
-              <div className='filters'>
+              <div className={styles.filters}>
                 
-                <div className='browse-option'>
+                <div className={styles.browse_option}>
                   <select value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>
                     <option value="">Datum</option>
                     {dates.map((date) => (
@@ -241,7 +241,7 @@ const Browse = () => {
                     ))}
                   </select>
                 </div>
-                <div className="browse-option">
+                <div className={styles.browse_option}>
                   <select value={sortByGrade} onChange={(e) => setSortByGrade(e.target.value)}>
                     <option value="">Betyg</option>
                     {grades.map((grade) => (
@@ -253,8 +253,8 @@ const Browse = () => {
                 </div>
               </div>
               <h3>Sortera</h3>
-              <div className="filters">
-                <div className="browse-option">
+              <div className={styles.filters}>
+                <div className={styles.browse_option}>
                 
                   <select value={sort} onChange={(e) => setSort(e.target.value)}>
                     <label>Sortera efter:</label>
@@ -265,9 +265,9 @@ const Browse = () => {
                 </div>
               </div>
           </div>
-          <div className='exam_square'>
+          <div className={styles.exam_square}>
           {filteredData.map((file) => (
-              <div onClick={() => setSelectedExam(file)} className="clickable-card">
+              <div onClick={() => setSelectedExam(file)} className={styles.clickable_card}>
                 <Carditemsexam 
                     courseCode={file.subject}
                     date={file.date}
@@ -282,24 +282,24 @@ const Browse = () => {
           </div>
         </div>
         ):(
-            <div className="exam-details">
-              <button className="back-button" onClick={() => setSelectedExam(null)}>Tillbaka</button>
+            <div className={styles.exam_details}>
+              <button className={styles.back_button} onClick={() => setSelectedExam(null)}>Tillbaka</button>
               <h1>{selectedExam.name}</h1>
-              <div className="exam-info">
+              <div className={styles.exam_info}>
                 <p>Course Code: {selectedExam.cource_code}</p>
                 <p>Exam Date: {selectedExam.exam_date}</p>
                 <p>Grade: {selectedExam.grade}</p>
               </div>
-              <iframe className="exam-iframe" src={selectedExam.file_data}>
+              <iframe className={styles.exam_iframe} src={selectedExam.file_data}>
                 Tentan
               </iframe>
-              <div className='rating'>
+              <div className={styles.rating}>
               <Setstarrating
                 rating={selectedExam.rating} 
                 exam_id={selectedExam.id}
                 />
               </div>
-              <div className="comments-wrapper">
+              <div className={styles.comments_wrapper}>
                 <Comments examId={selectedExam.id} userId={cookies.user_id} />
               </div>
             </div>
