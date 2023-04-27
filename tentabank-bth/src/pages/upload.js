@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import styles from "./uploads.module.css"
 import LoginForm from "../components/loginForm.js"
+import NoAccess from '../components/NoAccess';
 
 
 const Upload = () => {
@@ -127,11 +128,7 @@ const Upload = () => {
       {alreadyUploaded === true && (<p className="errormessage">Denna tenta är redan uppladdad</p>)}
       </>
     ):(
-      <div className={styles.not_logged_in}>
-        <h4>Du måste logga in för att kunna lämna in tentor</h4>
-        <LoginForm></LoginForm>
-      </div>
-      
+      <NoAccess msg="Du måste logga in för att kunna lämna in tentor" module={true}/>
     )
     }
     </div>

@@ -7,7 +7,7 @@
   --contrast:#9615db;
 }
 
-h1, h2, h3, h4, h5, h6, p, a, b, th {
+h1, h2, h3, h4, h5, h6, p, a, b, th, li {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */

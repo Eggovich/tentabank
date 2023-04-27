@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {useCookies} from 'react-cookie';
+import NoAccess from '../components/NoAccess';
 import styles from './review.module.css';
 
 const Review = () => {
@@ -131,9 +132,7 @@ const Review = () => {
         </div>
     )
   ):(
-    <div>
-      <p className="errormessage">Du måste vara inloggad som granskare för att ha åtkomst till sidan</p>
-    </div>
+    <NoAccess msg="Endast granskare har tillgång till denna sidan" module={false}/>
   )
   );
   
