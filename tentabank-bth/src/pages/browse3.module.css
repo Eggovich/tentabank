@@ -1,6 +1,6 @@
 .browse_page3{
     overflow: hidden;
-    background-color: rgb(0,27,59);
+    background-color: var(--light);
     display: grid;
     min-height: 100vh;
     grid-template-columns: repeat(7, 1fr);
@@ -12,7 +12,6 @@
 
 .sidebar3{
     overflow: hidden;
-    border-radius: 0 0 20px 20px;
     grid-area: 2 / 1 / 8 / 3;
     background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--light) 15%);
     text-align: left;
@@ -25,7 +24,6 @@
 }
 .filter_square{
     overflow: hidden;
-    border-radius: 20px;
     grid-area: 2 / 3 / 4 / 8;
     background-color: bisque;
 }
@@ -136,6 +134,8 @@
     flex-wrap: wrap;
     flex-direction: row;
     align-content: flex-start;
+    border-style: solid none none solid;
+    border-color: var(--dark);
 }
 .clickable_card{
     cursor: pointer;

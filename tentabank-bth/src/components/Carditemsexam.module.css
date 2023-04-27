@@ -1,45 +1,124 @@
 @import url('https://fonts.cdnfonts.com/css/geomanist');
-.master{
- z-index: 1;
- overflow: hidden;
- background-color: var(--mdark);
- height:fit-content;
- width: fit-content;
- border-radius: 10px;
- margin: 2px;
-}
-.master:hover{
-    transform: scale(1.04);
-}
-
-.cover{
-    font-size: 2rem;
-    font-family: 'Geomanist', sans-serif;
-    background-color: var(--mlight);
-    position: relative;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-}
-
-.exam_info{
+.ag_courses_item {
+    -ms-flex-preferred-size: calc(33.33333% - 30px);
+    flex-basis: calc(33.33333% - 30px);
     height: fit-content;
-    width: 100%;
-    padding: 10px;
-}
-
-.floor_1{
+    width: fit-content;
+    overflow: hidden;
+    border-radius: 28px;
+    margin: 1rem 0 0 0.5rem;
+  }
+  .ag_courses_item_link {
+    display: block;
+    padding: 30px 20px;
+    background-color: var(--dark);
+  
+    overflow: hidden;
+  
     position: relative;
-    bottom:0px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.floor_2{
-    justify-content: space-between;
-    display: flex;
-}
-
-.exam_text{
+  }
+  .ag_courses_item_link:hover,
+  .ag_courses_item_link:hover .ag_courses_item_date {
+    text-decoration: none;
+    color: #FFF;
+  }
+  .ag_courses_item_link:hover .ag_courses_item_bg {
+    -webkit-transform: scale(10);
+    -ms-transform: scale(10);
+    transform: scale(10);
+  }
+  .ag_courses_item_title {
+    min-height: 87px;
+  
+    overflow: hidden;
+  
+    font-weight: bold;
+    font-size: 2rem;
+    color: #FFF;
+  
+    z-index: 2;
+    position: relative;
+  }
+  .ag_courses_item_date_box {
     font-size: 1rem;
-}
+    color: #FFF;
+  
+    z-index: 2;
+    position: relative;
+  }
+  .ag_courses_item_date {
+    font-weight: bold;
+    color: var(--purple);
+  
+    -webkit-transition: color .5s ease;
+    -o-transition: color .5s ease;
+    transition: color .5s ease
+  }
+  .ag_courses_item_bg {
+    height: 128px;
+    width: 128px;
+    background-color: var(--contrast);
+  
+    z-index: 1;
+    position: absolute;
+    top: -75px;
+    right: -75px;
+  
+    border-radius: 50%;
+  
+    -webkit-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+  }
+  .ag_courses_item:nth-child(2n) .ag_courses_item_bg {
+    background-color: #3ecd5e;
+  }
+  .ag_courses_item:nth-child(3n) .ag_courses_item_bg {
+    background-color: #e44002;
+  }
+  .ag_courses_item:nth-child(4n) .ag_courses_item_bg {
+    background-color: #952aff;
+  }
+  .ag_courses_item:nth-child(5n) .ag_courses_item_bg {
+    background-color: #cd3e94;
+  }
+  .ag_courses_item:nth-child(6n) .ag_courses_item_bg {
+    background-color: #4c49ea;
+  }
+  
+  
+  
+  @media only screen and (max-width: 979px) {
+    .ag_courses_item {
+      -ms-flex-preferred-size: calc(50% - 30px);
+      flex-basis: calc(50% - 30px);
+    }
+    .ag_courses_item_title {
+      font-size: 24px;
+    }
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .ag_format_container {
+      width: 96%;
+    }
+  
+  }
+  @media only screen and (max-width: 639px) {
+    .ag_courses_item {
+      -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+    }
+    .ag_courses_item_title {
+      min-height: 72px;
+      line-height: 1;
+  
+      font-size: 24px;
+    }
+    .ag_courses_item_link {
+      padding: 22px 40px;
+    }
+    .ag_courses_item_date_box {
+      font-size: 16px;
+    }
+  }

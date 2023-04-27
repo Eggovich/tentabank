@@ -1,10 +1,18 @@
 .on {
   border-radius: 10px;
   overflow: hidden;
-  background-color: #eaea12;
+  color: var(--contrast);
+  border: none;
+  background-color: transparent;
 }
 .off {
   border-radius: 10px;
   overflow: hidden;
-  background-color: #ccc;
+  color: white;
+  border: none;
+  background-color: transparent;
+}
+
+.on,.off {
+  transform: scale(1.5)
 }

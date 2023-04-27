@@ -259,7 +259,7 @@ const Browse = () => {
                 
                   <select value={sort} onChange={(e) => setSort(e.target.value)}>
                     <label>Sortera efter:</label>
-                    <option value="rating">Omdömme</option>
+                    <option value="rating">Omdöme</option>
                     <option value="grade">Betyg</option>
                     <option value="date">Datum</option>
                   </select>

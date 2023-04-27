@@ -39,7 +39,7 @@ const About = () => {
           <div className={styles.team_member_container}>
             <div className={styles.team_member}>
               <Image src={team3Img} roundedCircle className={styles.team_member_image} />
-              <h3>Hanna Isrealsson</h3>
+              <h3>Hanna Israelsson</h3>
               <p>Co-founder and CFO</p>
             </div>
           </div>
