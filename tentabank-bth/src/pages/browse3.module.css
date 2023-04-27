@@ -17,6 +17,7 @@
     text-align: left;
     border-style: none none solid none;
     border-color: var(--dark);
+    z-index: 2;
 }
 .sidebar_container{
   padding-top: 4rem;
@@ -38,6 +39,7 @@
   background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--light) 45%);
   justify-content: space-around;
   align-items: center;
+  z-index: 2;
 }
 .filter3 > h3{
   padding-top: 50px ;
@@ -63,7 +65,7 @@
   background-image: url("../components/images/img-home.jpg");
   /* Full height */
   min-height: 100%;
-
+  filter: grayscale(50%);
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;

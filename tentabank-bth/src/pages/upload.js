@@ -80,6 +80,9 @@ const Upload = () => {
   return (
     
   <div className={styles.page_container}>
+    <div className={styles.info_container}>
+      
+    </div>
     <div className={styles.form_half}>
     <div className={styles.form_container}>
     {cookies.loggedIn?(
