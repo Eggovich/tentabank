@@ -16,7 +16,10 @@ You may also see any lint errors in the console.
 
 ------------------ FOR PEER-REVIEW --------------
 
-You will start be running this comand to download the node module for the `tentabank-bth`folder.
+### `Install Node.js for your system`
+https://nodejs.org/en/download
+
+You will start be running this command to download the node module for the `tentabank-bth` folder.
 You can access the folder from the termial with the command.
 
 ### `cd tentabank-bth`
