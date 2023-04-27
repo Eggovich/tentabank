@@ -1,19 +1,19 @@
 import React from 'react';
 import styles from './InfoSection.module.css';
-import team2Img from './bilder/simon.jpeg';
+import checkbox from './bilder/checkbox.png';
 
 const InfoSection = () => {
   const infoItems = [
     {
-      image: team2Img,
+      image: checkbox,
       text: 'Kolla så att det finns rätt uppgifter.'
     },
     {
-      image: team2Img,
+      image: checkbox,
       text: 'Beslut: Stämmer uppgifterna, kryssa i checkrutan och godkänn.'
     },
     {
-      image: team2Img,
+      image: checkbox,
       text: 'Stämmer inte uppgifterna, skriv en kommentar om varför uppgifterna inte stämmer och neka sedan tentan.'
     }
   ];

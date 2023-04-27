@@ -13,18 +13,12 @@ const Review = () => {
   const [checked, setChecked] = useState(false)
   const [comment, setComment] = useState("")
   const [startReview, setStartReview] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     fetch('http://localhost:5000/pending_files')
       .then((res) => res.json())
       .then((data) => {
-        //GCS SOLUTION
-        //const mappedData = data.files.map(file => ({
-          //...file,
-          //subject: file.name.split("/")[0],
-          //date: file.name.split("/")[1],
-          //grade: file.name.split("/")[2]
-        //}))
         const mappedData = data.files.map(file => ({
           ...file,
           subject: file.cource_code,
@@ -37,16 +31,14 @@ const Review = () => {
       });
   }, []);
 
-
-  const handleReview = (file) =>{
+  const handleReview = (file) => {
     setReview(true)
     setFile(file)
   }
 
-
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const formData = new FormData();
     formData.append("id", file.id)
     formData.append("status", status)
@@ -62,14 +54,25 @@ const Review = () => {
   
         if (!response.ok) {
           throw new Error("Upload failed");
-        }else{
-          setReview(false)
-          window.location.reload(false);
+        } else {
+          setReview(false);
+          setCurrentIndex(currentIndex + 1);
+          if (currentIndex + 1 === filteredData.length) {
+            setStartReview(false);
+          } else {
+            handleReview(filteredData[currentIndex + 1]);
+          }
         }
       } catch (error) {
         console.error(error);
       }  
-    };
+  };
+  
+
+  const startSequentialReview = () => {
+    setStartReview(!startReview);
+    handleReview(filteredData[currentIndex]);
+  }
 
 return (
   cookies.role === "Reviewer" ? (
@@ -77,7 +80,8 @@ return (
       <div className={styles.landing_review}>
           <InfoSection />
           <div className={styles.center}>
-            <button className={styles.start_review_button} onClick={() => setStartReview(!startReview)}>Tryck här för att börja granska</button>
+            <button className={styles.start_review_button} onClick={startSequentialReview}>Start Sequential Review</button>
+            <button className={styles.start_review_button} onClick={() => setStartReview(!startReview)}>Tryck här för att se hur många tentor som väntar granskning</button>
           </div>
           {startReview && (
             <>
@@ -143,5 +147,6 @@ return (
       )
     );         
   };
-              
+
 export default Review;
+
