@@ -120,7 +120,8 @@
 .container_review {
     border-radius: 0;
     height: 100vh;
-    background-image: linear-gradient(rgb(254, 144, 41),#F2F2F2);
+    background-image: linear-gradient(var(--mdark),var(--light));
+    padding-top: 5.5rem;
 }
 .third_left{
     float:left;        

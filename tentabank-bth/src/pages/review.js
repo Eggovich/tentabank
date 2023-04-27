@@ -73,7 +73,7 @@ const Review = () => {
   return (
     cookies.role === "Reviewer" ? (
     !review ? (
-    <div>
+    <div className={styles.container_review}>
       <div>
       </div>
       <table>
