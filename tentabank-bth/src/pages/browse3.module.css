@@ -80,7 +80,7 @@
 }
 
 .csb {
-  position: relative;
+  position: absolute;
   align-self: center;
   justify-self: center;
   justify-content: center;
@@ -104,7 +104,11 @@
   color: black;
   background-color: rgba(255, 255, 255, 0.8);
   position: relative; /* updated */
-  left: 7.5%;
+  justify-self: center;
+  justify-content: center;
+  position:absolute;
+  /*List elementen lägger sig fel beroende på hur många element som matchar sökningen*/
+  transform: translate(60%,70px);
   width: 40%;
   opacity: 1;
   border-radius: 0 0 1rem 1rem;
@@ -187,19 +191,22 @@
   width:fit-content;
 }
 .courseButton:hover{
-      color: var(--contrast);
-  }
+  color: var(--contrast);
+}
   
   /* IE11 hide native button (thanks Matt!) */
 select::-ms-expand {
   display: none;
-  }
+}
+
 .browse_option > select, option{
   background-color: transparent;
 }
+
 .browse_option{
   position: relative;
 }
+
 .browse_option select,.browse_option2 select {
   border-radius: 100px;
   -webkit-appearance: none;
