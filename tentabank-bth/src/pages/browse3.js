@@ -233,8 +233,8 @@ const Browse = () => {
               <div className={styles.filters}>
                 
                 <div className={styles.browse_option}>
-                  <select value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>
-                    <option value="">Datum</option>
+                  <select className={styles.dropdown} value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>
+                    <option value="">Alla datum</option>
                     {dates.map((date) => (
                     <option key={date} value={date}>
                       {date}
@@ -244,7 +244,7 @@ const Browse = () => {
                 </div>
                 <div className={styles.browse_option}>
                   <select value={sortByGrade} onChange={(e) => setSortByGrade(e.target.value)}>
-                    <option value="">Betyg</option>
+                    <option value="">Alla betyg</option>
                     {grades.map((grade) => (
                     <option key={grade} value={grade}>
                       {grade}
@@ -253,9 +253,9 @@ const Browse = () => {
                   </select>
                 </div>
               </div>
-              <h3>Sortera</h3>
+              <h2>Sortera</h2>
               <div className={styles.filters}>
-                <div className={styles.browse_option}>
+                <div className={styles.browse_option2}>
                 
                   <select value={sort} onChange={(e) => setSort(e.target.value)}>
                     <label>Sortera efter:</label>

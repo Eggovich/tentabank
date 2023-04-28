@@ -1,48 +1,53 @@
 .browse_page3{
-    overflow: hidden;
-    background-color: var(--light);
-    display: grid;
-    min-height: 100vh;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 3fr repeat(7, 1fr);
-    border-color: black;
-    overflow-wrap: row;
-
+  overflow: hidden;
+  background-color: var(--light);
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 3fr repeat(7, 1fr);
+  border-color: black;
+  overflow-wrap: row;
 }
 
 .sidebar3{
-    overflow: hidden;
-    grid-area: 2 / 1 / 8 / 3;
-    background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--light) 15%);
-    text-align: left;
-    border-style: none none solid none;
-    border-color: var(--dark);
-    z-index: 2;
+  overflow: hidden;
+  grid-area: 2 / 1 / 8 / 3;
+  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--dark) 15%);
+  text-align: left;
+  border-style: none none solid none;
+  border-color: var(--dark);
+  z-index: 2;
 }
 .sidebar_container{
   padding-top: 4rem;
 }
 .sidebar3 h1{
-    text-align: center;
+  text-align: center;
+  color:var(--light)
 }
 .filter_square{
-    overflow: hidden;
-    grid-area: 2 / 3 / 4 / 8;
-    background-color: bisque;
+  overflow: hidden;
+  grid-area: 2 / 3 / 4 / 8;
+  background-color: bisque;
 }
 
 .filter3{
   overflow: hidden;
-  border: #333;
   grid-area: 2 / 3 / 4 / 8;
   display:flex;
-  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--light) 45%);
+  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--dark) 45%);
   justify-content: space-around;
   align-items: center;
   z-index: 2;
 }
 .filter3 > h3{
-  padding-top: 50px ;
+  padding-top: 50px;
+  color:var(--light)
+}
+.filter3 > h2{
+  font-size: 1.75rem;
+  padding-top: 50px;
+  color:var(--light)
 }
 .filters{
   padding-top: 50px;
@@ -53,7 +58,6 @@
 }
 .titles3{
   border-color: rgb(0,27,59);
-  background-color: bisque;
   display: flex;
   justify-content: space-evenly;
 }
@@ -88,18 +92,19 @@
   text-indent: 3%;
   border-radius: 1000px;
 }
+
 .icon{
   position: relative;
   top: -16%;
-  left: 68%;
+  left: 70%;
   transform: scale(1.5);
 }
+
 .on_li {
   color: black;
   background-color: rgba(255, 255, 255, 0.8);
-  position: absolute; /* updated */
-  top: 23%; /* updated */
-  left: 25%; /* added */
+  position: relative; /* updated */
+  left: 7.5%;
   width: 40%;
   opacity: 1;
   border-radius: 0 0 1rem 1rem;
@@ -122,27 +127,20 @@
   color: #616467;
 }
 
-
-.test_item{
-    border-radius: 5px;
-    background-color: antiquewhite;
-    border-style: solid;
-    border-color: black;
-}
-
 .exam_square{
-    grid-area: 4 / 3 / 8 / 8;
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-content: flex-start;
-    border-style: solid none none solid;
-    border-color: var(--dark);
+  grid-area: 4 / 3 / 8 / 8;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  border-style: solid none none solid;
+  border-color: var(--dark);
 }
+
 .clickable_card{
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .categoryButton{
@@ -159,155 +157,176 @@
   font-weight: 700;
   text-align: left;
   margin: 1%;
-  color: var(--dark);
-  background-color: transparent;
+  color: var(--light);
+  background-color: var(--mdark);
   height: fit-content;
   width:fit-content;
   justify-self: center;
 }
 .categoryButton:hover{
-      color: var(--contrast);
-  }
+  color: var(--contrast);
+}
 
 .courseButton{
-    cursor: pointer;
-    font-size: 0.8rem;
-    line-height: 1;
-    border-radius: 500px;
-    transition-property: background-color,border-color,color,box-shadow,filter;
-    transition-duration: .3s;
-    letter-spacing: 2px;
-    outline-color: transparent;
-    text-transform: uppercase;
-    white-space: normal;
-    font-weight: 500;
-    text-align: left;
-    margin: 1%;
-    color: var(--dark);
-    background-color: transparent;
-    height: fit-content;
-    width:fit-content;
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color,border-color,color,box-shadow,filter;
+  transition-duration: .3s;
+  letter-spacing: 2px;
+  outline-color: transparent;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 500;
+  text-align: left;
+  margin: 1%;
+  color: var(--light);
+  background-color: var(--mdark);
+  height: fit-content;
+  width:fit-content;
+}
+.courseButton:hover{
+      color: var(--contrast);
   }
-  .courseButton:hover{
-        color: var(--contrast);
-    }
   
-  .browse_option {
-      position: relative;
-      /*Don't really need this just for demo styling*/
-    }
-    
-    /* IE11 hide native button (thanks Matt!) */
-  select::-ms-expand {
-    display: none;
-    }
-    
-    .browse_option:after {
-      content: '<>';
-      font: 17px "Consolas", monospace;
-      color: #333;
-      -webkit-transform: rotate(90deg);
-      -moz-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      transform: rotate(90deg);
-      right: 11px;
-      /*Adjust for position however you want*/
-      
-      top: 18px;
-      padding: 0 0 2px;
-      border-bottom: 1px solid #999;
-      /*left line */
-      
-      position: absolute;
-      pointer-events: none;
-    }
-    
-    .browse_option select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      /* Add some styling */
-      
-      display: block;
-      min-width: 120%;
-      max-width: 150%;
-      height: 50px;
-      float: right;
-      margin: 5px 0px;
-      padding: 0px 1rem;
-      font-size: 1rem;
-      line-height: 1.75;
-      color: #333;
-      background-color: #ffffff;
-      background-image: none;
-      border: 1px solid #cccccc;
-      -ms-word-break: normal;
-      word-break: normal;
-    }
+  /* IE11 hide native button (thanks Matt!) */
+select::-ms-expand {
+  display: none;
+  }
+.browse_option > select, option{
+  background-color: transparent;
+}
+.browse_option{
+  position: relative;
+}
+.browse_option select,.browse_option2 select {
+  border-radius: 100px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Add some styling */
+  display: block;
+  min-width: 120%;
+  max-width: 150%;
+  height: 50px;
+  float: right;
+  margin: 5px 0px;
+  padding: 0px 1rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--light);
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid #cccccc;
+  -ms-word-break: normal;
+  word-break: normal;
+  background: var(--mlight);
+  border: 1px solid black;
+  transition: all 0.2s;
+}
+
+.browse_option select:focus{
+  border-radius: 0;
+}
+
 /* Här under är .css för tenta-sidan */
 .exam_details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(180deg, var(--mdark), rgba(255,255,255,1) 100%);
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, var(--mdark), rgba(255,255,255,1) 100%);
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding-top: 6rem;
+}
+
+.exam_details h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.exam_info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.exam_info p {
+  font-size: 18px;
+  margin: 5px 20px;
+  padding: 5px;
+  background-color: #e9e9e9;
+  border-radius: 5px;
+}
+
+.back_button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 20px 30px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+  position: sticky;
+  align-self:flex-start;
+}
+
+.back_button:hover {
+  background-color: #45a049;
+}
+
+.exam_details iframe {
+  width: 70%;
+  height:100vh;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.comments_wrapper {
+  width: 80%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 768px) {
+  .icon{
+    top: -10%;
+    left:80%;
+    transform: scale(2);
   }
-  
-  .exam_details h1 {
-    font-size: 24px;
-    margin-bottom: 15px;
+  .csb{
+    min-height: 15%;
   }
-  
-  .exam_info {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
+  .filter3{
+    padding: 30;;
   }
-  
-  .exam_info p {
-    font-size: 18px;
-    margin: 5px 20px;
-    padding: 5px;
-    background-color: #e9e9e9;
-    border-radius: 5px;
+  .filter3 h3{
+    position: relative;
+    font-size: 1rem;
+    left: 30%;
   }
-  
-  .back_button {
-    background-color: #4caf50;
-    border: none;
-    color: white;
-    padding: 20px 30px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 10px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition-duration: 0.3s;
-    position: sticky;
-    align-self:flex-start;
+  .filter3 h2{
+    position: relative;
+    font-size: 1rem;
+    left: 17.5%;
   }
-  
-  .back_button:hover {
-    background-color: #45a049;
+  .browse_option{
+    padding-top:40%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
-  
-  .exam_details iframe {
-    width: 70%;
-    height:100vh;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
+  .browse_option2{
+    padding-top:65%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
-  
-  .comments_wrapper {
-    width: 80%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+}
