@@ -66,7 +66,7 @@ useEffect(() => {
 
 
 const handleErase = (id, status, uploads) =>{
-    if (status == "accepted"){
+    if (status === "accepted"){
       setCookie("uploads", uploads - 1, {path: '/'})
     }
     const formData = new FormData();
@@ -103,7 +103,7 @@ const handleDeleteAccount = (user_id) =>{
 
 const submit = (infolist) => {
   var options;
-  if (infolist.length == 3){
+  if (infolist.length === 3){
     options = {
       title: 'Bekräftelse av radering',
       message: 'Är du säker på att du vill radera tentan?',

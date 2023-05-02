@@ -204,7 +204,6 @@ const Browse = () => {
           <div className={styles.course_search_bar}>
             <input type="text" className={styles.csb} placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
             <div className={(subjectSearch && subjectSearch !== sortBySubject) ? styles.on_li : styles.off_li}>
-              
               {filteredSubjects.map((subject) => (
                 <li key={subject} onClick={() => handleSortBySubject(subject)}>{subject}</li>
               ))}
@@ -227,44 +226,42 @@ const Browse = () => {
               ))}
             </div>
           </div>
-            <div className={styles.filter3}>
+          <div className={styles.filter3}>
+            
+            <h3>Filter</h3>
+            <div className={styles.filters}>
               
-              <h3>Filter</h3>
-              <div className={styles.filters}>
-                
-                <div className={styles.browse_option}>
-                  <select className={styles.dropdown} value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>
-                    <option value="">Alla datum</option>
-                    {dates.map((date) => (
-                    <option key={date} value={date}>
-                      {date}
-                    </option>
-                    ))}
-                  </select>
-                </div>
-                <div className={styles.browse_option}>
-                  <select value={sortByGrade} onChange={(e) => setSortByGrade(e.target.value)}>
-                    <option value="">Alla betyg</option>
-                    {grades.map((grade) => (
-                    <option key={grade} value={grade}>
-                      {grade}
-                    </option>
+              <div className={styles.browse_option}>
+                <select className={styles.dropdown} value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>
+                  <option value="">Alla datum</option>
+                  {dates.map((date) => (
+                  <option key={date} value={date}>
+                    {date}
+                  </option>
                   ))}
-                  </select>
-                </div>
+                </select>
               </div>
-              <h2>Sortera</h2>
-              <div className={styles.filters}>
-                <div className={styles.browse_option2}>
-                
-                  <select value={sort} onChange={(e) => setSort(e.target.value)}>
-                    <label>Sortera efter:</label>
-                    <option value="rating">Omdöme</option>
-                    <option value="grade">Betyg</option>
-                    <option value="date">Datum</option>
-                  </select>
-                </div>
+              <div className={styles.browse_option}>
+                <select value={sortByGrade} onChange={(e) => setSortByGrade(e.target.value)}>
+                  <option value="">Alla betyg</option>
+                  {grades.map((grade) => (
+                  <option key={grade} value={grade}>
+                    {grade}
+                  </option>
+                ))}
+                </select>
               </div>
+            </div>
+            <h2>Sortera</h2>
+            <div className={styles.filters}>
+              <div className={styles.browse_option2}>
+                <select value={sort} onChange={(e) => setSort(e.target.value)}>
+                  <option value="rating">Omdöme</option>
+                  <option value="grade">Betyg</option>
+                  <option value="date">Datum</option>
+                </select>
+              </div>
+            </div>
           </div>
           <div className={styles.exam_square}>
           {filteredData.map((file) => (

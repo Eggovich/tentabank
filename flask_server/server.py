@@ -370,15 +370,14 @@ def reviewed():
 def erase():
     file_id = request.form.get("id", type=int)
     table = request.form.get("status")
-    print(table, file_id) 
-    if not file_id and table:
-        return "error", 400
     connection = mysql.connect(user=MYSQL_USER,
                            passwd=MYSQL_PASS,
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    cnx.execute("""DELETE FROM %s where id = %s """, (table, file_id,))
+    cnx.execute(f"""DELETE FROM {table} where id = {file_id}""")
+    cnx.execute(f"""DELETE FROM comments where file_id = {file_id}""")
+    cnx.execute(f"""DELETE FROM rating where exam_id = {file_id}""")
     cnx.execute("""COMMIT""")
     cnx.close()
     return "File uploaded successfully", 200  

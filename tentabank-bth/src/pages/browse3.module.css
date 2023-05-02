@@ -4,15 +4,15 @@
   display: grid;
   min-height: 100vh;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 3fr repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
   border-color: black;
   overflow-wrap: row;
 }
 
 .sidebar3{
   overflow: hidden;
-  grid-area: 2 / 1 / 8 / 3;
-  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--dark) 15%);
+  grid-area: 3 / 1 / 8 / 3;
+  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--dark) 10%);
   text-align: left;
   border-style: none none solid none;
   border-color: var(--dark);
@@ -25,17 +25,11 @@
   text-align: center;
   color:var(--light)
 }
-.filter_square{
-  overflow: hidden;
-  grid-area: 2 / 3 / 4 / 8;
-  background-color: bisque;
-}
-
 .filter3{
   overflow: hidden;
-  grid-area: 2 / 3 / 4 / 8;
+  grid-area: 3 / 3 / 4 / 8;
   display:flex;
-  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--dark) 45%);
+  background-image: linear-gradient(rgba(255, 228, 196, 0) 0%, VAR(--dark) 50%);
   justify-content: space-around;
   align-items: center;
   z-index: 2;
@@ -74,7 +68,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  grid-area: 1 / 1 / 3 / 8;
+  grid-area: 1 / 1 / 4 / 8;
   justify-content: center;
   align-content: center;
 }
@@ -235,6 +229,9 @@ select::-ms-expand {
 
 .browse_option select:focus{
   border-radius: 0;
+}
+.browse_option select:hover, .browse_option2 select:hover{
+  background-color: var(--contrast);
 }
 
 /* Här under är .css för tenta-sidan */
