@@ -5,6 +5,7 @@
   align-items: center;
   min-height: 100vh;
   padding-top: 6rem;
+  background-image: linear-gradient(var(--mlight), var(--light));
 }
   
 .container {

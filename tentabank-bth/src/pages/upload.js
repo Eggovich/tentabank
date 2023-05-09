@@ -81,13 +81,13 @@ const Upload = () => {
     
   <div className={styles.page_container}>
     <div className={styles.info_container}>
-      
+
     </div>
     <div className={styles.form_half}>
     <div className={styles.form_container}>
     {cookies.loggedIn?(
       <>
-      <h1>Ladda upp här!</h1>
+      <h1 className={styles.form_title}>Ladda upp här!</h1>
       { uploaded ? (
         <div className={styles.upload_success}>
           <h3>Din tenta är nu inlämnad och väntar på att granskas</h3>
@@ -95,7 +95,6 @@ const Upload = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className={styles.upload_form}>
-          <input type="file" accept=".pdf" className={styles.file_field} onChange={(e) => setFile(e.target.files[0])} />
           <div className={styles.form_element}>
             <label className={styles.labels}>Kurskod: </label>
             <input type="text" className={styles.input_field} onChange={(e) => setName(e.target.value)} placeholder="IY1234" />
@@ -117,6 +116,9 @@ const Upload = () => {
               <option value="D">D</option>
               <option value="E">E</option>
             </select>
+          </div>
+          <div className={styles.file_square}>
+            <input type="file" accept=".pdf" className={styles.file_field} onChange={(e) => setFile(e.target.files[0])} />
           </div>
           <div className={styles.form_element}>
             <button type="submit" className={styles.submit_button}>Ladda upp</button>

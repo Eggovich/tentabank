@@ -26,6 +26,8 @@ const Browse = () => {
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [selectedCategorie, setSelectedCategorie] = useState("");
   const [show, setShow] = useState(false);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(16);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -154,11 +156,8 @@ const Browse = () => {
     var filtSubj = subjects.filter(subject => {
       return subject.toLowerCase().startsWith(subjectSearch.toLowerCase());
     })
-    if (filtSubj.length <= 5){
-      setFilteredSubjects(filtSubj)
-    }else{
-      setFilteredSubjects.slice(0,5)
-    }
+    setFilteredSubjects(filtSubj)
+    
     
   }, [subjectSearch]);
   
@@ -189,6 +188,14 @@ const Browse = () => {
     }
   }
 
+  function handleNextPage(){
+    setStart(end)
+    setEnd(end + 16)
+  }
+  function handlePrevPage(){
+    setStart(start - 16)
+    setEnd(start)
+  }
 
   function handleSortBySubject(subject){
     setSortBySubject(subject)
@@ -201,6 +208,7 @@ const Browse = () => {
       (cookies.uploads > 2 ? 
         (!selectedExam ? (
         <div className={styles.browse_page3}>
+          <div className={styles.background}></div>
           <div className={styles.course_search_bar}>
             <input type="text" className={styles.csb} placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
             <div className={(subjectSearch && subjectSearch !== sortBySubject) ? styles.on_li : styles.off_li}>
@@ -264,7 +272,7 @@ const Browse = () => {
             </div>
           </div>
           <div className={styles.exam_square}>
-          {filteredData.map((file) => (
+          {filteredData.slice(start, end).map((file) => (
               <div onClick={() => setSelectedExam(file)} className={styles.clickable_card}>
                 <Carditemsexam 
                     courseCode={file.subject}
@@ -275,6 +283,11 @@ const Browse = () => {
                   />
               </div> 
           ))}
+          
+          </div>
+          <div className={styles.next_prev_buttons}>
+            <button className={start > 0 ? styles.switch_page : styles.hide_button} onClick={() => handlePrevPage()}>Tillbaka</button>
+            {end < filteredData.length && <button className={styles.switch_page} onClick={() => handleNextPage()}>Nästa</button>}
           </div>
         </div>
         ):(
