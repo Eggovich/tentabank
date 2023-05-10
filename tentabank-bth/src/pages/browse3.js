@@ -286,8 +286,8 @@ const Browse = () => {
           
           </div>
           <div className={styles.next_prev_buttons}>
-            <button className={start > 0 ? styles.switch_page : styles.hide_button} onClick={() => handlePrevPage()}>Tillbaka</button>
-            {end < filteredData.length && <button className={styles.switch_page} onClick={() => handleNextPage()}>Nästa</button>}
+            <button className={start > 0 ? styles.switch_page : styles.hide_button} onClick={() => handlePrevPage()}><i className={styles.arrow_left}></i></button>
+            <button className={end < filteredData.length ? styles.switch_page : styles.hide_button} onClick={() => handleNextPage()}><i className={styles.arrow_right}></i></button>
           </div>
         </div>
         ):(
