@@ -3,6 +3,8 @@ import { useCookies } from "react-cookie";
 import styles from "./uploads.module.css"
 import LoginForm from "../components/loginForm.js"
 import NoAccess from '../components/NoAccess';
+import img from "../components/images/Upload_image.png"
+import PictureTextSection from "../components/PictureTextSection";
 
 
 const Upload = () => {
@@ -81,7 +83,13 @@ const Upload = () => {
     
   <div className={styles.page_container}>
     <div className={styles.info_container}>
-
+      <PictureTextSection 
+        imagePosition={"left"} 
+        imageSrc={img} 
+        title={"Hur funkar det?"} 
+        description={"HINENDN IJIJDIAJ EKJAND"}
+        gray={false}>
+      </PictureTextSection>
     </div>
     <div className={styles.form_half}>
     <div className={styles.form_container}>
@@ -105,7 +113,7 @@ const Upload = () => {
           </div>
           <div className={styles.form_element}>
             <label className={styles.labels}>Anonymitetskod: </label>
-            <input type="text" className={styles.input_field} onChange={(e) => setExamId(e.target.value)} placeholder="ABCD-012"/>
+            <input type="text" className={styles.input_field} onChange={(e) => setExamId(e.target.value)} placeholder="0123-ABC"/>
           </div>
           <div className={styles.form_element}>
             <select className={styles.dropdown} onChange={(e) => setGrade(e.target.value)}>
@@ -118,7 +126,10 @@ const Upload = () => {
             </select>
           </div>
           <div className={styles.file_square}>
+            <i className="fa fa-upload"></i>
+            <p className={styles.upload_text}>Klicka för att välja fil</p>
             <input type="file" accept=".pdf" className={styles.file_field} onChange={(e) => setFile(e.target.files[0])} />
+            
           </div>
           <div className={styles.form_element}>
             <button type="submit" className={styles.submit_button}>Ladda upp</button>

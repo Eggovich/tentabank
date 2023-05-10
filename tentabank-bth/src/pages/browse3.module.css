@@ -91,9 +91,10 @@
 
 .csb {
   position: absolute;
+  top:50%;
   left: 25%;
   display: flex;
-  min-height: 35%;
+  min-height: 25%;
   width: 50%;
   font-size: 1.2rem;
   text-align: left;
@@ -103,9 +104,9 @@
 }
 
 .icon{
-  position: relative;
-  top: -22%;
-  left:51.5%;
+  position: absolute;
+  top: 58%;
+  left: 72%;
   transform: scale(1.5);
   z-index: 5;
 }
@@ -115,7 +116,7 @@
   color: black;
   background-color: rgba(255, 255, 255, 0.8);
   /*List elementen lägger sig fel beroende på hur många element som matchar sökningen*/
-  top: 41%;
+  top: 43%;
   left: -2.2%;
   width: 40%;
   opacity: 1;
@@ -145,6 +146,7 @@
 .exam_square{
   grid-area: 4 / 3 / 8 / 8;
   flex-grow: 1;
+  height: 520px;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -357,11 +359,6 @@ select::-ms-expand {
   -webkit-transform: rotate(135deg);
 }
 @media screen and (max-width: 768px) {
-  .icon{
-    top: -10%;
-    left:80%;
-    transform: scale(2);
-  }
   .csb{
     min-height: 15%;
   }
@@ -389,12 +386,12 @@ select::-ms-expand {
     padding-right: 5%;
   }
   .on_li{
-    top: 23%;
-    left:-1.5%;
+    top: 24.4%;
+    left:-1%;
   }
   .icon{
-    top: -12%;
-    left: 49%;
+    top: 55%;
+    left: 68%;
     transform: scale(1.5);
   }
 }

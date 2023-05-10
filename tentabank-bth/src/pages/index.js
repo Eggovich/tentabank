@@ -28,6 +28,7 @@ const Home = () => {
         Egon är en kille på 23 år som alltid älskat kod och nu får han äntligen leva upp till sin dröm genom att 
         vara med och skapa en hemsida med några riktiga proffs. HEJA EGON"
         altText="Image description for the first section"
+        gray={true}
         />
       <StatisticsBar stats={statsData} /> 
       <Roadmap/>  
@@ -37,6 +38,7 @@ const Home = () => {
         title="Simons ide"
         description="Alla kan inte matte"
         altText="Image description for the second section"
+        gray={true}
       />
       <ActiveUserSection/>
     </>

@@ -211,7 +211,7 @@ const Browse = () => {
           <div className={styles.background}></div>
           <div className={styles.course_search_bar}>
             <input type="text" className={styles.csb} placeholder="Vilken kurs letar du efter?" value={subjectSearch} onChange={(e)=>setSubjectSearch(e.target.value)}/>
-            <div className={(subjectSearch && subjectSearch !== sortBySubject) ? styles.on_li : styles.off_li}>
+            <div className={(subjectSearch && subjectSearch !== sortBySubject && filteredSubjects.length > 0) ? styles.on_li : styles.off_li}>
               {filteredSubjects.map((subject) => (
                 <li key={subject} onClick={() => handleSortBySubject(subject)}>{subject}</li>
               ))}
@@ -283,7 +283,6 @@ const Browse = () => {
                   />
               </div> 
           ))}
-          
           </div>
           <div className={styles.next_prev_buttons}>
             <button className={start > 0 ? styles.switch_page : styles.hide_button} onClick={() => handlePrevPage()}><i className={styles.arrow_left}></i></button>
