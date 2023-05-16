@@ -699,6 +699,7 @@ def allusers():
 @cross_origin(supports_credentials=True)
 def promote():
     user_id = request.form.get("user_id")
+    role = request.form.get("role")
     connection = mysql.connect(user=MYSQL_USER,
                            passwd=MYSQL_PASS,
                            database=MYSQL_DATABASE, 
@@ -709,10 +710,10 @@ def promote():
         UPDATE 
             usertable
         SET 
-            role = 'Reviewer'
+            role = %s
         WHERE
             user_id = %s
-        """, (user_id,))
+        """, (role, user_id))
     cnx.execute("""COMMIT""")
     connection.close()
     return "success", 200
