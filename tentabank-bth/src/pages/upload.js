@@ -125,12 +125,14 @@ const Upload = () => {
               <option value="E">E</option>
             </select>
           </div>
-          <div className={styles.file_square}>
-            <i className="fa fa-upload"></i>
-            <p className={styles.upload_text}>Klicka för att välja fil</p>
-            <input type="file" accept=".pdf" className={styles.file_field} onChange={(e) => setFile(e.target.files[0])} />
-            
-          </div>
+            <label htmlFor="fileUpload"> 
+              <div className={styles.file_square}>
+                <i className="fa fa-upload"></i>
+                <p className={styles.upload_text}>Klicka för att välja fil</p>
+                <input id="fileUpload" type="file" accept=".pdf" className={styles.file_field} onChange={(e) => setFile(e.target.files[0])} style={{ display: 'none' }} />
+              </div>
+            </label>
+
           <div className={styles.form_element}>
             <button type="submit" className={styles.submit_button}>Ladda upp</button>
           </div>
