@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from help_funcktions import decipher_filename
 
 UPLOAD_FOLDER = config("UPLOAD_FOLDER")
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -265,7 +266,6 @@ def upload():
     try:
     # formatting the date using strptime() function
         dateObject = datetime.strptime(date, date_format)
-        print(dateObject)
     # If the date validation goes wrong
     except ValueError:
     # printing the appropriate text if ValueError occurs
@@ -329,6 +329,51 @@ def upload():
     cnx.close()
     return "File uploaded successfully", 200
 
+
+@app.route("/mass_upload", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def mass_upload():
+    user_id = request.form.get("user_id")
+    length = int(request.form.get("length"))
+    university = request.form.get("university")
+    folder = []
+    for i in range(0, length):
+        folder.append(request.files.get(f"file-{i}"))
+    for i in range(len(folder)-1, -1, -1):
+        date, course_code = decipher_filename(folder[i].filename)
+        if folder[i].filename[-4:] != ".pdf" or not all([date, course_code]):
+            folder.remove(folder[i])
+        elif date:
+            date.replace("-","/")
+            date_format = "%Y-%m-%d"
+            try:
+                dateObject = datetime.strptime(date, date_format)
+            except ValueError:
+                folder.remove(folder[i])
+    connection = mysql.connect(user=MYSQL_USER,
+                           passwd=MYSQL_PASS,
+                           database=MYSQL_DATABASE, 
+                           host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+    print(folder)
+    for file in folder:
+        date, course_code = decipher_filename(file.filename)
+        date.replace("-","/")
+        filename = secure_filename(file.filename)
+        file_path = "/"+ f"{filename}"
+        direct = app.config['UPLOAD_FOLDER'] + file_path
+        file.save(direct)
+        redirect(url_for('download_file', name=file_path))
+        cnx.execute("""INSERT INTO 
+                        accepted 
+                        (file_name, cource_code, exam_date, file_data, user_id, created_on, university, accepted, grade, exam_id) 
+                    VALUES
+                        (%s,%s,%s,%s,%s,CURDATE(),%s,"noAnswer", "-", %s)""",
+                        (filename, course_code, date, f"http://localhost:5000/download{file_path}", user_id, university, university) 
+                    )
+        cnx.execute("""COMMIT""")
+    cnx.close()
+    return "Success", 200
 
 @app.route('/download/<name>', methods = ["GET"])
 @cross_origin(supports_credentials=True)
