@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import styles from './Roadmap.module.css';
 
 const roadmapSteps = [
-  { id: 1, class: "one", title: 'Create an account' },
-  { id: 2, class: "two", title: 'Upload exams' },
-  { id: 3, class: "three", title: 'Await review' },
-  { id: 4, class: "four", title: 'Three exams accepted' },
-  { id: 5, class: "five", title: 'Browse exams' },
-  { id: 6, class: "six", title: 'Ask questions regarding exams' },
+  { id: 1, class: "one", title: 'Skapa ett konto' },
+  { id: 2, class: "two", title: 'Ladda upp tentor' },
+  { id: 3, class: "three", title: 'Vänta på granskning' },
+  { id: 4, class: "four", title: 'Tre tentor har blivet accepterade' },
+  { id: 5, class: "five", title: 'Utforska tentalösningar' },
+  { id: 6, class: "six", title: 'Ställ frågor' },
 ];
 const Roadmap = () => {
   const [activeStep, setActiveStep] = useState(null);
@@ -26,7 +26,7 @@ const Roadmap = () => {
           {activeStep === 1 && (
             <div className={styles.roadmap_step_info}>
               {/* Add more information about the step here */}
-              More information about {roadmapSteps[0].title}
+              Skapa ditt konto med hjälp av din skol mejl.
             </div>
           )}
           </div>
@@ -36,7 +36,8 @@ const Roadmap = () => {
           {activeStep === 2 && (
             <div className={styles.roadmap_step_info}>
               {/* Add more information about the step here */}
-              More information about {roadmapSteps[1].title}
+              Ladda upp dina gamla tentor, du kan ladda upp alla typer av tentor oavsett betyg. 
+              Oroa dig inte för att någon ska se att det är din tenta, för alla tentor är annonyma.
             </div>
           )}
         </div>
@@ -46,7 +47,7 @@ const Roadmap = () => {
           {activeStep === 3 && (
             <div className={styles.roadmap_step_info}>
               {/* Add more information about the step here */}
-              More information about {roadmapSteps[2].title}
+              Vänta på att dina tentor ska bli godkända av våra granskare. Detta steg finns för att vi ska kunna garantera en hög kvalitet på alla våra tentor.
             </div>
           )}
         </div>
@@ -56,7 +57,7 @@ const Roadmap = () => {
           {activeStep === 4 && (
             <div className={styles.roadmap_step_info}>
               {/* Add more information about the step here */}
-              More information about {roadmapSteps[3].title}
+              Du har fått tre tentor godkända! Nu har du grundbehörighet att utforska andras lösningar.
             </div>
           )}
         </div>
@@ -66,7 +67,7 @@ const Roadmap = () => {
           {activeStep === 5 && (
             <div className={styles.roadmap_step_info}>
               {/* Add more information about the step here */}
-              More information about {roadmapSteps[4].title}
+              Nu kan du utforksa andras lösningar genom att navigera till "Blädra", där du kan söka, filterara och sortera på önskad tenta.
             </div>
           )}
         </div>
@@ -76,7 +77,7 @@ const Roadmap = () => {
           {activeStep === 6 && (
             <div className={styles.roadmap_step_info}>
               {/* Add more information about the step here */}
-              More information about {roadmapSteps[5].title}
+              Ställ frågor om en tenta genom att kommentera under tentan. Då ger du möjligheten till andra användare att hjälpa dig förstå någon annans lösningen eller lärarens bedömmning.
             </div>
           )}
         </div>

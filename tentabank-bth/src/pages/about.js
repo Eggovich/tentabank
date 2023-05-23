@@ -12,7 +12,7 @@ const About = () => {
     <Container className={styles.container}>
       <Row className={styles.my_5}>
         <Col>
-          <h1>About Us</h1>
+          <h1>Om oss</h1>
           <p>We are a team of three passionate individuals dedicated to improving the college experience for students.</p>
         </Col>
       </Row>

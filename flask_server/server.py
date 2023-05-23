@@ -616,6 +616,10 @@ def statistics():
     cnx.execute("SELECT COUNT(*) as accepted_exams FROM accepted")
     accepted_exams = cnx.fetchone()["accepted_exams"]
 
+    # Get number of schools
+    cnx.execute("SELECT COUNT(DISTINCT university) as num_uni FROM accepted")
+    num_uni = cnx.fetchone()["num_uni"]
+
     # Get number of pending exams
     cnx.execute("SELECT COUNT(*) as pending_exams FROM pending")
     pending_exams = cnx.fetchone()["pending_exams"]
@@ -634,7 +638,8 @@ def statistics():
         "accepted_exams": accepted_exams,
         "pending_exams": pending_exams,
         "denied_exams": denied_exams,
-        "users": users
+        "users": users,
+        "num_uni": num_uni
     })
 
 
