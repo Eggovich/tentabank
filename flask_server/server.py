@@ -721,6 +721,7 @@ def promote():
     return "success", 200
 
 
+
 @app.route('/dashboardData', methods=['GET'])
 @cross_origin(supports_credentials=True)
 def dashboard_data():
@@ -733,55 +734,73 @@ def dashboard_data():
         total_users = cnx.fetchone()['total_users']
 
         # total number of exams
-        cnx.execute("SELECT COUNT(*) as total_exams FROM (SELECT * FROM pending UNION ALL SELECT * FROM accepted) AS total")
+        cnx.execute("SELECT COUNT(*) as total_exams FROM accepted")
         total_exams = cnx.fetchone()['total_exams']
 
+        # total number of comments
+        cnx.execute("SELECT COUNT(*) as total_comments FROM comments")
+        total_comments = cnx.fetchone()['total_comments']
+
         # total number of uploads per user
-        cnx.execute("SELECT username, COUNT(*) as uploads FROM (SELECT username FROM usertable INNER JOIN pending ON usertable.user_id = pending.user_id UNION ALL SELECT username FROM usertable INNER JOIN accepted ON usertable.user_id = accepted.user_id) AS total GROUP BY username")
+        cnx.execute("SELECT username, uploads FROM usertable")
         uploads_per_user = cnx.fetchall()
 
         # average rating per exam
-        cnx.execute("SELECT AVG(rating) as avg_rating FROM (SELECT rating FROM pending UNION ALL SELECT rating FROM accepted) AS total")
+        cnx.execute("SELECT AVG(rating) as avg_rating FROM accepted")
         avg_rating = cnx.fetchone()['avg_rating']
-
-        # total number of exams per university
-        cnx.execute("""
-        SELECT usertable.university, COUNT(*) as exams 
-        FROM usertable
-        INNER JOIN (
-            SELECT user_id FROM pending 
-            UNION ALL 
-            SELECT user_id FROM accepted
-            ) 
-            AS total ON usertable.user_id = total.user_id 
-            GROUP BY usertable.university
-                    """)
-        exams_per_university = cnx.fetchall()
 
         # Get count of exams uploaded each month for the past year
         cnx.execute("""
         SELECT DATE_FORMAT(created_on, '%Y-%m') AS time, COUNT(*) as count
-        FROM (
-          SELECT created_on FROM pending
-          UNION ALL
-          SELECT created_on FROM accepted
-        ) AS total
-        WHERE created_on >= DATE_SUB(NOW(), INTERVAL 1 YEAR)
+        FROM accepted
+        WHERE created_on >= DATE_SUB(NOW(), INTERVAL 5 YEAR)
         GROUP BY time
         ORDER BY time
         """)
         activity_over_time = cnx.fetchall()
+
+        # Get count of users registered each month for the past year
+        cnx.execute("""
+        SELECT DATE_FORMAT(created_on, '%Y-%m') AS time, COUNT(*) as count
+        FROM usertable
+        WHERE created_on >= DATE_SUB(NOW(), INTERVAL 5 YEAR)
+        GROUP BY time
+        ORDER BY time
+        """)
+        user_signups_over_time = cnx.fetchall()
+
+        # Get count of exams submitted each month for the past year
+        cnx.execute("""
+        SELECT DATE_FORMAT(created_on, '%Y-%m') AS time, COUNT(*) as count
+        FROM accepted
+        WHERE created_on >= DATE_SUB(NOW(), INTERVAL 5 YEAR)
+        GROUP BY time
+        ORDER BY time
+        """)
+        exams_submitted_over_time = cnx.fetchall()
+
+        # Get count of exams per category
+        cnx.execute("""
+        SELECT code_group_name as category, COUNT(*) as exams
+        FROM accepted INNER JOIN course_code_view ON accepted.cource_code = course_code_view.cource_code
+        GROUP BY category
+        """)
+        exams_per_category = cnx.fetchall()
 
         connection.close()
 
         return jsonify({
             "total_users": total_users,
             "total_exams": total_exams,
+            "total_comments": total_comments,
             "uploads_per_user": uploads_per_user,
             "avg_rating": avg_rating,
-            "exams_per_university": exams_per_university,
             "activity_over_time": activity_over_time,
+            "user_signups_over_time": user_signups_over_time,
+            "exams_submitted_over_time": exams_submitted_over_time,
+            "exams_per_category": exams_per_category
         }), 200
+
     except Exception as e:
         print("An error occurred: ", e)
         return jsonify({"error": "An error occurred while fetching the data. Please try again later."}), 500
