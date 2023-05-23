@@ -1,18 +1,72 @@
 /* styles.dashboard.css */
 
 .container {
-    padding: 2rem 0;
-  }
-  
-  .title {
-    margin-bottom: 2rem;
-  }
-  
-  .grid {
-    margin: 1rem 0;
-  }
-  
-  .chart {
-    overflow-x: auto;
-  }
-  
+  padding: 2rem 0;
+  background-color: #f4f4f4; /* Adds a light background color */
+  font-family: 'Roboto', sans-serif; /* Changes the font for a cleaner look */
+}
+
+.title {
+  margin-bottom: 2rem;
+  text-align: center; /* Centers the dashboard title */
+  color: #333; /* Makes the title color darker */
+  font-size: 2.5rem; /* Makes the title bigger */
+}
+
+.grid {
+  display: flex; /* Allows the grid items to sit next to each other */
+  justify-content: space-around; /* Adds space around items */
+  flex-wrap: wrap; /* Allows the items to wrap to the next line */
+  margin: 1rem 0;
+}
+
+.card {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Adds a slight shadow to the cards */
+  border-radius: 15px; /* Adds rounded corners */
+  padding: 1.5rem; /* Adds some padding inside the card */
+  margin: 1rem; /* Adds some margin around the card */
+  text-align: center; /* Centers the text inside the card */
+  background-color: #fff; /* Makes the card background white */
+  width: 300px; /* Specifies a width */
+}
+
+.card h3 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 1.5rem;
+  color: #0088FE; /* Makes the number in the card blue */
+}
+
+/* styles.dashboard.css */
+
+.card, .chart {
+  /* ...existing styles... */
+
+  /* This will add a transition to the box-shadow property over 0.3 seconds */
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover, .chart:hover {
+  /* This will make the box shadow bigger when the card is hovered */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+.chart {
+  overflow-x: auto;
+  margin: 2rem 0; /* Adds some margin on the top and bottom of the charts */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Adds a slight shadow to the charts */
+  border-radius: 15px; /* Adds rounded corners */
+  background-color: #fff; /* Makes the chart background white */
+  padding: 1.5rem; /* Adds some padding inside the chart */
+}
+
+.chart h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
