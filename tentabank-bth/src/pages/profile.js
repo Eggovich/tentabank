@@ -155,6 +155,7 @@ const handleUserUpdate = () =>{
     !cookies.loggedIn ? (
       <NoAccess msg="Du måste logga in" module={true}/>
     ) : (
+      cookies.role !== "University" ? (
       editProfile ? (
       <div className={styles.profile_page}>
         <p>hej här ska man kunna redigera mer grejer i framtiden!</p>
@@ -291,10 +292,10 @@ const handleUserUpdate = () =>{
             Radera konto
         </button>
       </div>
-    )
+    )):(<p>Hej</p>)
     )
   );
-  
+
 };
 
 export default Profile;
