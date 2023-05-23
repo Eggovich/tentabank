@@ -9,68 +9,72 @@ import styles from './about.module.css';
 const About = () => {
   return (
     <div className={styles.backdrop}>
-    <Container className={styles.container}>
-      <Row className={styles.my_5}>
-        <Col>
-          <h1>Om oss</h1>
-          <p>We are a team of three passionate individuals dedicated to improving the college experience for students.</p>
-        </Col>
-      </Row>
-      <Row className={styles.my_5}>
-        <Col md={4}>
-          <div className={styles.team_member_container}>
-            <div className={styles.team_member}>
-              <Image src={team1Img} roundedCircle className={styles.team_member_image} />
-              <h3>Simon Gottschalk</h3>
-              <p>Co-founder and CEO</p>
+      <Container className={styles.container}>
+        <Row className={styles.my_5}>
+          <Col>
+            <h1>Om oss</h1>
+            <p>Vi är ett team av tre passionerade individer som ägnar oss åt att förbättra studieupplevelsen för universitetsstuderande.</p>
+          </Col>
+        </Row>
+        <Row className={styles.my_5}>
+          <Col md={4}>
+            <div className={styles.team_member_container}>
+              <div className={styles.team_member}>
+                <Image src={team1Img} roundedCircle className={styles.team_member_image} />
+                <h3>Simon Gottschalk</h3>
+                <p>Medgrundare och VD</p>
+              </div>
             </div>
-          </div>
-        </Col>
-        <Col md={4}>
-          <div className={styles.team_member_container}>
-            <div className={styles.team_member}>
-              <Image src={team2Img} roundedCircle className={styles.team_member_image} />
-              <h3>Egon Grans</h3>
-              <p>Co-founder and CTO</p>
+          </Col>
+          <Col md={4}>
+            <div className={styles.team_member_container}>
+              <div className={styles.team_member}>
+                <Image src={team2Img} roundedCircle className={styles.team_member_image} />
+                <h3>Egon Grans</h3>
+                <p>Medgrundare och teknisk chef</p>
+              </div>
             </div>
-          </div>
-        </Col>
-        <Col md={4}>
-          <div className={styles.team_member_container}>
-            <div className={styles.team_member}>
-              <Image src={team3Img} roundedCircle className={styles.team_member_image} />
-              <h3>Hanna Israelsson</h3>
-              <p>Co-founder and CFO</p>
+          </Col>
+          <Col md={4}>
+            <div className={styles.team_member_container}>
+              <div className={styles.team_member}>
+                <Image src={team3Img} roundedCircle className={styles.team_member_image} />
+                <h3>Hanna Israelsson</h3>
+                <p>Medgrundare och ekonomisk chef</p>
+              </div>
             </div>
-          </div>
-        </Col>
-      </Row>
-      <Row className={styles.my_5}>
-        <Col>
-          <h2>Our Purpose</h2>
-          <p>
-            This products purpose is to provide BTH students, who are the primary users,
-             with a platform where they can share and discuss exam solutions. The goal is to encourage student 
-             collaboration and make it simpler for students to study for exams by providing them with access to a variety of solutions. 
-             This will be made with the help of the secondary user, which is a BTH employee who will review the exams before 
-             publishing them to ensure rightfully uploaded material. Regardless of academic standing or field of study, all students are 
-             encouraged to use the system. Students and the educational institutions they attend are the main stakeholders. 
-             With the Tentabank-application students it will be possible to sort exams by course code, date, and 
-             rating, upload and share exam solutions, and store exams on Google Cloud Storage..</p>
-        </Col>
-      </Row>
-      <Row className={styles.my_5}>
-        <Col>
-          <h2>Our Services</h2>
-          <ul>
-            <li>Personalized academic coaching</li>
-            <li>Virtual study groups and tutoring</li>
-            <li>College life resources and support</li>
-            <li>Career guidance and preparation</li>
-          </ul>
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+        </Row>
+        <Row className={styles.my_5}>
+          <Col>
+            <h2>Vårt syfte</h2>
+            <p>Vårt syfte med denna produkt är att ge BTH-studenter, som är de primära användarna, en plattform där de kan dela och diskutera lösningar på tentafrågor. Målet är att uppmuntra studenters samarbete och göra det enklare för studenter att studera inför tentor genom att ge dem tillgång till en mängd olika lösningar. Alla studenter uppmuntras att använda systemet, oavsett akademisk status eller studieinriktning.</p>
+          </Col>
+        </Row>
+        <Row className={styles.my_5}>
+          <Col>
+            <h2>Vår vision</h2>
+            <p>Vår vision är att skapa en mer sammanhängande och inkluderande studiemiljö där alla studenter får den hjälp de behöver för att lyckas. Genom att skapa och ständigt förbättra Tentabanken strävar vi efter att bli det mest pålitliga och användarvänliga studieresurshanteringsverktyget för studenter över hela Sverige.</p>
+          </Col>
+        </Row>
+        <Row className={styles.my_5}>
+          <Col>
+            <h2>Varför Tentabanken grundades</h2>
+            <p>Tentabanken grundades med målet att hjälpa studenter att bättre förstå och hantera deras studiematerial. Vi såg en brist på effektiva verktyg för studenter att dela och diskutera studiematerial, särskilt när det gäller tentafrågor. Genom att skapa Tentabanken hoppas vi fylla detta tomrum och bidra till en bättre studieupplevelse för alla studenter.</p>
+          </Col>
+        </Row>
+        <Row className={styles.my_5}>
+          <Col>
+            <h2>Våra tjänster</h2>
+            <ul>
+              <li>Personlig akademisk coaching</li>
+              <li>Virtuella studiegrupper och handledning</li>
+              <li>Resurser och stöd för studentlivet</li>
+              <li>Karriärvägledning och förberedelse</li>
+            </ul>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
