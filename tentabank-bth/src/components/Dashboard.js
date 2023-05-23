@@ -79,7 +79,7 @@ const Dashboard = () => {
         </div>
         <div className={styles.chart}>
           <h3>Tentor per kategori</h3>
-          <PieChart width={400} height={400}>
+          <PieChart width={500} height={500}>
             <Pie
               data={data.exams_per_category}
               cx="50%"
