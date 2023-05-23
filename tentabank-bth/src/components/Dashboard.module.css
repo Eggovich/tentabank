@@ -1,0 +1,18 @@
+/* styles.dashboard.css */
+
+.container {
+    padding: 2rem 0;
+  }
+  
+  .title {
+    margin-bottom: 2rem;
+  }
+  
+  .grid {
+    margin: 1rem 0;
+  }
+  
+  .chart {
+    overflow-x: auto;
+  }
+  

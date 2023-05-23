@@ -5,6 +5,7 @@ import styles from './profile.module.css';
 import img from "..//components/images/img-1.jpg"
 import {confirmAlert} from "react-confirm-alert"
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import Dashboard from '../components/Dashboard';
 
 
 const Profile = () => {
@@ -292,7 +293,9 @@ const handleUserUpdate = () =>{
             Radera konto
         </button>
       </div>
-    )):(<p>Hej</p>)
+    )):(
+     <Dashboard/>
+    )
     )
   );
 

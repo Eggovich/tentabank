@@ -719,6 +719,55 @@ def promote():
     cnx.execute("""COMMIT""")
     connection.close()
     return "success", 200
+
+
+@app.route('/dashboardData', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def dashboard_data():
+    connection = mysql.connect(user=MYSQL_USER, passwd=MYSQL_PASS, database=MYSQL_DATABASE, host='127.0.0.1')
+    cnx = connection.cursor(dictionary=True)
+
+    # total number of users
+    cnx.execute("SELECT COUNT(*) as total_users FROM usertable")
+    total_users = cnx.fetchone()['total_users']
+
+    # total number of exams
+    cnx.execute("SELECT COUNT(*) as total_exams FROM (SELECT * FROM pending UNION ALL SELECT * FROM accepted) AS total")
+    total_exams = cnx.fetchone()['total_exams']
+
+    # total number of uploads per user
+    cnx.execute("SELECT username, COUNT(*) as uploads FROM (SELECT username FROM usertable INNER JOIN pending ON usertable.user_id = pending.user_id UNION ALL SELECT username FROM usertable INNER JOIN accepted ON usertable.user_id = accepted.user_id) AS total GROUP BY username")
+    uploads_per_user = cnx.fetchall()
+
+    # average rating per exam
+    cnx.execute("SELECT AVG(rating) as avg_rating FROM (SELECT rating FROM pending UNION ALL SELECT rating FROM accepted) AS total")
+    avg_rating = cnx.fetchone()['avg_rating']
+
+    # total number of exams per university
+    cnx.execute("""
+    SELECT usertable.university, COUNT(*) as exams 
+    FROM usertable
+    INNER JOIN (
+        SELECT user_id FROM pending 
+        UNION ALL 
+        SELECT user_id FROM accepted
+        ) 
+        AS total ON usertable.user_id = total.user_id 
+        GROUP BY usertable.university
+                """)
+
+    exams_per_university = cnx.fetchall()
+
+    connection.close()
+
+    return jsonify({
+        "total_users": total_users,
+        "total_exams": total_exams,
+        "uploads_per_user": uploads_per_user,
+        "avg_rating": avg_rating,
+        "exams_per_university": exams_per_university,
+    }), 200
+
 if __name__ == "__main__":
     app.run(debug=True)
 
