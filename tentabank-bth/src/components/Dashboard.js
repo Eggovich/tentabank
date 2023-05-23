@@ -88,7 +88,7 @@ const Dashboard = () => {
               outerRadius={100}
               fill="#8884d8"
               dataKey="exams"
-              label={({ name, exams }) => `${name}: ${exams}`}
+              label={({ category, exams }) => `${category}: ${exams}`}
             >
               {(data.exams_per_category || []).map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
