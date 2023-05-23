@@ -47,7 +47,7 @@ const Navbar = () => {
               Tentabank
             </NavLink>
           )}
-          {cookies.role === "Student" || cookies.role === "University" && (
+          {(cookies.role === "Student" || cookies.role === "University") && (
             <NavLink className={styles.nav_link} to="/upload" activeclassname="active">
               Ladda upp
             </NavLink>

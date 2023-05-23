@@ -5,6 +5,7 @@ import LoginForm from "../components/loginForm.js"
 import NoAccess from '../components/NoAccess';
 import img from "../components/images/Upload_image.png"
 import PictureTextSection from "../components/PictureTextSection";
+import MassUpload from "../components/MassUpload";
 
 
 const Upload = () => {
@@ -88,13 +89,14 @@ const Upload = () => {
         imagePosition={"left"} 
         imageSrc={img} 
         title={"Hur funkar det?"} 
-        description={"HINENDN IJIJDIAJ EKJAND"}
+        description={"Fyll i fälten med korrekt information för tentan, våra granskare tittar sedan på uppgifterna och godkänner tentan om allt stämmer överens"}
         gray={false}>
       </PictureTextSection>
     </div>
     <div className={styles.form_half}>
     <div className={styles.form_container}>
     {cookies.loggedIn?(
+      cookies.role !== "University" ? (
       <>
       <h1 className={styles.form_title}>Ladda upp här!</h1>
       { uploaded ? (
@@ -146,6 +148,9 @@ const Upload = () => {
       {failedServer === true && (<p className="errormessage">Ingen kontakt med servern, försök igen om en stund</p>)}
       {alreadyUploaded === true && (<p className="errormessage">Denna tenta är redan uppladdad</p>)}
       </>
+    ):(
+      <MassUpload/>
+    )
     ):(
       <NoAccess msg="Du måste logga in för att kunna lämna in tentor" module={true}/>
     )
