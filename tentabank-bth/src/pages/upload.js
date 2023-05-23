@@ -47,6 +47,7 @@ const Upload = () => {
     formData.append("grade", grade);
     formData.append("examId", examId);
     formData.append("user_id", cookies.user_id)
+    formData.append("university", cookies.university)
 
     try {
       const response = await fetch("http://localhost:5000/upload", {

@@ -8,14 +8,13 @@ drop table if exists rating;
 
 create table usertable(
 user_id int NOT NULL auto_increment,
-username varchar(50),
-email varchar(50),
-password varchar(250),
+username varchar(50) not null,
+email varchar(50) not null,
+password varchar(250) not null,
 role varchar(50) default "Student",
 uploads int default 0,
+university varchar(100) not null,
 primary key (user_id));
-
-select * from usertable;
 
 Create Table pending(
 id Int AUTO_INCREMENT Not Null Primary Key, 
@@ -29,7 +28,8 @@ created_on Date Not Null,
 rating int default 0,
 FOREIGN KEY (user_id) REFERENCES usertable(user_id),
 accepted Varchar(255) default "pending",
-exam_id varchar(255) Not Null
+exam_id varchar(255) Not Null,
+university varchar(100) not null
 );
 
 Create Table accepted(
@@ -44,7 +44,8 @@ created_on Date Not Null,
 rating int default 0,
 FOREIGN KEY (user_id) REFERENCES usertable(user_id),
 accepted Varchar(255) default "acccepted",
-exam_id varchar(255) Not Null
+exam_id varchar(255) Not Null,
+university varchar(100) not null
 );
 
 Create Table denied(
@@ -59,10 +60,10 @@ created_on Date Not Null,
 rating int default 0,
 FOREIGN KEY (user_id) REFERENCES usertable(user_id),
 accepted Varchar(255) default "denied",
-exam_id varchar(255) Not Null
+exam_id varchar(255) Not Null,
+university varchar(100) not null
 );
 
-drop table comments;
 CREATE TABLE comments (
     comment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     file_id INT,
@@ -181,6 +182,6 @@ SELECT * FROM denied;
 SELECT * FROM usertable;
 select * from comments;
 select * from rating;
-
-/*After you have created a user on the website run this to make it a Admin*/
+delete from accepted where id = 1;
+/*After you have created a user on the website run this to make it an Admin*/
 update usertable set role = "Admin" where user_id = 1

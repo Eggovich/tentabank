@@ -23,6 +23,7 @@ const LoginForm = () => {
         setCookie("loggedIn", true, {path: '/' })
         setCookie("role", currentUser.role, {path: '/'})
         setCookie("uploads", currentUser.uploads, {path: '/'})
+        setCookie("university", currentUser.university, {path: '/'})
     }
 
 

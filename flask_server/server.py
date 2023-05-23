@@ -41,6 +41,7 @@ def signup():
     name = request.form.get("name")
     email = request.form.get("email")
     password = request.form.get("password")
+    university = request.form.get("university")
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""SELECT email from usertable""")
     emaildict = cnx.fetchall()
@@ -49,7 +50,7 @@ def signup():
         connection.close()
         return jsonify({"response":"Email already in use"}), 401
     password = generate_password_hash(password)
-    cnx.execute("""INSERT INTO usertable (username, email, password) VALUES (%s, %s, %s)""", (name, email, password,))
+    cnx.execute("""INSERT INTO usertable (username, email, password, university) VALUES (%s, %s, %s, %s)""", (name, email, password, university,))
     cnx.execute("""COMMIT""")
     connection.close()
     return "Account created successfully", 200
@@ -237,8 +238,9 @@ def upload():
     grade = request.form.get("grade")
     examId = request.form.get("examId")
     user_id = request.form.get("user_id")
+    university = request.form.get("university")
     # Validate the form data
-    if not all([file, cource_code, date, grade, examId, user_id]):
+    if not all([file, cource_code, date, grade, examId, user_id, university]):
         return "Please provide all the required fields", 400
     
     if not file or not allowed_file(file.filename):
@@ -316,12 +318,12 @@ def upload():
     if pending != [] or accepted != []:
         cnx.close()
         return "file already exists", 404
-    cnx.execute(f"""INSERT INTO 
+    cnx.execute("""INSERT INTO 
                         pending 
-                        (file_name, cource_code, grade, exam_date, file_data, user_id, created_on, exam_id) 
+                        (file_name, cource_code, grade, exam_date, file_data, user_id, created_on, exam_id, university) 
                     VALUES
-                        (%s,%s,%s,%s,%s,%s,CURDATE(),%s)""",
-                        (file.filename, cource_code, grade, date, f"http://localhost:5000/download{file_path}", user_id, examId) 
+                        (%s,%s,%s,%s,%s,%s,CURDATE(),%s,%s)""",
+                        (file.filename, cource_code, grade, date, f"http://localhost:5000/download{file_path}", user_id, examId, university) 
                     )
     cnx.execute("""COMMIT""")
     cnx.close()

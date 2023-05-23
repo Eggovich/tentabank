@@ -8,6 +8,7 @@ const SignupForm = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [university, setUniversity] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [uploaded, setUploaded] = useState(false);
     const [failedUpload, setFailedUpload] = useState(false);
@@ -36,6 +37,7 @@ const SignupForm = () => {
         formData.append("name", name);
         formData.append("email", email);
         formData.append("password", password);
+        formData.append("university", university);
 
         try {
         const data = await fetch("http://localhost:5000/signup", {
@@ -67,6 +69,10 @@ const SignupForm = () => {
                 <input type="text" className={styles.login_input} onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
                 <input type="password" className={styles.login_input} onChange={(e) => setPassword(e.target.value)} placeholder="Lösenord"/>
                 <input type="password" className={styles.login_input} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Konfirmera lösenordet"/>
+                <select className={styles.login_input} onChange={(e) => setUniversity(e.target.value)}>
+                    <option value="">Universitet</option>
+                    <option value="BTH">BTH</option>
+                </select>
                 <button type='submit' className={styles.login_submit}>
                     Skapa konto
                 </button>

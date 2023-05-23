@@ -8,6 +8,7 @@ const Promote = () => {
     const [users, setUsers] = useState([])
     const [reviewers, setReviewers] = useState([])
     const [admins, setAdmins] = useState([])
+    const [university, setUniversity] = useState([])
     const [update, setUpdate] = useState(false)
     useEffect( () => {
         fetch("http://localhost:5000/allusers", {
@@ -18,9 +19,11 @@ const Promote = () => {
             let students = data.response.filter(user => user.role == "Student")
             let reviewers = data.response.filter(user => user.role == "Reviewer")
             let admins = data.response.filter(user => user.role == "Admin")
+            let university = data.response.filter(user => user.role == "University")
             setUsers(students)
             setReviewers(reviewers)
             setAdmins(admins)
+            setUniversity(university)
             }
           )
       }, [update]
@@ -50,7 +53,7 @@ const Promote = () => {
                 <th>Användarnamn</th>
                 <th>Mail</th>
                 <th>Roll</th>
-                <th>Befodra</th>
+                <th>Ändra roll</th>
             </tr>
         </thead>
         <tbody>
@@ -59,7 +62,11 @@ const Promote = () => {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
-                <td><button onClick={() => handlePromote(user.user_id, "Reviewer")}>Befodra till reviewer</button></td>
+                <td>
+                    <button onClick={() => handlePromote(user.user_id, "Reviewer")}>Befodra till reviewer</button>
+                    <button onClick={() => handlePromote(user.user_id, "University")}>Befodra till Universitet</button>
+                    <button onClick={() => handlePromote(user.user_id, "Admin")}>Befodra till Admin</button>
+                </td>
             </tr>
             ))}
         </tbody>
@@ -70,7 +77,7 @@ const Promote = () => {
                 <th>Användarnamn</th>
                 <th>Mail</th>
                 <th>Roll</th>
-                <th>Befodra</th>
+                <th>Ändra roll</th>
             </tr>
         </thead>
         <tbody>
@@ -79,7 +86,11 @@ const Promote = () => {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
-                <td><button onClick={() => handlePromote(user.user_id, "Admin")}>Befodra till Admin</button></td>
+                <td>
+                    <button onClick={() => handlePromote(user.user_id, "University")}>Befodra till Universitet</button>
+                    <button onClick={() => handlePromote(user.user_id, "Admin")}>Befodra till Admin</button>
+                    <button onClick={() => handlePromote(user.user_id, "Student")}>Degradera till Student</button>
+                </td>
             </tr>
             ))}
         </tbody>
@@ -90,6 +101,30 @@ const Promote = () => {
                 <th>Användarnamn</th>
                 <th>Mail</th>
                 <th>Roll</th>
+                <th>Ändra roll</th>
+            </tr>
+        </thead>
+        <tbody>
+        {university.map((user) => (
+            <tr key={user.user_id}>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>
+                    <button onClick={() => handlePromote(user.user_id, "Student")}>Degradera till Student</button>
+                    <button onClick={() => handlePromote(user.user_id, "Admin")}>Befodra till Admin</button>
+                </td>
+            </tr>
+            ))}
+        </tbody>
+        </table>
+        <table>
+        <thead>
+            <tr>
+                <th>Användarnamn</th>
+                <th>Mail</th>
+                <th>Roll</th>
+                <th>Ändra roll</th>
             </tr>
         </thead>
         <tbody>
@@ -98,6 +133,9 @@ const Promote = () => {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
+                <td>
+                    <button onClick={() => handlePromote(user.user_id, "Student")}>Degradera till Student</button>
+                </td>
             </tr>
             ))}
         </tbody>
