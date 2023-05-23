@@ -16,6 +16,23 @@ uploads int default 0,
 university varchar(100) not null,
 primary key (user_id));
 
+
+-- Add the new column "created_on"
+ALTER TABLE usertable
+ADD created_on DATE DEFAULT "2022-01-01" AFTER password;
+
+-- Create the trigger
+DELIMITER //
+CREATE TRIGGER set_created_on
+BEFORE INSERT ON usertable
+FOR EACH ROW
+BEGIN
+  SET NEW.created_on = CURDATE();
+END //
+DELIMITER ;
+
+
+
 Create Table pending(
 id Int AUTO_INCREMENT Not Null Primary Key, 
 file_name Varchar(255), 

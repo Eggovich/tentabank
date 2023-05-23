@@ -661,6 +661,10 @@ def statistics():
     cnx.execute("SELECT COUNT(*) as accepted_exams FROM accepted")
     accepted_exams = cnx.fetchone()["accepted_exams"]
 
+    # Get number of schools
+    cnx.execute("SELECT COUNT(DISTINCT university) as num_uni FROM accepted")
+    num_uni = cnx.fetchone()["num_uni"]
+
     # Get number of pending exams
     cnx.execute("SELECT COUNT(*) as pending_exams FROM pending")
     pending_exams = cnx.fetchone()["pending_exams"]
@@ -679,7 +683,8 @@ def statistics():
         "accepted_exams": accepted_exams,
         "pending_exams": pending_exams,
         "denied_exams": denied_exams,
-        "users": users
+        "users": users,
+        "num_uni": num_uni
     })
 
 
@@ -764,6 +769,93 @@ def promote():
     cnx.execute("""COMMIT""")
     connection.close()
     return "success", 200
+
+
+
+@app.route('/dashboardData', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def dashboard_data():
+    try:
+        connection = mysql.connect(user=MYSQL_USER, passwd=MYSQL_PASS, database=MYSQL_DATABASE, host='127.0.0.1')
+        cnx = connection.cursor(dictionary=True)
+
+        # total number of users
+        cnx.execute("SELECT COUNT(*) as total_users FROM usertable")
+        total_users = cnx.fetchone()['total_users']
+
+        # total number of exams
+        cnx.execute("SELECT COUNT(*) as total_exams FROM accepted")
+        total_exams = cnx.fetchone()['total_exams']
+
+        # total number of comments
+        cnx.execute("SELECT COUNT(*) as total_comments FROM comments")
+        total_comments = cnx.fetchone()['total_comments']
+
+        # total number of uploads per user
+        cnx.execute("SELECT username, uploads FROM usertable")
+        uploads_per_user = cnx.fetchall()
+
+        # average rating per exam
+        cnx.execute("SELECT AVG(rating) as avg_rating FROM accepted")
+        avg_rating = cnx.fetchone()['avg_rating']
+
+        # Get count of exams uploaded each month for the past year
+        cnx.execute("""
+        SELECT DATE_FORMAT(created_on, '%Y-%m') AS time, COUNT(*) as count
+        FROM accepted
+        WHERE created_on >= DATE_SUB(NOW(), INTERVAL 5 YEAR)
+        GROUP BY time
+        ORDER BY time
+        """)
+        activity_over_time = cnx.fetchall()
+
+        # Get count of users registered each month for the past year
+        cnx.execute("""
+        SELECT DATE_FORMAT(created_on, '%Y-%m') AS time, COUNT(*) as count
+        FROM usertable
+        WHERE created_on >= DATE_SUB(NOW(), INTERVAL 5 YEAR)
+        GROUP BY time
+        ORDER BY time
+        """)
+        user_signups_over_time = cnx.fetchall()
+
+        # Get count of exams submitted each month for the past year
+        cnx.execute("""
+        SELECT DATE_FORMAT(created_on, '%Y-%m') AS time, COUNT(*) as count
+        FROM accepted
+        WHERE created_on >= DATE_SUB(NOW(), INTERVAL 5 YEAR)
+        GROUP BY time
+        ORDER BY time
+        """)
+        exams_submitted_over_time = cnx.fetchall()
+
+        # Get count of exams per category
+        cnx.execute("""
+        SELECT code_group_name as category, COUNT(*) as exams
+        FROM accepted INNER JOIN course_code_view ON accepted.cource_code = course_code_view.cource_code
+        GROUP BY category
+        """)
+        exams_per_category = cnx.fetchall()
+
+        connection.close()
+
+        return jsonify({
+            "total_users": total_users,
+            "total_exams": total_exams,
+            "total_comments": total_comments,
+            "uploads_per_user": uploads_per_user,
+            "avg_rating": avg_rating,
+            "activity_over_time": activity_over_time,
+            "user_signups_over_time": user_signups_over_time,
+            "exams_submitted_over_time": exams_submitted_over_time,
+            "exams_per_category": exams_per_category
+        }), 200
+
+    except Exception as e:
+        print("An error occurred: ", e)
+        return jsonify({"error": "An error occurred while fetching the data. Please try again later."}), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
