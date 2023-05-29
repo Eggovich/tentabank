@@ -76,7 +76,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  background-image: url("../components/images/img-home.jpg");
+  background-image: url("../components/images/files.jpg");
   /* Full height */
   min-height: 100%;
   filter: grayscale(50%);
