@@ -358,6 +358,18 @@ select::-ms-expand {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 }
+.switchButton{
+  border: none;
+  background-color: var(--mlight);
+  color: var(--light);
+  border-radius: 100px;
+  position: relative;
+  margin-top: 3rem;
+  height: 50px;
+}
+.switchButton:hover{
+  background-color: var(--contrast);
+}
 @media screen and (max-width: 768px) {
   .csb{
     min-height: 15%;
