@@ -13,6 +13,7 @@ const Browse = () => {
   const [subjectSearch, setSubjectSearch] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [sortBySubject, setSortBySubject] = useState('');
+  const [sortByAnswer, setSortByAnswer] = useState("accepted");
   const [sortByDate, setSortByDate] = useState('');
   const [sortByGrade, setSortByGrade] = useState('');
   const [subjects, setSubjects] = useState([])
@@ -28,6 +29,7 @@ const Browse = () => {
   const [show, setShow] = useState(false);
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(16);
+  const [switchMessage, setSwitchMessage] = useState('Se tentor utan svar');
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -66,6 +68,7 @@ const Browse = () => {
   useEffect(() => {
     const formData = new FormData()
     formData.append("name", sortBySubject)
+    formData.append("answer", sortByAnswer)
     fetch('http://localhost:5000/accepted_files', {
       method: "POST",
       body: formData,
@@ -106,7 +109,7 @@ const Browse = () => {
         let grds = [...new Set(mappedData.map(file => file.grade))];
         setGrades(grds);
       });
-  }, [sortBySubject]);
+  }, [sortBySubject, sortByAnswer]);
 
 
   const filterFiles = useCallback(() => {
@@ -203,6 +206,16 @@ const Browse = () => {
     setShow(false)
   }
 
+  function handleSwitch(){
+    if (sortByAnswer==="accepted"){
+      setSortByAnswer("noAnswer")
+      setSwitchMessage("Se tentor med svar")
+    }else{
+      setSortByAnswer("accepted")
+      setSwitchMessage("Se tentor utan svar")
+    }
+  }
+
   return (
     cookies.loggedIn ? 
       (cookies.uploads > 2 ? 
@@ -237,8 +250,8 @@ const Browse = () => {
           <div className={styles.filter3}>
             
             <h3>Filter</h3>
+              <button className={styles.switchButton} value={sortByDate} onClick={() => handleSwitch()}>{switchMessage}</button>
             <div className={styles.filters}>
-              
               <div className={styles.browse_option}>
                 <select className={styles.dropdown} value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>
                   <option value="">Alla datum</option>

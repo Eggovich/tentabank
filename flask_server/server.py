@@ -181,6 +181,8 @@ def myfiles():
 @cross_origin(supports_credentials=True)
 def get_accepted_files():
     course_code = request.form.get("name").upper()
+    answer = request.form.get("answer")
+    print(answer)
     #GCS SOLUTION
     #os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'ServiceKey_GoogleCloud.json'
     #client = storage.Client()
@@ -193,9 +195,25 @@ def get_accepted_files():
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
     if course_code == "":
-        cnx.execute("SELECT * FROM accepted ORDER BY rating desc LIMIT 20")
+        cnx.execute("""
+                    SELECT 
+                        * 
+                    FROM 
+                        accepted 
+                    WHERE 
+                        accepted = %s
+                    """, (answer,))
     else:
-        cnx.execute("SELECT * FROM accepted WHERE cource_code=%s", (course_code,))
+        cnx.execute("""
+                    SELECT 
+                        * 
+                    FROM 
+                        accepted 
+                    WHERE
+                        cource_code = %s 
+                    AND 
+                        accepted = %s
+                    """, (course_code, answer))
     result = cnx.fetchall()
     cnx.execute("SELECT distinct cource_code FROM accepted")
     courses = cnx.fetchall()
@@ -297,11 +315,12 @@ def upload():
                 FROM
                     pending
                 WHERE
-                cource_code = %s
+                    cource_code = %s
                 AND
-                exam_date = %s
+                    exam_date = %s
                 AND
-                exam_id = %s""", (cource_code, date, examId,))
+                    exam_id = %s
+                """, (cource_code, date, examId,))
     pending = cnx.fetchall()
     cnx.execute("""
                 SELECT
@@ -309,11 +328,12 @@ def upload():
                 FROM
                     accepted
                 WHERE
-                cource_code = %s
+                    cource_code = %s
                 AND
-                exam_date = %s
+                    exam_date = %s
                 AND
-                exam_id = %s""", (cource_code, date, examId,))
+                    exam_id = %s
+                """, (cource_code, date, examId,))
     accepted = cnx.fetchall()
     if pending != [] or accepted != []:
         cnx.close()
