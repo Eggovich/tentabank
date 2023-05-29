@@ -23,7 +23,7 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         reset()
-        if (!name || !email || !password || !confirmPassword){
+        if (!name || !email || !password || !confirmPassword || !university){
             setFailedUpload(true);
             setResponse("Fyll i alla fälten");
             return
