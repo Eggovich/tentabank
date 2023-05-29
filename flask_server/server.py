@@ -182,7 +182,6 @@ def myfiles():
 def get_accepted_files():
     course_code = request.form.get("name").upper()
     answer = request.form.get("answer")
-    print(answer)
     #GCS SOLUTION
     #os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'ServiceKey_GoogleCloud.json'
     #client = storage.Client()
