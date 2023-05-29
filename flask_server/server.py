@@ -359,6 +359,7 @@ def mass_upload():
     folder = []
     for i in range(0, length):
         folder.append(request.files.get(f"file-{i}"))
+    start = len(folder)
     for i in range(len(folder)-1, -1, -1):
         date, course_code = decipher_filename(folder[i].filename)
         if folder[i].filename[-4:] != ".pdf" or not all([date, course_code]):
@@ -375,7 +376,6 @@ def mass_upload():
                            database=MYSQL_DATABASE, 
                            host='127.0.0.1')
     cnx = connection.cursor(dictionary=True)
-    print(folder)
     for file in folder:
         date, course_code = decipher_filename(file.filename)
         date.replace("-","/")
@@ -393,7 +393,7 @@ def mass_upload():
                     )
         cnx.execute("""COMMIT""")
     cnx.close()
-    return "Success", 200
+    return jsonify({"uploaded":len(folder), "total":start})
 
 @app.route('/download/<name>', methods = ["GET"])
 @cross_origin(supports_credentials=True)

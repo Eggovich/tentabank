@@ -23,5 +23,4 @@ def decipher_filename(filename):
         date = date2.group(0)
     elif date3:
         date = date3.group(0)
-    print(date)
     return date, course_code
