@@ -47,20 +47,23 @@ const Promote = () => {
                         type="text"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search by email..."
+                        placeholder="Sök på epost..."
                     />
                 </div>
                 {["Student", "Reviewer", "University", "Admin"].map((role) => (
                     <div key={role} className={styles.roleContainer}>
                         <h2 className={styles.roleTitle}>{role}</h2>
-                        {filteredUsers.filter(user => user.role === role).map((user) => (
+                        {filteredUsers.filter(user => user.role === role).slice(0, 10).map((user) => (
                             <div key={user.user_id} className={styles.userContainer}>
                                 <div className={styles.userInfo}>
-                                    <p> <b>Användar namn:</b> {user.username}</p>
-                                    <p> <b>Användar email:</b> {user.email}</p>
-                                    <p> <b>Användar roll:</b> {user.role}</p>
+                                    <p> <b>Namn:</b> {user.username}</p>
+                                    <p> <b>Email:</b> {user.email}</p>
+                                    <p> <b>Roll:</b> {user.role}</p>
                                 </div>
+                                <label>
+                                    Ändra roll: 
                                 <select 
+                       
                                     value={user.role}
                                     onChange={(e) => handlePromote(user.user_id, e.target.value)}
                                 >
@@ -69,6 +72,8 @@ const Promote = () => {
                                     <option value="University">University</option>
                                     <option value="Admin">Admin</option>
                                 </select>
+                                </label>
+
                             </div>
                         ))}
                     </div>
