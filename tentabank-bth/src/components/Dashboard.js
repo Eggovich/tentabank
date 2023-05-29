@@ -34,26 +34,26 @@ const Dashboard = () => {
           <p>{data.avg_rating}</p>
         </div>
         <div className={styles.chart}>
-          <h3>Totala Uppladdningar</h3>
-          <BarChart width={1000} height={500} data={data.uploads_per_user}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="username" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="uploads" fill="#8884d8" />
-          </BarChart>
+            <h3>Uppladdningar per Dag</h3>
+            <LineChart width={1000} height={500} data={data.uploads_per_day}>
+                <Line type="monotone" dataKey="uploads_per_day" stroke="#8884d8" />
+                <CartesianGrid stroke="#ccc" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+            </LineChart>
         </div>
         <div className={styles.chart}>
-          <h3>Aktivitet</h3>
-          <LineChart width={500} height={300} data={data.activity_over_time}>
-            <Line type="monotone" dataKey="count" stroke="#8884d8" />
-            <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="time" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-          </LineChart>
+            <h3>Top 5 Aktiva Användare</h3>
+            <BarChart width={500} height={300} data={data.top_users}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="username" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="uploads" fill="#8884d8" />
+            </BarChart>
         </div>
         <div className={styles.chart}>
           <h3>Användarregistreringar över tid</h3>
@@ -67,16 +67,17 @@ const Dashboard = () => {
           </LineChart>
         </div>
         <div className={styles.chart}>
-          <h3>Tentor inlämnade över tid</h3>
-          <LineChart width={500} height={300} data={data.exams_submitted_over_time}>
-            <Line type="monotone" dataKey="count" stroke="#8884d8" />
-            <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="time" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-          </LineChart>
+            <h3>Top 5 Kurskoder</h3>
+            <BarChart width={500} height={300} data={data.top_course_codes}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="cource_code" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="count" fill="#8884d8" />
+            </BarChart>
         </div>
+          
         <div className={styles.chart}>
           <h3>Tentor per kategori</h3>
           <PieChart width={500} height={500}>
