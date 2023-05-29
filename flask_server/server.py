@@ -857,6 +857,35 @@ def dashboard_data():
         """)
         exams_per_category = cnx.fetchall()
 
+        # Uploads per day
+        cnx.execute("""
+        SELECT DATE(created_on) AS date, COUNT(*) AS uploads_per_day
+        FROM accepted
+        GROUP BY date
+        """)
+        uploads_per_day = cnx.fetchall()
+
+        # Top 5 active users
+        cnx.execute("""
+        SELECT username, uploads
+        FROM usertable
+        WHERE role = 'Student'
+        ORDER BY uploads DESC
+        LIMIT 5
+        """)
+        top_users = cnx.fetchall()
+
+        # Top 5 course codes submitted
+        cnx.execute("""
+        SELECT cource_code, COUNT(*) as count
+        FROM accepted
+        GROUP BY cource_code
+        ORDER BY count DESC
+        LIMIT 5
+        """)
+        top_course_codes = cnx.fetchall()
+    
+
         connection.close()
 
         return jsonify({
@@ -868,7 +897,12 @@ def dashboard_data():
             "activity_over_time": activity_over_time,
             "user_signups_over_time": user_signups_over_time,
             "exams_submitted_over_time": exams_submitted_over_time,
-            "exams_per_category": exams_per_category
+            "exams_per_category": exams_per_category,
+            "uploads_per_day": uploads_per_day,
+            "top_users": top_users,
+            "top_course_codes": top_course_codes,
+
+
         }), 200
 
     except Exception as e:
