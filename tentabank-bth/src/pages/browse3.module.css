@@ -76,10 +76,10 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  background-image: url("../components/images/files.jpg");
+  background-image: url("../components/images/bok1.jpg");
   /* Full height */
   min-height: 100%;
-  filter: grayscale(50%);
+  filter: grayscale(80%);
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
