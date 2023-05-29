@@ -1,9 +1,13 @@
 import styles from "../pages/uploads.module.css"
+import styles2 from "./MassUpload.module.css"
 import {useState} from "react"
 import {useCookies} from "react-cookie"
 
 const MassUpload = () => {
     const [folder, setFolder] = useState([]);
+    const [uploaded, setUploaded] = useState(false);
+    const [success, setSuccess] = useState(0);
+    const [failed, setFailed] = useState(0);
     const [cookies, setCookies] = useCookies(["user"])
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,15 +24,12 @@ const MassUpload = () => {
         formData.append("user_id", cookies.user_id)
         formData.append("university", cookies.university)
         formData.append("length", files.length)
-        for (var [key, value] of formData.entries()) { 
-            console.log(key, value);
-           }
         try {
-          const response = await fetch("http://localhost:5000/mass_upload", {
+          await fetch("http://localhost:5000/mass_upload", {
             method: "POST",
             body: formData,
           });
-          console.log(response)
+          setUploaded(true)
         } catch (error) {
           console.error(error);
         }
@@ -36,8 +37,8 @@ const MassUpload = () => {
     }
 
     return (
-    <>
-    <form onSubmit={handleSubmit}>
+    !uploaded ? (
+    <form className={styles2.form} onSubmit={handleSubmit}>
     <label htmlFor="fileUpload"> 
         <div className={styles.file_square}>
           <i className="fa fa-upload"></i>
@@ -47,9 +48,14 @@ const MassUpload = () => {
           onChange={(e) => setFolder(e.target.files)} style={{ display: 'none' }} />
         </div>
     </label>
-    <button type="Submit">Ladda upp mappen</button>
+    <button className={styles2.submit} type="Submit">Ladda upp mappen</button>
     </form>
-    </>
+    ):(
+    <div className={styles2.form}>
+        <p>Uppladdningen lyckades!</p>
+        <button className={styles2.submit} onClick={() => setUploaded(false)}>Ladda upp igen</button>
+    </div>
+    )
     )
 }
 
