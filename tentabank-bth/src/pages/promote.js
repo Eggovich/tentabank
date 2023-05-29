@@ -6,145 +6,78 @@ import styles from './promote.module.css';
 const Promote = () => {
     const [cookies, setCookie] = useCookies(["user"])
     const [users, setUsers] = useState([])
-    const [reviewers, setReviewers] = useState([])
-    const [admins, setAdmins] = useState([])
-    const [university, setUniversity] = useState([])
+    const [search, setSearch] = useState("");
     const [update, setUpdate] = useState(false)
-    useEffect( () => {
+
+    useEffect(() => {
         fetch("http://localhost:5000/allusers", {
             method: "GET",
-          })
-          .then((res) => res.json())
-          .then((data) => {
-            let students = data.response.filter(user => user.role == "Student")
-            let reviewers = data.response.filter(user => user.role == "Reviewer")
-            let admins = data.response.filter(user => user.role == "Admin")
-            let university = data.response.filter(user => user.role == "University")
-            setUsers(students)
-            setReviewers(reviewers)
-            setAdmins(admins)
-            setUniversity(university)
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                let users = data.response;
+                setUsers(users);
             }
-          )
-      }, [update]
-    );
-    const handlePromote = (user_id, role) =>{
+            )
+    }, [update]);
+
+    const handlePromote = (user_id, role) => {
         const formData = new FormData()
         formData.append("user_id", user_id)
         formData.append("role", role)
-        try{
-        fetch('http://localhost:5000/promote', {
-            method: "POST",
-            body: formData,
-        })
-        setUpdate(!update)
-        window.location.reload(false)
-        }catch (error){
+        try {
+            fetch('http://localhost:5000/promote', {
+                method: "POST",
+                body: formData,
+            })
+            setUpdate(!update)
+            window.location.reload(false)
+        } catch (error) {
             console.error(error);
         }
-        
     }
+
+    const filteredUsers = users.filter(user => user.email.includes(search))
+
     return (
-    cookies.role === "Admin" ? (
-    <div className={styles.backdrop}>
-        <table>
-        <thead>
-            <tr>
-                <th>Användarnamn</th>
-                <th>Mail</th>
-                <th>Roll</th>
-                <th>Ändra roll</th>
-            </tr>
-        </thead>
-        <tbody>
-        {users.map((user) => (
-            <tr key={user.user_id}>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                    <button onClick={() => handlePromote(user.user_id, "Reviewer")}>Befodra till reviewer</button>
-                    <button onClick={() => handlePromote(user.user_id, "University")}>Befodra till Universitet</button>
-                    <button onClick={() => handlePromote(user.user_id, "Admin")}>Befodra till Admin</button>
-                </td>
-            </tr>
-            ))}
-        </tbody>
-        </table>
-        <table>
-        <thead>
-            <tr>
-                <th>Användarnamn</th>
-                <th>Mail</th>
-                <th>Roll</th>
-                <th>Ändra roll</th>
-            </tr>
-        </thead>
-        <tbody>
-        {reviewers.map((user) => (
-            <tr key={user.user_id}>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                    <button onClick={() => handlePromote(user.user_id, "University")}>Befodra till Universitet</button>
-                    <button onClick={() => handlePromote(user.user_id, "Admin")}>Befodra till Admin</button>
-                    <button onClick={() => handlePromote(user.user_id, "Student")}>Degradera till Student</button>
-                </td>
-            </tr>
-            ))}
-        </tbody>
-        </table>
-        <table>
-        <thead>
-            <tr>
-                <th>Användarnamn</th>
-                <th>Mail</th>
-                <th>Roll</th>
-                <th>Ändra roll</th>
-            </tr>
-        </thead>
-        <tbody>
-        {university.map((user) => (
-            <tr key={user.user_id}>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                    <button onClick={() => handlePromote(user.user_id, "Student")}>Degradera till Student</button>
-                    <button onClick={() => handlePromote(user.user_id, "Admin")}>Befodra till Admin</button>
-                </td>
-            </tr>
-            ))}
-        </tbody>
-        </table>
-        <table>
-        <thead>
-            <tr>
-                <th>Användarnamn</th>
-                <th>Mail</th>
-                <th>Roll</th>
-                <th>Ändra roll</th>
-            </tr>
-        </thead>
-        <tbody>
-        {admins.map((user) => (
-            <tr key={user.user_id}>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                    <button onClick={() => handlePromote(user.user_id, "Student")}>Degradera till Student</button>
-                </td>
-            </tr>
-            ))}
-        </tbody>
-        </table>
-    </div>
-    ):(
-    <NoAccess msg="Endast administratörer har tillgång hit" module={false}/>
-    )
-  );
+        cookies.role === "Admin" ? (
+            <div className={styles.container}>
+                <div className={styles.searchBar}>
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Search by email..."
+                    />
+                </div>
+                {["Student", "Reviewer", "University", "Admin"].map((role) => (
+                    <div key={role} className={styles.roleContainer}>
+                        <h2 className={styles.roleTitle}>{role}</h2>
+                        {filteredUsers.filter(user => user.role === role).map((user) => (
+                            <div key={user.user_id} className={styles.userContainer}>
+                                <div className={styles.userInfo}>
+                                    <p> <b>Användar namn:</b> {user.username}</p>
+                                    <p> <b>Användar email:</b> {user.email}</p>
+                                    <p> <b>Användar roll:</b> {user.role}</p>
+                                </div>
+                                <select 
+                                    value={user.role}
+                                    onChange={(e) => handlePromote(user.user_id, e.target.value)}
+                                >
+                                    <option value="Student">Student</option>
+                                    <option value="Reviewer">Reviewer</option>
+                                    <option value="University">University</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+            </div>
+        ) : (
+            <NoAccess msg="Endast administratörer har tillgång hit" module={false} />
+        )
+    );
 };
 
 export default Promote;
