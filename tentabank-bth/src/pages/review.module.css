@@ -1,5 +1,6 @@
 .landing_review {
   margin: 2rem;
+  padding-top: 3.5rem;
 }
 
 .center {
@@ -16,7 +17,6 @@
   font-size: 1rem;
   border: none;
   border-radius: 5px;
-  
   cursor: pointer;
   transition: 0.3s;
 }
