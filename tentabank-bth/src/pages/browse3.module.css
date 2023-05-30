@@ -359,6 +359,7 @@ select::-ms-expand {
   -webkit-transform: rotate(135deg);
 }
 .switchButton{
+  cursor: pointer;
   border: none;
   background-color: var(--mlight);
   color: var(--light);

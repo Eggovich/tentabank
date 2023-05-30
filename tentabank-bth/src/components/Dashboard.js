@@ -30,7 +30,7 @@ const Dashboard = () => {
           <p>{data.total_comments}</p>
         </div>
         <div className={styles.card}>
-          <h3>Genomsnittliga Omdömmet</h3>
+          <h3>Genomsnittligt Omdöme</h3>
           <p>{data.avg_rating}</p>
         </div>
         <div className={styles.chart}>

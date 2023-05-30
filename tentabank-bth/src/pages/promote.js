@@ -37,7 +37,7 @@ const Promote = () => {
         }
     }
 
-    const filteredUsers = users.filter(user => user.email.includes(search))
+    const filteredUsers = users.filter(user => user.email.toLowerCase().startsWith(search.toLowerCase()))
 
     return (
         cookies.role === "Admin" ? (

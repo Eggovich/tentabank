@@ -107,6 +107,7 @@ const Browse = () => {
         let dats = [...new Set(mappedData.map(file => file.exam_date))];
         setDates(dats);
         let grds = [...new Set(mappedData.map(file => file.grade))];
+        grds.sort()
         setGrades(grds);
       });
   }, [sortBySubject, sortByAnswer]);
@@ -233,7 +234,7 @@ const Browse = () => {
           </div>
           <div className={styles.sidebar3}>
             <div className={styles.sidebar_container}>
-              <h1>Ämnen</h1>
+              <h1>Kurser</h1>
                 {categories.map((category) => (
                   <div key={category.cat}>
                     <button className={styles.categoryButton} onClick={() => handleSelectedCategorie(category)}>{category.cat}</button><br />

@@ -383,14 +383,19 @@ def mass_upload():
         direct = app.config['UPLOAD_FOLDER'] + file_path
         file.save(direct)
         redirect(url_for('download_file', name=file_path))
-        cnx.execute("""INSERT INTO 
-                        accepted 
+        cnx.execute("""Select * from accepted where cource_code = %s and exam_date = %s and accepted = "noAnswer" """, (course_code, date))
+        exams = cnx.fetchall()
+        if exams == []:
+            cnx.execute("""INSERT INTO 
+                        pending 
                         (file_name, cource_code, exam_date, file_data, user_id, created_on, university, accepted, grade, exam_id) 
                     VALUES
                         (%s,%s,%s,%s,%s,CURDATE(),%s,"noAnswer", "-", %s)""",
                         (filename, course_code, date, f"http://localhost:5000/download{file_path}", user_id, university, university) 
                     )
-        cnx.execute("""COMMIT""")
+            cnx.execute("""DELETE FROM pending where accepted = "noAnswer" """
+                    )
+            cnx.execute("""COMMIT""")
     cnx.close()
     return jsonify({"uploaded":len(folder), "total":start})
 

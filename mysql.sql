@@ -119,13 +119,13 @@ AFTER UPDATE ON pending
 FOR EACH ROW
 BEGIN
 	IF NEW.accepted="accepted" THEN
-		INSERT INTO accepted (id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id)
-		SELECT id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id 
+		INSERT INTO accepted (file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id, university)
+		SELECT file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id, university
 		FROM pending
 		WHERE pending.accepted = NEW.accepted;
 	ELSEIF NEW.accepted="denied" THEN
-		INSERT INTO denied (id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id)
-		SELECT id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id
+		INSERT INTO denied (id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id, university)
+		SELECT id, file_name, cource_code, grade, exam_date, file_data, user_id, created_on, rating, accepted, exam_id, university
 		FROM pending
 		WHERE pending.accepted = NEW.accepted;
 	END IF;
@@ -184,9 +184,14 @@ drop view if exists course_code_view;
 CREATE VIEW course_code_view AS
 SELECT DISTINCT
     CASE SUBSTRING(cource_code, 1, 2)
-        WHEN 'MA' THEN 'Matematik kurser'
-        WHEN 'IY' THEN 'Ekonomi Kurser'
-        WHEN 'PA' THEN 'Programerings Kurser'
+        WHEN 'MA' THEN 'Matematik'
+        WHEN 'IY' THEN 'Ekonomi'
+        WHEN 'PA' THEN 'Programmering'
+        WHEN 'DV' THEN 'Datavetenskap'
+        WHEN 'MT' THEN 'Maskinteknik'
+        WHEN 'SL' THEN 'Hållbarhet'
+        WHEN 'FY' THEN 'Fysik'
+        WHEN 'MS' THEN 'Matte statistik'
         ELSE SUBSTRING(cource_code, 1, 2)
     END AS code_group_name,
     cource_code
@@ -199,6 +204,7 @@ SELECT * FROM denied;
 SELECT * FROM usertable;
 select * from comments;
 select * from rating;
-delete from accepted where id = 1;
+delete from denied where user_id = 5;
+delete from usertable where user_id = 5;
 /*After you have created a user on the website run this to make it an Admin*/
 update usertable set role = "Admin" where user_id = 1
