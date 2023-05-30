@@ -16,7 +16,7 @@
   font-size: 1rem;
   border: none;
   border-radius: 5px;
-  margin-bottom: 1rem;
+  
   cursor: pointer;
   transition: 0.3s;
 }
@@ -226,4 +226,47 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: #6f90b8;
+}
+
+.button_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.start_review_button {
+  background-color: #4b6584;
+  color: #fff;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.start_review_button:hover {
+  background-color: #2d4e63;
+  transform: scale(1.05);
+}
+
+.review_queue_button {
+  background-color: #e1e1e1;
+  color: #333;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  margin-left: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.review_queue_button:hover {
+  background-color: #d1d1d1;
+  transform: scale(1.05);
 }

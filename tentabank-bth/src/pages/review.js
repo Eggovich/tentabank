@@ -85,13 +85,13 @@ return (
   cookies.role === 'Reviewer' ? (
     !review ? (
       <div className={styles.landing_review}>
-        <InfoSection />
-        <div className={styles.center}>
-          <button className={styles.start_review_button} onClick={startSequentialReview}>Börja granska tentor</button>
-          <button className={styles.start_review_button} onClick={() => setStartReview(!startReview)}>
-            Det är just nu ({filteredData.length}) tentor som väntar på granskning, tryck för att se mer.
+      <InfoSection />
+      <div className={styles.button_container}>
+        <button className={styles.start_review_button} onClick={startSequentialReview}>Börja granska tentor</button>
+        <button className={styles.review_queue_button} onClick={() => setStartReview(!startReview)}>
+          Det är just nu ({filteredData.length}) tentor som väntar på granskning, tryck för att se mer.
           </button>
-          </div>
+        </div>
         {startReview && (
             <>
               <table className={styles.exam_table}>
@@ -101,8 +101,7 @@ return (
                     <th>Subject</th>
                     <th>Date</th>
                     <th>Grade</th>
-                    <th>Actions</th>
-                    <th>Review-form</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
@@ -112,8 +111,7 @@ return (
                       <td>{file.subject}</td>
                       <td>{file.date}</td>
                       <td>{file.grade}</td>
-                      <td><a href={file.file_data}>Download</a></td>
-                      <td><button onClick={() => handleReview(file)}>Review</button></td>
+                      
                     </tr>
                   ))}
                 </tbody>
