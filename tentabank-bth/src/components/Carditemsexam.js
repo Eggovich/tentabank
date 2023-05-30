@@ -20,7 +20,7 @@ function CardItemsexam(props) {
             {props.date}
           </span>
           <div className={styles.ag_courses_item_date}>Betyg: {props.grade}</div>
-          <StarRating rating={props.rating} exam_id={props.exam_id}/>
+          <StarRating rating={props.rating} exam_id={props.exam_id} courseCode={props.courseCode}/>
         </div>
       </a>
     </div>

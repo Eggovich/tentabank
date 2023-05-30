@@ -131,7 +131,7 @@ const Upload = () => {
             <label htmlFor="fileUpload"> 
               <div className={styles.file_square}>
                 <i className="fa fa-upload"></i>
-                <p className={styles.upload_text}>Klicka för att välja fil</p>
+                {!file ? (<p className={styles.upload_text}>Klicka för att välja fil</p>):(<p className={styles.upload_text}>{file.name}</p>)}
                 <input id="fileUpload" type="file" accept=".pdf" className={styles.file_field} onChange={(e) => setFile(e.target.files[0])} style={{ display: 'none' }} />
               </div>
             </label>

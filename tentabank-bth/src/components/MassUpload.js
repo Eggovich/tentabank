@@ -16,7 +16,6 @@ const MassUpload = () => {
     };
 
     const handleUpload = async (files) => {
-        console.log(files)
         const formData = new FormData();
         files.forEach((file, i) => {
             formData.append(`file-${i}`, file, file.name);
@@ -42,7 +41,7 @@ const MassUpload = () => {
     <label htmlFor="fileUpload"> 
         <div className={styles.file_square}>
           <i className="fa fa-upload"></i>
-          <p className={styles.upload_text}>Klicka för att välja mapp att ladda upp</p>
+          {folder.length === 0 ? (<p className={styles.upload_text}>Klicka för att välja fil</p>):(<p className={styles.upload_text}>{folder.length} filer valda</p>)}
           <input id="fileUpload" type="file" accept="application/pdf" name="file"
           className={styles.file_field} multiple webkitdirectory="true" directory="true"
           onChange={(e) => setFolder(e.target.files)} style={{ display: 'none' }} />
