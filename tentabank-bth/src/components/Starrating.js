@@ -7,7 +7,7 @@ const StarRating = (props) => {
             {[...Array(5)].map((star, index) => {
                 index += 1;
                 return (
-                    <span className={(props.rating >= index) ? styles.on : styles.off}>&#9733;</span>
+                    <span key={props.exam_id + ":" + index} className={(props.rating >= index) ? styles.on : styles.off}>&#9733;</span>
                 );
             })}
         </div>

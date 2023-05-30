@@ -235,7 +235,7 @@ const Browse = () => {
             <div className={styles.sidebar_container}>
               <h1>Ämnen</h1>
                 {categories.map((category) => (
-                  <>
+                  <div key={category.cat}>
                     <button className={styles.categoryButton} onClick={() => handleSelectedCategorie(category)}>{category.cat}</button><br />
                     <div className={styles.courses}>
                     {selectedCategorie === category && category.courses.map((course) => (
@@ -243,7 +243,7 @@ const Browse = () => {
                       <button className={styles.courseButton} onClick={() => setSortBySubject(course)}>{course}</button>
                     ))}
                     </div>
-                  </>
+                  </div>
               ))}
             </div>
           </div>
@@ -286,7 +286,7 @@ const Browse = () => {
           </div>
           <div className={styles.exam_square}>
           {filteredData.slice(start, end).map((file) => (
-              <div onClick={() => setSelectedExam(file)} className={styles.clickable_card}>
+              <div key={file.id} onClick={() => setSelectedExam(file)} className={styles.clickable_card}>
                 <Carditemsexam 
                     courseCode={file.subject}
                     date={file.date}

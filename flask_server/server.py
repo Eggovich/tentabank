@@ -554,7 +554,7 @@ def get_exam_comments(exam_id):
     cnx = connection.cursor(dictionary=True)
     cnx.execute("""
                 SELECT
-                    comment_id, parent_comment_id, username, usertable.user_id, file_id, comment, created_on
+                    comment_id, parent_comment_id, username, usertable.user_id, file_id, comment, comments.created_on
                 FROM
                     comments
                 JOIN 
